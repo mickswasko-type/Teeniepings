@@ -70,7 +70,8 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
   font-size:36px; overflow:hidden; position:relative;
   border:3px solid #fff; box-shadow:0 3px 8px rgba(71,42,68,.15);
 }
-.badge img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0; background:#fff;}
+.badge img{width:100%; height:100%; object-fit:contain; object-position:center; position:absolute; inset:0; background:#fff; padding:5px;}
+.badge.big img{padding:7px;}
 .badge.big{width:120px; height:120px; flex-basis:120px; font-size:60px;}
 
 /* ---------- handbook ---------- */
@@ -246,9 +247,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
 
 <script>
 /* ================= CONFIG ================= */
-const IMG_DIR = "images/";   // folder next to this file
-const IMG_EXT = ".png";      // change to ".jpg" if you save jpgs
-const PHOTO_HELP = "To add real pictures:\n\n1) Make a folder called 'images' next to this file.\n2) Save one picture per character, named exactly like them, e.g. Heartsping.png\n3) Reopen the app — photos appear automatically!\n\nThis build includes remote image fallbacks for every character. Local images still take priority when present.";
+const PHOTO_HELP = "To add real pictures:\n\n1) Make a folder called 'images' next to this file.\n2) Save one picture per character, named exactly like them, e.g. Heartsping.webp or Heartsping.png.\n3) Add that path to IMAGE_MANIFEST below.\n4) Reopen the app — photos appear automatically!\n\nIf a verified image is not available yet, the character keeps their emoji badge.";
 
 /* ================= SEASONS ================= */
 const SEASONS = {
@@ -260,6 +259,109 @@ const SEASONS = {
   6:{name:"Princess",show:"Princess Catch!",   emoji:"👑", color:"#E8619B"}
 };
 const GROUPS = {royal:"Royal", legend:"Legend", villain:"Villain", regular:""};
+const IMAGE_MANIFEST = Object.freeze({
+  "Allmineping": "images/Allmineping.webp",
+  "Aloneping": "images/Aloneping.webp",
+  "Ariaping": "images/Ariaping.webp",
+  "Artping": "images/Artping.webp",
+  "Balletping": "images/Balletping.webp",
+  "Bebeping": "images/Bebeping.webp",
+  "Blankping": "images/Blankping.webp",
+  "Buddyping": "images/Buddyping.webp",
+  "Candyping": "images/Candyping.webp",
+  "Chachaping": "images/Chachaping.webp",
+  "Charmping": "images/Charmping.webp",
+  "Cheerupping": "images/Cheerupping.webp",
+  "Coolping": "images/Coolping.webp",
+  "Cozyping": "images/Cozyping.webp",
+  "Cupping": "images/Cupping.webp",
+  "Cureping": "images/Cureping.webp",
+  "Curieping": "images/Curieping.webp",
+  "Dadaping": "images/Dadaping.webp",
+  "Dareping": "images/Dareping.webp",
+  "Donutping": "images/Donutping.webp",
+  "Dreamping": "images/Dreamping.webp",
+  "Egoping": "images/Egoping.webp",
+  "Fashionping": "images/Fashionping.webp",
+  "Floraping": "images/Floraping.webp",
+  "Fluffyping": "images/Fluffyping.webp",
+  "Freezeping": "images/Freezeping.webp",
+  "Giftping": "images/Giftping.webp",
+  "Giggleping": "images/Giggleping.webp",
+  "Gogoping": "images/Gogoping.webp",
+  "Goodping": "images/Goodping.webp",
+  "Handyping": "images/Handyping.webp",
+  "Happying": "images/Happying.webp",
+  "Heartsping": "images/Heartsping.webp",
+  "Heavyping": "images/Heavyping.webp",
+  "Hotping": "images/Hotping.webp",
+  "Huffyping": "images/Huffyping.webp",
+  "Hurryping": "images/Hurryping.webp",
+  "Jellyping": "images/Jellyping.webp",
+  "Joahping": "images/Joahping.webp",
+  "Justiceping": "images/Justiceping.webp",
+  "Kikiping": "images/Kikiping.webp",
+  "Ladyping": "images/Ladyping.webp",
+  "Lalaping": "images/Lalaping.webp",
+  "Lolliping": "images/Lolliping.webp",
+  "Luckyping": "images/Luckyping.webp",
+  "Luvping": "images/Luvping.webp",
+  "Macaping": "images/Macaping.webp",
+  "Maskping": "images/Maskping.webp",
+  "Memoping": "images/Memoping.webp",
+  "Meringueping": "images/Meringueping.webp",
+  "Mimicping": "images/Mimicping.webp",
+  "Moseyping": "images/Moseyping.webp",
+  "Muffping": "images/Muffping.webp",
+  "Nanaping": "images/Nanaping.webp",
+  "Narrping": "images/Narrping.webp",
+  "Nonoping": "images/Nonoping.webp",
+  "Noraping": "images/Noraping.webp",
+  "Noriping": "images/Noriping.webp",
+  "Nursepings": "images/Nursepings.webp",
+  "Okeydokeyping": "images/Okeydokeyping.webp",
+  "Onlyping": "images/Onlyping.webp",
+  "Oppoping": "images/Oppoping.webp",
+  "Owwping": "images/Owwping.webp",
+  "Pancakeping": "images/Pancakeping.webp",
+  "Partyping": "images/Partyping.webp",
+  "Patping": "images/Patping.webp",
+  "Puffping": "images/Puffping.webp",
+  "Roarping": "images/Roarping.webp",
+  "Sandping": "images/Sandping.webp",
+  "Sculptping": "images/Sculptping.webp",
+  "Shashaping": "images/Shashaping.webp",
+  "Shushping": "images/Shushping.webp",
+  "Shyping": "images/Shyping.webp",
+  "Sighping": "images/Sighping.webp",
+  "Sleeping": "images/Sleeping.webp",
+  "Sparkping": "images/Sparkping.webp",
+  "Splashping": "images/Splashping.webp",
+  "Spookping": "images/Spookping.webp",
+  "Stickping": "images/Stickping.webp",
+  "Styleping": "images/Styleping.webp",
+  "Sweetping": "images/Sweetping.webp",
+  "Tangyping": "images/Tangyping.webp",
+  "Teeheeping": "images/Teeheeping.webp",
+  "Tickleping": "images/Tickleping.webp",
+  "Tidyping": "images/Tidyping.webp",
+  "Timidping": "images/Timidping.webp",
+  "Toyping": "images/Toyping.webp",
+  "Trueping": "images/Trueping.webp",
+  "Trustping": "images/Trustping.webp",
+  "Tutuping": "images/Tutuping.webp",
+  "Tweetping": "images/Tweetping.webp",
+  "Twirlping": "images/Twirlping.webp",
+  "Waffleping": "images/Waffleping.webp",
+  "Wannabeping": "images/Wannabeping.webp",
+  "Weeping": "images/Weeping.webp",
+  "Wishping": "images/Wishping.webp",
+  "Wizping": "images/Wizping.webp",
+  "Wonderping": "images/Wonderping.webp",
+  "Yummyping": "images/Yummyping.webp",
+  "Yumyumping": "images/Yumyumping.webp",
+  "Zipping": "images/Zipping.webp"
+});
 
 /* ================= CHARACTER DATA =================
    n=name  s=season  g=group  e="Teenieping of ___"
@@ -434,33 +536,15 @@ const PINGS = [
 const $ = id => document.getElementById(id);
 function badgeHTML(p, big){
   const sc = SEASONS[p.s].color;
-  return `<div class="badge ${big?'big':''}" data-name="${p.n}" style="background:${sc}22">
-    <span>${p.m}</span>
-    <img src="${IMG_DIR + p.n + IMG_EXT}" data-fb="${p.img||''}" alt="${p.n}" loading="lazy" referrerpolicy="no-referrer" onerror="fbimg(this)">
+  const img = IMAGE_MANIFEST[p.n];
+  return `<div class="badge ${big?'big':''}" data-name="${escAttr(p.n)}" style="background:${sc}22">
+    <span>${esc(p.m)}</span>
+    ${img ? `<img src="${escAttr(img)}" alt="${escAttr(p.n)}" loading="lazy" onerror="this.remove()">` : ''}
   </div>`;
 }
-function fbimg(el){
-  // Try the character's explicit remote image after the local file.
-  // If that redirect filename is unusual, try common wiki naming patterns.
-  const name = el.closest('.badge')?.dataset?.name || el.alt || '';
-  let tries = [];
-  try { tries = JSON.parse(el.dataset.tries || '[]'); } catch(e) {}
-  const fb = el.dataset.fb;
-  if(fb && !tries.includes(fb)) tries.push(fb);
-  if(name){
-    const enc = s => 'https://catchteenieping.fandom.com/wiki/Special:Redirect/file/' + encodeURIComponent(s).replace(/%20/g,'%20');
-    [
-      `${name} Render 1.png`, `${name} render 1.png`,
-      `${name} S4 Render 1.png`, `${name} S5 Render 1.png`, `${name} S6 Render 1.png`,
-      `${name} Render 2.png`, `${name} Render 3.png`
-    ].forEach(f => { const u=enc(f); if(!tries.includes(u)) tries.push(u); });
-  }
-  const next = tries.shift();
-  el.dataset.tries = JSON.stringify(tries);
-  if(next){ el.src = next; }
-  else { el.remove(); }
-}
-function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function jsString(s){return JSON.stringify(String(s));}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escAttr(s){return esc(s);}
 
 /* ================= MODE SWITCH ================= */
 function showMode(m){
@@ -494,10 +578,10 @@ function renderGrid(){
   $('grid').innerHTML = list.map(p=>{
     const sc = SEASONS[p.s].color;
     const tag = p.g!=='regular' ? `<span class="tag" style="background:${p.g==='villain'?'#8A6B87':sc}">${GROUPS[p.g]}</span>` : `<span class="tag" style="background:${sc}">${SEASONS[p.s].name}</span>`;
-    return `<div class="pcard" onclick="openSheet('${p.n}')">
+    return `<div class="pcard" onclick="openSheet(${jsString(p.n)})">
       <span class="fav">${favs.has(p.n)?'💛':''}</span>
       ${badgeHTML(p)}
-      <div class="nm">${p.n}</div>
+      <div class="nm">${esc(p.n)}</div>
       <div class="em">Teenieping of ${esc(p.e)}</div>
       ${tag}
     </div>`;
@@ -513,7 +597,7 @@ function openSheet(name){
     <div class="top">
       ${badgeHTML(p,true)}
       <div>
-        <h2>${p.n}</h2>
+        <h2>${esc(p.n)}</h2>
         <div class="sub">${s.emoji} ${s.name} Teenieping · ${s.show}</div>
       </div>
     </div>
@@ -522,10 +606,10 @@ function openSheet(name){
     ${p.t ? `<div class="fact"><b>Transformation:</b> ${esc(p.t)}</div>` : ''}
     <div class="fact"><b>Fun fact:</b> ${esc(p.d)} ${p.x ? '<br><i>(This one is still a bit of a mystery — details can be added later!)</i>':''}</div>
     <div class="rowbtns">
-      <button class="bigbtn ghost" onclick="toggleFav('${p.n}')">${favs.has(p.n)?'💛 Favorited':'🤍 Favorite'}</button>
+      <button class="bigbtn ghost" onclick="toggleFav(${jsString(p.n)})">${favs.has(p.n)?'💛 Favorited':'🤍 Favorite'}</button>
       <button class="bigbtn" onclick="closeSheet()">Done</button>
     </div>
-    <a class="wikilink" href="${wiki}" target="_blank" rel="noopener">Look up ${p.n} on the fan wiki ↗ (grown-ups: good place to save a picture from)</a>
+    <a class="wikilink" href="${escAttr(wiki)}" target="_blank" rel="noopener">Look up ${esc(p.n)} on the fan wiki ↗ (grown-ups: good place to save a picture from)</a>
   `;
   $('sheet').classList.add('open');
   $('sheetBg').classList.add('open');
@@ -586,7 +670,7 @@ function nextQ(){
   $('qtext').textContent = current.text;
   $('result').classList.remove('show');
   $('answers').innerHTML = current.choices.map(c=>
-    `<button class="abtn" onclick="answer(this,'${c.n}')">${c.n}</button>`
+    `<button class="abtn" onclick="answer(this,${jsString(c.n)})">${esc(c.n)}</button>`
   ).join('');
 }
 function answer(btn, name){

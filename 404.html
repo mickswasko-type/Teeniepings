@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teenieping Catcher</title>
+<script>
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const base = parts.length ? `/${parts[0]}/` : '/';
+  window.location.replace(`${window.location.origin}${base}`);
+</script>
+</head>
+<body>
+  <p>Sending you back to Teenieping Catcher...</p>
+</body>
+</html>
