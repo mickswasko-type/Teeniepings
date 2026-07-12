@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teenieping Catcher</title>
+<!--
+  ══════════════════════════════════════════════════════════
+  TEENIEPING CATCHER — Handbook + Guess-the-Teenieping game
+  ══════════════════════════════════════════════════════════
+  ADDING REAL PICTURES (for Dad):
+  1. Save this file somewhere, e.g.  TeeniepingApp/teenieping-catcher.html
+  2. Next to it, make a folder named:  images
+  3. Save a picture of each character into that folder, named
+     EXACTLY like the character with .png, e.g.:
+        images/Heartsping.png
+        images/Nonoping.png
+     (jpg also works: change IMG_EXT below to ".jpg")
+  4. Reopen the file. Any character with a matching picture
+     shows the photo; everyone else keeps their emoji badge.
+  You can also give any single character a custom picture by
+  adding  img:"https://..."  or  img:"images/whatever.png"
+  to their entry in the PINGS list below.
+  ══════════════════════════════════════════════════════════
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF4F8; --card:#FFFFFF; --ink:#472A44; --ink-soft:#8A6B87;
+  --pink:#FF6FA5; --pink-deep:#E84C8B; --sun:#FFC24B; --mint:#3EC9A7;
+  --shadow:0 6px 0 rgba(232,76,139,.14);
+  --r:22px;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0;}
+body{
+  font-family:'Nunito',system-ui,sans-serif; color:var(--ink);
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255,194,75,.14) 0 90px, transparent 90px),
+    radial-gradient(circle at 88% 20%, rgba(62,201,167,.12) 0 70px, transparent 70px),
+    radial-gradient(circle at 80% 85%, rgba(255,111,165,.12) 0 110px, transparent 110px);
+  min-height:100vh;
+}
+h1,h2,h3,.disp{font-family:'Baloo 2','Nunito',sans-serif;}
+header{
+  position:sticky; top:0; z-index:40; background:rgba(255,244,248,.94);
+  backdrop-filter:blur(6px); border-bottom:2px solid #FFE1EC;
+  padding:10px 14px 8px;
+}
+.brand{display:flex; align-items:center; gap:8px;}
+.brand .logo{font-size:26px; animation:bob 2.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.brand h1{font-size:22px; margin:0; letter-spacing:.3px;}
+.brand h1 span{color:var(--pink-deep);}
+.tabs{display:flex; gap:8px; margin-top:8px;}
+.tab{
+  flex:1; border:0; border-radius:16px; padding:10px 0; font:800 16px 'Baloo 2';
+  color:var(--ink-soft); background:#FFE7F0; cursor:pointer; transition:transform .1s;
+}
+.tab.on{background:var(--pink); color:#fff; box-shadow:var(--shadow);}
+.tab:active{transform:scale(.97);}
+main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
+
+/* ---------- badges ---------- */
+.badge{
+  width:74px; height:74px; border-radius:50%; flex:0 0 74px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:36px; overflow:hidden; position:relative;
+  border:3px solid #fff; box-shadow:0 3px 8px rgba(71,42,68,.15);
+}
+.badge img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0; background:#fff;}
+.badge.big{width:120px; height:120px; flex-basis:120px; font-size:60px;}
+
+/* ---------- handbook ---------- */
+.searchrow{display:flex; gap:8px; margin-bottom:10px;}
+.searchrow input{
+  flex:1; border:2px solid #FFD3E3; border-radius:16px; padding:11px 14px;
+  font:700 16px 'Nunito'; color:var(--ink); background:#fff; outline:none;
+}
+.searchrow input:focus{border-color:var(--pink);}
+.chips{display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; scrollbar-width:none;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{
+  border:0; border-radius:999px; padding:8px 13px; font:800 14px 'Baloo 2';
+  background:#fff; color:var(--ink-soft); cursor:pointer; white-space:nowrap;
+  border:2px solid #FFE1EC;
+}
+.chip.on{background:var(--ink); color:#fff; border-color:var(--ink);}
+.count{font:700 13px 'Nunito'; color:var(--ink-soft); margin:2px 2px 8px;}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr 1fr;}}
+.pcard{
+  background:var(--card); border-radius:var(--r); padding:12px 10px 10px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  border:2px solid #FFE9F1; cursor:pointer; text-align:center;
+  transition:transform .12s;
+}
+.pcard:active{transform:scale(.96);}
+.pcard .nm{font:800 15px 'Baloo 2'; line-height:1.1;}
+.pcard .em{font:700 12px 'Nunito'; color:var(--ink-soft);}
+.fav{position:absolute; top:6px; right:8px; font-size:16px;}
+.pcard{position:relative;}
+.tag{font:800 10px 'Baloo 2'; letter-spacing:.4px; padding:2px 8px; border-radius:999px; color:#fff;}
+
+/* ---------- detail sheet ---------- */
+.sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
+.sheet-bg.open{display:block;}
+.sheet{
+  position:fixed; left:0; right:0; bottom:0; z-index:61; background:#fff;
+  border-radius:28px 28px 0 0; padding:18px 18px 26px; max-height:82vh; overflow-y:auto;
+  transform:translateY(105%); transition:transform .25s ease; box-shadow:0 -8px 30px rgba(71,42,68,.25);
+  max-width:640px; margin:0 auto;
+}
+.sheet.open{transform:translateY(0);}
+.sheet .top{display:flex; gap:14px; align-items:center;}
+.sheet h2{margin:0; font-size:26px;}
+.sheet .sub{font:800 14px 'Baloo 2'; color:var(--pink-deep);}
+.fact{background:#FFF4F8; border-radius:16px; padding:10px 12px; margin-top:10px; font-size:15px; line-height:1.45;}
+.fact b{font-family:'Baloo 2';}
+.sheet .rowbtns{display:flex; gap:8px; margin-top:14px;}
+.bigbtn{
+  flex:1; border:0; border-radius:16px; padding:12px; font:800 16px 'Baloo 2';
+  background:var(--pink); color:#fff; cursor:pointer; box-shadow:var(--shadow);
+}
+.bigbtn.ghost{background:#FFE7F0; color:var(--pink-deep); box-shadow:none;}
+.wikilink{display:inline-block; margin-top:12px; font:700 13px 'Nunito'; color:var(--ink-soft);}
+
+/* ---------- quiz ---------- */
+.scorebar{
+  display:flex; justify-content:space-between; align-items:center;
+  background:#fff; border:2px solid #FFE9F1; border-radius:18px;
+  padding:10px 14px; margin-bottom:12px; font:800 15px 'Baloo 2';
+}
+.scorebar .streak{color:var(--pink-deep);}
+.qcard{
+  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  padding:18px 16px; text-align:center; position:relative; overflow:hidden;
+}
+.qkind{font:800 12px 'Baloo 2'; letter-spacing:1px; color:#fff; background:var(--mint);
+  display:inline-block; padding:3px 12px; border-radius:999px; margin-bottom:10px;}
+.qtext{font:800 20px 'Baloo 2'; line-height:1.3; margin:4px 0 16px;}
+.answers{display:grid; gap:10px;}
+.abtn{
+  border:2px solid #FFD3E3; background:#FFF9FB; border-radius:16px;
+  padding:14px; font:800 17px 'Baloo 2'; color:var(--ink); cursor:pointer;
+  transition:transform .1s;
+}
+.abtn:active{transform:scale(.97);}
+.abtn.right{background:var(--mint); border-color:var(--mint); color:#fff;}
+.abtn.wrong{background:#FFD9D9; border-color:#F5A3A3; color:#B04A4A; animation:shake .35s;}
+.abtn:disabled{cursor:default; opacity:.95;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.result{margin-top:14px; display:none;}
+.result.show{display:block;}
+.result .who{display:flex; gap:12px; align-items:center; text-align:left;
+  background:#FFF4F8; border-radius:18px; padding:12px;}
+.result .who .nm{font:800 18px 'Baloo 2';}
+.result .who .dd{font:700 13px 'Nunito'; color:var(--ink-soft); line-height:1.35;}
+.catchword{
+  position:absolute; left:50%; top:38%; transform:translate(-50%,-50%) scale(0);
+  font:800 44px 'Baloo 2'; color:var(--pink-deep); pointer-events:none; z-index:5;
+  text-shadow:0 2px 0 #fff;
+}
+.catchword.go{animation:pop .9s ease forwards;}
+@keyframes pop{
+  0%{transform:translate(-50%,-50%) scale(0); opacity:0;}
+  40%{transform:translate(-50%,-50%) scale(1.15); opacity:1;}
+  70%{transform:translate(-50%,-50%) scale(1);}
+  100%{transform:translate(-50%,-70%) scale(1); opacity:0;}
+}
+.heart{position:absolute; font-size:22px; pointer-events:none; z-index:4; opacity:0;}
+.heart.fly{animation:fly 1s ease-out forwards;}
+@keyframes fly{
+  0%{transform:translate(0,0) scale(.4); opacity:1;}
+  100%{transform:translate(var(--dx),var(--dy)) scale(1.1); opacity:0;}
+}
+.setuprow{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
+footer{
+  position:fixed; bottom:0; left:0; right:0; text-align:center; padding:8px;
+  font:700 11px 'Nunito'; color:var(--ink-soft); background:rgba(255,244,248,.9);
+}
+footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pink-deep); cursor:pointer; text-decoration:underline;}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important;}
+}
+.hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="logo">💖</span>
+    <h1>Teenieping <span>Catcher</span></h1>
+  </div>
+  <div class="tabs">
+    <button class="tab on" id="tabPlay" onclick="showMode('play')">🎮 Play</button>
+    <button class="tab" id="tabBook" onclick="showMode('book')">📖 Handbook</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ QUIZ ============ -->
+  <section id="play">
+    <div class="scorebar">
+      <span>💗 Caught: <span id="scCaught">0</span></span>
+      <span class="streak">🔥 Streak: <span id="scStreak">0</span></span>
+      <span>⭐ Best: <span id="scBest">0</span></span>
+    </div>
+    <div class="setuprow" id="seasonPick"></div>
+    <div class="qcard" id="qcard">
+      <div class="catchword" id="catchword">Catch!</div>
+      <span class="qkind" id="qkind">WHO AM I?</span>
+      <div class="qtext" id="qtext">Loading…</div>
+      <div class="answers" id="answers"></div>
+      <div class="result" id="result">
+        <div class="who">
+          <div class="badge" id="rBadge"></div>
+          <div>
+            <div class="nm" id="rName"></div>
+            <div class="dd" id="rDesc"></div>
+          </div>
+        </div>
+        <button class="bigbtn" style="margin-top:12px;width:100%" onclick="nextQ()">Next one! ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HANDBOOK ============ -->
+  <section id="book" class="hidden">
+    <div class="searchrow">
+      <input id="search" type="search" placeholder="Search a Teenieping…" oninput="renderGrid()">
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<div class="sheet-bg" id="sheetBg" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"></div>
+
+<footer>Made with 💗 for Willow &nbsp;·&nbsp; <button onclick="alert(PHOTO_HELP)">📸 How to add real pictures</button></footer>
+
+<script>
+/* ================= CONFIG ================= */
+const IMG_DIR = "images/";   // folder next to this file
+const IMG_EXT = ".png";      // change to ".jpg" if you save jpgs
+const PHOTO_HELP = "To add real pictures:\n\n1) Make a folder called 'images' next to this file.\n2) Save one picture per character, named exactly like them, e.g. Heartsping.png\n3) Reopen the app — photos appear automatically!\n\nThis build includes remote image fallbacks for every character. Local images still take priority when present.";
+
+/* ================= SEASONS ================= */
+const SEASONS = {
+  1:{name:"Emotion", show:"Catch! Teenieping", emoji:"💗", color:"#FF6FA5"},
+  2:{name:"Jewel",   show:"Twinkle Catch!",    emoji:"💎", color:"#3EC9A7"},
+  3:{name:"Key",     show:"Secret Catch!",     emoji:"🗝️", color:"#9B7BFF"},
+  4:{name:"Dessert", show:"Dessert Catch!",    emoji:"🍰", color:"#FF9E5C"},
+  5:{name:"Star",    show:"Star Catch!",       emoji:"⭐", color:"#5B6BE8"},
+  6:{name:"Princess",show:"Princess Catch!",   emoji:"👑", color:"#E8619B"}
+};
+const GROUPS = {royal:"Royal", legend:"Legend", villain:"Villain", regular:""};
+
+/* ================= CHARACTER DATA =================
+   n=name  s=season  g=group  e="Teenieping of ___"
+   p=power (used as a quiz clue)  d=fun fact  m=emoji
+   t=princess transformation  x=1 means "details still a mystery"
+   img="..." optional custom picture path/URL
+====================================================*/
+const PINGS = [
+/* ---------- Season 1 · Emotion ---------- */
+{n:"Heartsping",s:1,g:"royal",e:"love",m:"💖",t:"Princess Heart",p:"Fills everything with love",d:"Romi's best friend! She is heart-themed, full of love, and takes care of everyone.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/3b/Heartsping_S1_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Dadaping",s:1,g:"royal",e:"rightness",m:"☁️",t:"Princess Cloudia",p:"Solves problems with smart ideas",d:"Cloud-themed and super smart. He loves studying and keeping things organized.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/51/Dadaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Gogoping",s:1,g:"royal",e:"courage",m:"⚡",t:"Princess Star",p:"Gives everyone courage",d:"Star-themed, sporty and brave. He loves a challenge — sometimes a little too much!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/04/Gogoping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Chachaping",s:1,g:"royal",e:"hope",m:"🍀",t:"Princess Clover",p:"Never gives up hope",d:"Nature-themed and calm. She loves flowers and stays hopeful even when things get hard.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/7e/Chachaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Lalaping",s:1,g:"royal",e:"joy",m:"🎵",t:"Princess Melody",p:"Lifts everyone's mood with songs",d:"Music-themed and cheerful. She sings out loud to share her feelings.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/58/Lalaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Happying",s:1,g:"royal",e:"happiness",m:"🌞",t:"Princess Sunshine",p:"Spreads happiness like sunshine",d:"Sunshine-themed. She was secretly turned into the villain Giggleping — until her friends saved her!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/58/Happying_S1_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Giggleping",s:1,g:"villain",e:"tricks",m:"😈",p:"Plays sneaky pranks",d:"A mysterious prankster who tried to steal Romi's Magic Catcher. Big secret: she was really Happying under a spell!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/45/Giggleping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Egoping",s:1,g:"villain",e:"selfishness",m:"🌀",p:"Makes everyone selfish",d:"The big boss villain of Season 1 — she's the one who put the spell on Happying.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/00/Egoping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Kikiping",s:1,g:"regular",e:"playfulness",m:"🃏",p:"Makes people do pranks",d:"Noisy and silly — he turns everything into a game or a prank.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/ea/Kikiping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Charmping",s:1,g:"regular",e:"cuteness",m:"🍬",p:"Makes people act super cute",d:"Lives for cuteness and loves eating cotton candy.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/a/a2/Charmping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Shyping",s:1,g:"regular",e:"shyness",m:"😊",p:"Makes people feel shy",d:"Gets embarrassed easily and likes to hide away.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/6b/Shyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Dareping",s:1,g:"regular",e:"competitiveness",m:"🏆",p:"Makes people want to win everything",d:"He LOVES winning and challenges everyone to contests.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/67/Dareping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Blankping",s:1,g:"regular",e:"forgetting",m:"💭",p:"Makes people forget things",d:"Lazy, clumsy, and always forgetting something. Blank-blank!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/27/Blankping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Dreamping",s:1,g:"regular",e:"imagination",m:"🫧",p:"Makes illusions and turns into objects",d:"A tricky one — she loves fooling people with her magic pictures.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/29/Dreamping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Weeping",s:1,g:"regular",e:"sadness",m:"💧",p:"Turns tears into candy",d:"She likes rainy days, and her tear candies actually taste good!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/73/Weeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Moseyping",s:1,g:"regular",e:"laziness",m:"🦥",p:"Turns invisible and makes people lazy",d:"Always sleepy, always tired, never wants to do anything.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/07/Moseyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Mimicping",s:1,g:"regular",e:"copying",m:"🎤",p:"Makes people copy anything",d:"A superfan of a famous singer — he copies everything he sees.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/8/86/Mimicping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Narrping",s:1,g:"regular",e:"vanity",m:"🪞",p:"Hands out magic mirrors",d:"She thinks she's the most beautiful — her mirrors make everyone feel fancy.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/32/Narrping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Spookping",s:1,g:"regular",e:"fear",m:"👻",p:"Shows people their biggest fear",d:"Loves scaring others… but he's secretly a big scaredy-cat himself!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/c/cc/Spookping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Tutuping",s:1,g:"regular",e:"jealousy",m:"💄",p:"Makes people jealous",d:"A makeup fan who thinks Romi is the prettiest person ever.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/01/Tutuping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Goodping",s:1,g:"regular",e:"goodness",m:"🌟",p:"Gives lucky stamps for good deeds",d:"Do something kind and she might stamp you with luck for the whole day!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/b/b9/Goodping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Tweetping",s:1,g:"regular",e:"chatter",m:"📣",p:"Makes people spill their secrets",d:"He can't stop talking — and he LOVES telling secrets. Be careful, tweet!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/d/db/Tweetping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Allmineping",s:1,g:"regular",e:"greed",m:"🧺",p:"Grabs things through her magic basket",d:"She loves snacks so much she takes them all for herself.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/9f/Allmineping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Roarping",s:1,g:"regular",e:"anger",m:"🔥",p:"Gets hot when angry and makes others mad",d:"He has a very short fuse — ROAR!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/ea/Roarping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Nonoping",s:1,g:"regular",e:"saying no",m:"🥦",p:"Makes people say no to everything",d:"He says NO to everything… except broccoli. He LOVES broccoli.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/97/Nonoping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Luvping",s:1,g:"regular",e:"love arrows",m:"🏹",p:"Makes people fall in love",d:"She wants to spread love everywhere with her magic arrows.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/b/b1/Luvping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Coolping",s:1,g:"regular",e:"coldness",m:"🧊",p:"Freezes things and makes people cold",d:"He used to live inside a fridge. Warm things? No thank you.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/59/Coolping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Artping",s:1,g:"regular",e:"art",m:"🎨",p:"Makes paintings come alive",d:"A talented painter whose pictures literally jump off the page.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/5e/Artping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Heavyping",s:1,g:"regular",e:"heaviness",m:"🏋️",p:"Makes objects super heavy",d:"A sporty one who loves working out.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/c/ce/Heavyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Oppoping",s:1,g:"regular",e:"opposites",m:"🙃",p:"Turns things upside down",d:"He sees the whole world upside down — and likes it that way!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/3b/Oppoping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Zipping",s:1,g:"regular",e:"speed",m:"💨",p:"Goes super duper fast",d:"Fast food, fast games, fast everything — zoom!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/4a/Zipping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Bebeping",s:1,g:"regular",e:"being a baby",m:"🍼",p:"Turns people into babies",d:"A little one who wants EVERYONE to be a baby like her.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/f1/Bebeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sleeping",s:1,g:"regular",e:"sleepiness",m:"😴",p:"Makes people fall asleep and peeks at their dreams",d:"He turns dreams into yummy jellies. Sweet dreams!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/37/Sleeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Stickping",s:1,g:"regular",e:"sticking together",m:"🩹",p:"Sticks people and things together",d:"When friends argue, she sticks them together until they make up.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/a/a1/Stickping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Curieping",s:1,g:"regular",e:"curiosity",m:"🔍",p:"Makes things grow bigger",d:"So curious! She wants a closer look at everything.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/e2/Curieping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Toyping",s:1,g:"regular",e:"toys",m:"🧸",p:"Turns things into toys",d:"She dreams of a whole world made of toys.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/37/Toyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Wannabeping",s:1,g:"regular",e:"disguise",m:"🎭",p:"Transforms into other people",d:"A master of disguise — you never know who she really is!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/3b/Wannabeping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Floraping",s:1,g:"regular",e:"nature",m:"🌷",p:"Turns people into flowers",d:"The royal gardener. Pick his flowers and you're in trouble!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/7c/Floraping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Noraping",s:1,g:"regular",e:"playing games",m:"🎮",p:"Makes people start playing",d:"He loves video games — sometimes more than watching his baby brother Noriping.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/2f/Noraping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Noriping",s:1,g:"regular",e:"innocence",m:"👶",p:"Moves objects with his toy",d:"A baby Teenieping who just wants to play with his big brother Noraping.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/30/Noriping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sighping",s:1,g:"regular",e:"gloominess",m:"🎺",p:"Plays a bugle that makes people feel gloomy",d:"She used to feel down a lot — but Happying helped her find her smile.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/53/Sighping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Shushping",s:1,g:"regular",e:"studying",m:"📚",p:"Makes people freeze and recite times tables",d:"He studies ALL the time to win trophies. Shhh, library voices!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/40/Shushping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Freezeping",s:1,g:"regular",e:"coolness",m:"❄️",p:"Puts an ice mask on people",d:"Coolping's best friend — after one big argument, he stopped liking ice cream!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/44/Freezeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sparkping",s:1,g:"regular",e:"thrills",m:"⚡",p:"Zips through electricity",d:"He rides through wires and loves wild, crazy fun.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/0f/Sparkping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Aloneping",s:1,g:"regular",e:"alone time",m:"🎣",p:"Makes a protective bubble shield",d:"He likes quiet time by himself — he even used to live inside a whale!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/e7/Aloneping_Render_2.png/revision/latest/scale-to-width-down/200"},
+
+/* ---------- Season 2 · Jewel ---------- */
+{n:"Joahping",s:2,g:"royal",e:"kindness",m:"💚",t:"Princess Emerald",p:"Spreads kindness (Emerald)",d:"Warm and gentle — she's always the first to help a friend.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/1/1e/Joahping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Teeheeping",s:2,g:"royal",e:"laughter",m:"😆",t:"Princess Ruby",p:"Fills everything with laughs (Ruby)",d:"A playful tomboy who loves wild fun with her friends.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/9a/Teeheeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Trustping",s:2,g:"royal",e:"trust",m:"💙",t:"Princess Sapphire",p:"Believes in everyone (Sapphire)",d:"Sweet and innocent — and completely obsessed with choco balls!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/d/d9/Trustping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Maskping",s:2,g:"villain",e:"mystery",m:"🎭",p:"Hides behind a mask",d:"The masked mystery villain who set all the Jewel Teeniepings free on Earth. Who could be under there…?",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/46/Maskping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Onlyping",s:2,g:"villain",e:"devotion",m:"🖤",p:"Sticks by Jenny no matter what (Black Pearl)",d:"Jenny's best friend and Heartsping's old rival. Big twist: SHE was Maskping all along!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/a/aa/Onlyping_S2_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Tickleping",s:2,g:"regular",e:"mischief",m:"🪶",p:"Summons tickly feathers (Citrine)",d:"Try not to laugh — she tickles EVERYONE.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/06/Tickleping_Render_3.png/revision/latest/scale-to-width-down/200"},
+{n:"Owwping",s:2,g:"regular",e:"ouchies",m:"🤕",p:"Turns little ouches into big ouches (Garnet)",d:"She's scared of getting hurt — and REALLY scared of hospitals.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/fa/Owwping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Wishping",s:2,g:"regular",e:"wishes",m:"🌠",p:"Grants three wishes (Spinel)",d:"Three wishes for anyone she meets — but she sometimes mixes them up!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/2d/Wishping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Patping",s:2,g:"regular",e:"comfort",m:"🤗",p:"Gives comforting pat-pats (Jade)",d:"Kind and encouraging — Joahping's best friend. Pat pat, it's ok!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/d/d5/Patping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Timidping",s:2,g:"regular",e:"timidness",m:"🐁",p:"Shrinks people tiny (Tanzanite)",d:"He's so shy that when strangers appear… he shrinks them!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/a/a8/Timidping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Tidyping",s:2,g:"regular",e:"neatness",m:"🧹",p:"Makes things clean themselves (Peridot)",d:"She tidies until everything sparkles. Mess? Absolutely not.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/b/ba/Tidyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Yummyping",s:2,g:"regular",e:"taste",m:"👩‍🍳",p:"Commands pots and pans (Coral)",d:"A top chef who cooks the most delicious meals.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/1/19/Yummyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Cozyping",s:2,g:"regular",e:"coziness",m:"🧶",p:"Knits warm scarves and dolls (Moonstone)",d:"She knits gifts for everyone — just keep sharp things away!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/2b/Cozyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Memoping",s:2,g:"regular",e:"note-taking",m:"📔",p:"Whatever she writes comes true (Turquoise)",d:"Super organized — her diary is basically magic.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/c/c3/Memoping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Ladyping",s:2,g:"regular",e:"elegance",m:"👛",p:"Turns people into her royal helpers (Alexandrite)",d:"She wants to be treated like a princess — bows and curtsies, please!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/96/Ladyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Buddyping",s:2,g:"regular",e:"friendship",m:"👯",p:"Makes copies of anything (Aquamarine)",d:"He makes doubles of things for fun — he just really wants a friend.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/08/Buddyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Giftping",s:2,g:"regular",e:"sharing",m:"🎁",p:"Gives out surprise presents (Topaz)",d:"Generous and sweet — everyone gets a gift!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/e3/Giftping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sculptping",s:2,g:"regular",e:"creativity",m:"🗿",p:"Makes his statues come alive (Amethyst)",d:"An artist who sculpts his hero, Heartsping, over and over.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/a/ae/Sculptping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Balletping",s:2,g:"regular",e:"tenderness",m:"🩰",p:"Makes people dance ballet (Rose Quartz)",d:"She twirls beautifully — she just wishes she had a dance partner.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/05/Balletping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Wonderping",s:2,g:"regular",e:"heroism",m:"🦸",p:"Does hero moves with her boomerang (Lapis Lazuli)",d:"Harmony Town's very own superhero!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/32/Wonderping_Render_1.png/revision/latest/scale-to-width-down/200"},
+
+/* ---------- Season 3 · Key ---------- */
+{n:"Okeydokeyping",s:3,g:"royal",e:"peace",m:"⛄",t:"Princess Crystal",p:"Keeps everything calm and peaceful",d:"Winter-themed, gentle and caring. She wants everyone to get along. Okey dokey!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/e/ed/Okeydokeyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Nanaping",s:3,g:"royal",e:"passion",m:"🌅",t:"Princess Solaris",p:"Burns bright with passion",d:"Sunshine-themed and full of energy — but not much patience!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/9c/Nanaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Trueping",s:3,g:"royal",e:"honesty",m:"🌟",t:"Princess Gloria",p:"Always tells the truth",d:"Cute but grumbly — he says exactly what he thinks, even when it's awkward.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/8/85/Trueping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Luckyping",s:3,g:"legend",e:"luck",m:"🍀",t:"Princess Twilight",p:"Brings luck (good AND bad)",d:"A Legend Teenieping who spent most of the season locked in a box under Romi's protection.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/fd/Luckyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Hurryping",s:3,g:"regular",e:"impatience",m:"⏰",p:"Makes people rush around super fast",d:"He always thinks he's late and won't waste a single second.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/63/Hurryping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Yumyumping",s:3,g:"regular",e:"hunger",m:"🍜",p:"Makes people super hungry",d:"Her tummy is never full — she's always looking for the next snack.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/62/Yumyumping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Hotping",s:3,g:"regular",e:"fire safety",m:"🧯",p:"Puts out fires with her extinguisher",d:"A brave little firefighter who takes safety VERY seriously.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/60/Hotping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Cureping",s:3,g:"regular",e:"health",m:"🩺",p:"Calls her Nurseping helpers to treat patients",d:"A doctor who is a little TOO excited about check-ups.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/1/1d/Cureping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Nursepings",s:3,g:"regular",e:"helping",m:"💉",p:"Help Cureping care for patients",d:"Four little helpers on Cureping's medical team.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/fc/Green_Nurseping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Cheerupping",s:3,g:"regular",e:"encouragement",m:"📣",p:"Gets crowds cheering for you",d:"A cheerleader who shows up whenever someone needs a boost. You can do it!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/65/Cheerupping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Handyping",s:3,g:"regular",e:"fixing",m:"🔧",p:"Fixes broken things (with surprises)",d:"He means well… but his repairs usually cause a bigger mess.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/4e/Handyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Wizping",s:3,g:"regular",e:"magic learning",m:"🧙",p:"Brews spells — even body-swap spells!",d:"A little witch who once swapped Romi and Heartsping's bodies!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/63/Wizping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Fashionping",s:3,g:"regular",e:"style",m:"👗",p:"Changes people's clothes into new designs",d:"A fashion designer bursting with outfit ideas.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/23/Fashionping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Justiceping",s:3,g:"regular",e:"justice",m:"👮",p:"Makes people confess and freeze",d:"A police officer on a mission to stop all wrongdoing. Freeze!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/00/Justiceping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Splashping",s:3,g:"regular",e:"freedom",m:"🧜",p:"Grows a mermaid tail and talks to sea animals",d:"Half Teenieping, half mermaid — happiest in the ocean.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/f5/Splashping_Mermaid_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Partyping",s:3,g:"regular",e:"celebration",m:"🎉",p:"Gives everyone party energy",d:"Every day is a party when she's around!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/4/45/Partyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Styleping",s:3,g:"regular",e:"hairstyles",m:"💇",p:"Gives people wild new haircuts",d:"Sometimes silly, sometimes fabulous — never boring hair.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/8/8a/Styleping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Huffyping",s:3,g:"regular",e:"attention",m:"😤",p:"Makes people sulk and huff",d:"She gets upset when people hide their true feelings.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/73/Huffyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Ariaping",s:3,g:"regular",e:"rhythm",m:"🎻",p:"Plays powerful violin music",d:"A talented musician — her songs can even be a sonic attack!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/35/Ariaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Twirlping",s:3,g:"regular",e:"expectation",m:"⛸️",p:"Creates ice rinks and skating moves",d:"She used to be Okeydokeyping's ice-skating partner.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/fa/Twirlping_Render_1.png/revision/latest/scale-to-width-down/200"},
+
+/* ---------- Season 4 · Dessert ---------- */
+{n:"Shashaping",s:4,g:"royal",e:"optimism",m:"🍦",t:"Princess Shabetina",p:"Sees the bright side of everything",d:"Ice-cream-themed and always positive. A great listener too!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/f/f8/Shashaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Fluffyping",s:4,g:"royal",e:"innocence",m:"🍭",t:"Princess SweetFloss",p:"Believes the best in everyone",d:"Cotton-candy-themed and kind to all — sometimes a little TOO trusting.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/8/85/Fluffyping_S4_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Jellyping",s:4,g:"royal",e:"fun",m:"🍮",t:"Princess Jellystin",p:"Never ever runs out of energy",d:"Jelly-themed, bouncy and quirky. Act first, think later!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/79/Jellyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sweetping",s:4,g:"legend",e:"sweetness",m:"🍯",t:"Princess Harmonious",p:"Wields the ancient power of sweetness",d:"A Legend Teenieping whose sweet powers last forever.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/35/Sweetping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Tangyping",s:4,g:"legend",e:"sourness",m:"🍋",p:"Wields the ancient power of sour",d:"A Legend Teenieping — the zingy, refreshing one!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/9a/Tangyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Puffping",s:4,g:"villain",e:"mischief",m:"🍬",p:"Chews gum to grow huge and fly",d:"The bubblegum troublemaker who stole the Magic Sugar Ball and set the Dessert Teeniepings loose!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/d/d2/Puffping_Render_3.png/revision/latest/scale-to-width-down/200"},
+{n:"Candyping",s:4,g:"regular",e:"sweet talk",m:"🍭",p:"Magic candy words make people act sweet",d:"She has the biggest sweet tooth — her kindness magic sometimes backfires.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/9/9e/Candyping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Meringueping",s:4,g:"regular",e:"decorating",m:"🧁",p:"Turns anything into meringue",d:"Swirls, peaks, and fluff on EVERYTHING — no matter the mess.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/6/62/Meringueping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Sandping",s:4,g:"regular",e:"friendship snacks",m:"🍪",p:"Squeezes cookie cream onto anything",d:"Famous for her sandwich cookies — she NEVER breaks a cookie.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/7/7d/Sandping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Donutping",s:4,g:"regular",e:"charm",m:"🍩",p:"Makes escape holes in anything",d:"Sweet but sly — her baby face gets her whatever she wants.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/51/Donutping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Waffleping",s:4,g:"regular",e:"determination",m:"🧇",p:"Flattens things paper-thin",d:"Very protective of his waffle cymbals. He never gives up!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/5/5a/Waffleping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Lolliping",s:4,g:"regular",e:"spinning",m:"🍭",p:"Makes things spin and twirl",d:"Full of questions and rainbow colors. Whirl, swirl, spin!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/d/de/Lolliping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Macaping",s:4,g:"regular",e:"color",m:"🌈",p:"Changes the color of anything",d:"Macaron-themed — she repaints the world just because it's pretty.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/b/ba/Macaping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Pancakeping",s:4,g:"regular",e:"stacking",m:"🥞",p:"Stacks things up step by step",d:"One pancake at a time — that's how you build big things!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/0/0f/Pancakeping_Render_1.png/revision/latest/scale-to-width-down/200"},
+{n:"Cupping",s:4,g:"regular",e:"being little",m:"🧁",p:"Grows HUGE when he cries",d:"A cupcake baby full of giggles — just don't make him cry!",img:"https://static.wikia.nocookie.net/catchteeniepin/images/3/32/Cupping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Muffping",s:4,g:"regular",e:"being little",m:"🧁",p:"Brings baby giggles everywhere",d:"A muffin baby, Cupping's tiny partner in fun.",img:"https://static.wikia.nocookie.net/catchteeniepin/images/2/28/Muffping_Render_2.png/revision/latest/scale-to-width-down/200"},
+{n:"Yogurtping",s:4,g:"regular",e:"yogurt magic",m:"🥛",p:"Dessert magic",d:"A yogurt-themed Teenieping with fluffy sheep friends.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Yogurtping%20Render%201.png"},
+{n:"Puddingping",s:4,g:"regular",e:"pudding magic",m:"🍮",p:"Dessert magic",d:"A wobbly pudding-themed Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Puddingping%20Render%201.png"},
+{n:"Iceflakeping",s:4,g:"regular",e:"frosty treats",m:"🍧",p:"Dessert magic",d:"A shaved-ice-themed Teenieping — brrr!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Iceflakeping%20Render%201.png"},
+{n:"Mallowping",s:4,g:"regular",e:"softness",m:"🍡",p:"Dessert magic",d:"A marshmallow-themed Teenieping — the first ever to wear eyeshadow!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Mallowping%20Render%201.png"},
+{n:"Chocoping",s:4,g:"regular",e:"chocolate",m:"🍫",p:"Dessert magic",d:"A chocolate-themed Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Chocoping%20Render%201.png"},
+
+/* ---------- Season 5 · Star ---------- */
+{n:"Shimmerping",s:5,g:"royal",e:"shimmer",m:"✨",p:"Royal star magic",d:"One of the four Royal Star Teeniepings of the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Shimmerping%20Render%201.png"},
+{n:"Sparkleping",s:5,g:"royal",e:"sparkle",m:"💫",p:"Royal star magic",d:"One of the four Royal Star Teeniepings of the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Sparkleping%20Render%201.png"},
+{n:"Twinkleping",s:5,g:"royal",e:"twinkle",m:"🌟",p:"Royal star magic",d:"A Royal Star Teenieping — she grabbed the Shooting Star Pact when the black hole attacked!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Twinkleping%20Render%201.png"},
+{n:"Princeping",s:5,g:"royal",e:"starlight",m:"🤴",p:"Royal star magic",d:"A Royal Star Teenieping who hid in disguise as little Petitping!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Princeping%20Render%201.png"},
+{n:"Auroraping",s:5,g:"legend",e:"auroras",m:"🌌",p:"Legendary aurora magic",d:"The Legend Teenieping of Season 5 — her aurora connects hearts and helped defeat the Black Hole.",img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Auroraping%20Without%20Wings%20Render%201.png"},
+{n:"Eclipseping",s:5,g:"villain",e:"shadows",m:"🌑",p:"Dark eclipse magic",d:"A shadowy villain from the Star season.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Eclipseping%20Render%201.png"},
+{n:"Hopping",s:5,g:"regular",e:"hopping",m:"🐇",p:"Star magic",d:"She brought Romi and Heartsping all the way to the Space Star Village!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Hopping%20S5%20Render%201.png"},
+{n:"Hulaping",s:5,g:"regular",e:"hula hoops",m:"🪩",p:"Magic hoops and rings",d:"A Star Teenieping who spins magical rings.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Hulaping%20Render%201.png"},
+{n:"Mightyping",s:5,g:"regular",e:"strength",m:"💪",p:"Super star strength",d:"The strongest Star Teenieping — she once threw a giant crystal at a black hole!",img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Mightyping%20Render%201.png"},
+{n:"Ellaping",s:5,g:"regular",e:"star rings",m:"💍",p:"Makes magic rings grow",d:"A Star Teenieping whose magic makes things bigger.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Ellaping%20Render%201.png"},
+{n:"Dazzleping",s:5,g:"regular",e:"dazzle",m:"🌠",p:"Star magic",d:"A brave Star Teenieping who once saved Romi from lightning!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Dazzleping%20Render%201.png"},
+{n:"Giverping",s:5,g:"regular",e:"giving",m:"🎀",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Giverping%20Render%201.png"},
+{n:"Dingdongping",s:5,g:"regular",e:"bells",m:"🔔",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Dingdongping%20Render%201.png"},
+{n:"Petitping",s:5,g:"regular",e:"littleness",m:"🐣",p:"Star magic",d:"A tiny Star Teenieping with a BIG secret — he was really Princeping in disguise!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Petitping%20Render%201.png"},
+{n:"Stickerping",s:5,g:"regular",e:"stickers",m:"🏷️",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Stickerping%20Render%201.png"},
+{n:"Bellaping",s:5,g:"regular",e:"beauty",m:"🌸",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Bellaping%20Render%201.png"},
+{n:"Snuggyping",s:5,g:"regular",e:"snuggles",m:"🐑",p:"Star magic",d:"A cozy Star Teenieping with fluffy snuggy lambs.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Snuggyping%20Render%201.png"},
+{n:"Lucyping",s:5,g:"regular",e:"light",m:"🕯️",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Lucyping%20Render%201.png"},
+{n:"Togetherping",s:5,g:"regular",e:"togetherness",m:"🤝",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Togetherping%20Render%201.png"},
+{n:"Swayping",s:5,g:"regular",e:"swaying",m:"🌾",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Swayping%20Render%201.png"},
+{n:"Allureping",s:5,g:"regular",e:"allure",m:"🦋",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Allureping%20Render%201.png"},
+{n:"Doremiping",s:5,g:"regular",e:"music notes",m:"🎼",p:"Star magic",d:"A musical Star Teenieping — do, re, mi!",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Doremiping%20Render%201.png"},
+{n:"Sneakyping",s:5,g:"regular",e:"sneaking",m:"🕵️",p:"Star magic",d:"A sneaky little Star Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Sneakyping%20Render%201.png"},
+{n:"Kissyping",s:5,g:"regular",e:"kisses",m:"😘",p:"Star magic",d:"A Star Teenieping from the Space Star Village.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Kissyping%20Render%201.png"},
+
+/* ---------- Season 6 · Princess ---------- */
+{n:"Graceping",s:6,g:"royal",e:"grace",m:"👑",p:"Royal princess magic",d:"A Royal Teenieping from the Princess season.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Graceping%20Render%201.png"},
+{n:"Claireping",s:6,g:"royal",e:"clarity",m:"👑",p:"Royal princess magic",d:"A Royal Teenieping from the Princess season.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Claireping%20Render%201.png"},
+{n:"Bonnyping",s:6,g:"royal",e:"bonniness",m:"👑",p:"Royal princess magic",d:"A Royal Teenieping from the Princess season.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Bonnyping%20Render%201.png"},
+{n:"Dianaping",s:6,g:"legend",e:"legend",m:"🌙",p:"Legendary magic",d:"The Legend Teenieping of the Princess season.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Dianaping%20Render%201.png"},
+{n:"Scrubping",s:6,g:"regular",e:"scrubbing",m:"🫧",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Scrubping%20Render%201.png"},
+{n:"Charmingping",s:6,g:"regular",e:"charm",m:"🌹",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Charmingping%20Render%201.png"},
+{n:"Flitterping",s:6,g:"regular",e:"flitting",m:"🧚",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Flitterping%20Render%201.png"},
+{n:"Silkyping",s:6,g:"regular",e:"silkiness",m:"🎀",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Silkyping%20Render%201.png"},
+{n:"Snowping",s:6,g:"regular",e:"snow",m:"❄️",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Snowping%20Render%201.png"},
+{n:"Dewping",s:6,g:"regular",e:"dewdrops",m:"💧",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Dewping%20Render%201.png"},
+{n:"Dozyping",s:6,g:"regular",e:"dozing",m:"🌜",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Dozyping%20Render%201.png"},
+{n:"Rellaping",s:6,g:"regular",e:"fairy tales",m:"🥿",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Rellaping%20Render%201.png"},
+{n:"Glossyping",s:6,g:"regular",e:"gloss",m:"💋",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Glossyping%20Render%201.png"},
+{n:"Cupidping",s:6,g:"regular",e:"cupid hearts",m:"💘",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Cupidping%20Render%201.png"},
+{n:"Kittyping",s:6,g:"regular",e:"kitty cuteness",m:"🐱",p:"Princess magic",d:"A Princess Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Kittyping%20Render%201.png"},
+{n:"Charlesping",s:6,g:"regular",e:"princeliness",m:"🤵",p:"Prince magic",d:"A Prince Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Charlesping%20Render%201.png"},
+{n:"Trotping",s:6,g:"regular",e:"trotting",m:"🐴",p:"Prince magic",d:"A Prince Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Trotping%20Render%201.png"},
+{n:"Frogping",s:6,g:"regular",e:"frog princes",m:"🐸",p:"Prince magic",d:"A Prince Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Frogping%20Render%201.png"},
+{n:"Henryping",s:6,g:"regular",e:"nobility",m:"🎩",p:"Prince magic",d:"A Prince Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Henryping%20Render%201.png"}
+];
+
+/* ================= SHARED HELPERS ================= */
+const $ = id => document.getElementById(id);
+function badgeHTML(p, big){
+  const sc = SEASONS[p.s].color;
+  return `<div class="badge ${big?'big':''}" data-name="${p.n}" style="background:${sc}22">
+    <span>${p.m}</span>
+    <img src="${IMG_DIR + p.n + IMG_EXT}" data-fb="${p.img||''}" alt="${p.n}" loading="lazy" referrerpolicy="no-referrer" onerror="fbimg(this)">
+  </div>`;
+}
+function fbimg(el){
+  // Try the character's explicit remote image after the local file.
+  // If that redirect filename is unusual, try common wiki naming patterns.
+  const name = el.closest('.badge')?.dataset?.name || el.alt || '';
+  let tries = [];
+  try { tries = JSON.parse(el.dataset.tries || '[]'); } catch(e) {}
+  const fb = el.dataset.fb;
+  if(fb && !tries.includes(fb)) tries.push(fb);
+  if(name){
+    const enc = s => 'https://catchteenieping.fandom.com/wiki/Special:Redirect/file/' + encodeURIComponent(s).replace(/%20/g,'%20');
+    [
+      `${name} Render 1.png`, `${name} render 1.png`,
+      `${name} S4 Render 1.png`, `${name} S5 Render 1.png`, `${name} S6 Render 1.png`,
+      `${name} Render 2.png`, `${name} Render 3.png`
+    ].forEach(f => { const u=enc(f); if(!tries.includes(u)) tries.push(u); });
+  }
+  const next = tries.shift();
+  el.dataset.tries = JSON.stringify(tries);
+  if(next){ el.src = next; }
+  else { el.remove(); }
+}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ================= MODE SWITCH ================= */
+function showMode(m){
+  $('play').classList.toggle('hidden', m!=='play');
+  $('book').classList.toggle('hidden', m!=='book');
+  $('tabPlay').classList.toggle('on', m==='play');
+  $('tabBook').classList.toggle('on', m==='book');
+}
+
+/* ================= HANDBOOK ================= */
+let filterSeason = 0; // 0 = all
+const favs = new Set();
+function buildChips(){
+  let h = `<button class="chip ${filterSeason===0?'on':''}" onclick="setSeason(0)">All</button>`;
+  for(const k in SEASONS){
+    h += `<button class="chip ${filterSeason==k?'on':''}" onclick="setSeason(${k})">${SEASONS[k].emoji} ${SEASONS[k].name}</button>`;
+  }
+  h += `<button class="chip ${filterSeason==='fav'?'on':''}" onclick="setSeason('fav')">💛 Favorites</button>`;
+  $('chips').innerHTML = h;
+}
+function setSeason(s){ filterSeason = s; buildChips(); renderGrid(); }
+function renderGrid(){
+  const q = $('search').value.trim().toLowerCase();
+  const list = PINGS.filter(p=>{
+    if(filterSeason==='fav' && !favs.has(p.n)) return false;
+    if(filterSeason!==0 && filterSeason!=='fav' && p.s != filterSeason) return false;
+    if(q && !(p.n.toLowerCase().includes(q) || p.e.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  $('count').textContent = list.length + " Teeniepings";
+  $('grid').innerHTML = list.map(p=>{
+    const sc = SEASONS[p.s].color;
+    const tag = p.g!=='regular' ? `<span class="tag" style="background:${p.g==='villain'?'#8A6B87':sc}">${GROUPS[p.g]}</span>` : `<span class="tag" style="background:${sc}">${SEASONS[p.s].name}</span>`;
+    return `<div class="pcard" onclick="openSheet('${p.n}')">
+      <span class="fav">${favs.has(p.n)?'💛':''}</span>
+      ${badgeHTML(p)}
+      <div class="nm">${p.n}</div>
+      <div class="em">Teenieping of ${esc(p.e)}</div>
+      ${tag}
+    </div>`;
+  }).join('');
+}
+
+/* ================= DETAIL SHEET ================= */
+function openSheet(name){
+  const p = PINGS.find(x=>x.n===name);
+  const s = SEASONS[p.s];
+  const wiki = "https://catchteenieping.fandom.com/wiki/" + encodeURIComponent(p.n);
+  $('sheet').innerHTML = `
+    <div class="top">
+      ${badgeHTML(p,true)}
+      <div>
+        <h2>${p.n}</h2>
+        <div class="sub">${s.emoji} ${s.name} Teenieping · ${s.show}</div>
+      </div>
+    </div>
+    <div class="fact"><b>Teenieping of:</b> ${esc(p.e)}</div>
+    ${p.p ? `<div class="fact"><b>Magic power:</b> ${esc(p.p)}</div>` : ''}
+    ${p.t ? `<div class="fact"><b>Transformation:</b> ${esc(p.t)}</div>` : ''}
+    <div class="fact"><b>Fun fact:</b> ${esc(p.d)} ${p.x ? '<br><i>(This one is still a bit of a mystery — details can be added later!)</i>':''}</div>
+    <div class="rowbtns">
+      <button class="bigbtn ghost" onclick="toggleFav('${p.n}')">${favs.has(p.n)?'💛 Favorited':'🤍 Favorite'}</button>
+      <button class="bigbtn" onclick="closeSheet()">Done</button>
+    </div>
+    <a class="wikilink" href="${wiki}" target="_blank" rel="noopener">Look up ${p.n} on the fan wiki ↗ (grown-ups: good place to save a picture from)</a>
+  `;
+  $('sheet').classList.add('open');
+  $('sheetBg').classList.add('open');
+}
+function toggleFav(n){ favs.has(n)?favs.delete(n):favs.add(n); openSheet(n); renderGrid(); }
+function closeSheet(){ $('sheet').classList.remove('open'); $('sheetBg').classList.remove('open'); }
+
+/* ================= QUIZ ================= */
+let caught=0, streak=0, best=0, current=null, quizSeason=0;
+function buildSeasonPick(){
+  let h = `<button class="chip ${quizSeason===0?'on':''}" onclick="setQuizSeason(0)">All seasons</button>`;
+  for(const k in SEASONS){
+    h += `<button class="chip ${quizSeason==k?'on':''}" onclick="setQuizSeason(${k})">${SEASONS[k].emoji} ${SEASONS[k].name}</button>`;
+  }
+  $('seasonPick').innerHTML = h;
+}
+function setQuizSeason(s){ quizSeason=s; buildSeasonPick(); nextQ(); }
+function pool(){
+  return PINGS.filter(p => quizSeason===0 ? true : p.s==quizSeason);
+}
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function makeQuestion(){
+  const P = pool();
+  const detailed = P.filter(p=>!p.x);
+  // question types available
+  const types = [];
+  if(detailed.length >= 4) types.push('power','emotion');
+  if(quizSeason===0) types.push('season');
+  if(types.length===0) types.push('emotion'); // fallback
+  const t = pick(types);
+
+  if(t==='season'){
+    const answer = pick(PINGS);
+    const s = SEASONS[answer.s];
+    const wrong = shuffle(PINGS.filter(p=>p.s!==answer.s)).slice(0,3);
+    return {
+      kind:"WHICH TEAM?",
+      text:`Which one is a ${s.emoji} ${s.name} Teenieping?`,
+      answer, choices: shuffle([answer, ...wrong])
+    };
+  }
+  const src = detailed.length>=4 ? detailed : P;
+  const answer = pick(src);
+  const wrongPool = src.filter(p=>p.n!==answer.n);
+  const sameSeason = wrongPool.filter(p=>p.s===answer.s);
+  const wrong = shuffle(sameSeason.length>=3 ? sameSeason : wrongPool).slice(0,3);
+  if(t==='power' && answer.p){
+    return {kind:"WHO AM I?", text:`My magic power: “${answer.p}.” Who am I?`, answer, choices:shuffle([answer,...wrong])};
+  }
+  return {kind:"WHO AM I?", text:`I am the Teenieping of ${answer.e}. Who am I?`, answer, choices:shuffle([answer,...wrong])};
+}
+
+function nextQ(){
+  current = makeQuestion();
+  $('qkind').textContent = current.kind;
+  $('qtext').textContent = current.text;
+  $('result').classList.remove('show');
+  $('answers').innerHTML = current.choices.map(c=>
+    `<button class="abtn" onclick="answer(this,'${c.n}')">${c.n}</button>`
+  ).join('');
+}
+function answer(btn, name){
+  const right = name === current.answer.n;
+  document.querySelectorAll('.abtn').forEach(b=>{
+    b.disabled = true;
+    if(b.textContent === current.answer.n) b.classList.add('right');
+  });
+  if(right){
+    caught++; streak++; if(streak>best) best=streak;
+    burst();
+  } else {
+    btn.classList.add('wrong');
+    streak = 0;
+  }
+  $('scCaught').textContent=caught; $('scStreak').textContent=streak; $('scBest').textContent=best;
+  const p = current.answer;
+  $('rBadge').outerHTML = badgeHTML(p).replace('class="badge','id="rBadge" class="badge');
+  $('rName').textContent = (right?'You caught ':'It was ') + p.n + '!';
+  $('rDesc').textContent = p.d;
+  $('result').classList.add('show');
+}
+function burst(){
+  const cw = $('catchword');
+  cw.classList.remove('go'); void cw.offsetWidth; cw.classList.add('go');
+  const card = $('qcard');
+  const emo = ['💖','💗','✨','⭐','💕'];
+  for(let i=0;i<10;i++){
+    const h = document.createElement('span');
+    h.className='heart fly'; h.textContent=pick(emo);
+    h.style.left='50%'; h.style.top='40%';
+    h.style.setProperty('--dx', (Math.random()*220-110)+'px');
+    h.style.setProperty('--dy', (Math.random()*-180-40)+'px');
+    card.appendChild(h);
+    setTimeout(()=>h.remove(), 1100);
+  }
+}
+
+/* ================= INIT ================= */
+buildChips(); renderGrid(); buildSeasonPick(); nextQ();
+</script>
+</body>
+</html>
