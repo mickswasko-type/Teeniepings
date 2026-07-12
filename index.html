@@ -632,9 +632,34 @@ function pool(){
 }
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function answerChoices(answer, candidates){
+  const seen = new Set([answer.n]);
+  const wrong = [];
+  const addFrom = pool => {
+    for(const p of shuffle(pool)){
+      if(seen.has(p.n)) continue;
+      seen.add(p.n);
+      wrong.push(p);
+      if(wrong.length===3) return true;
+    }
+    return false;
+  };
+  const pools = [
+    candidates.filter(p=>p.s===answer.s && p.n!==answer.n),
+    candidates.filter(p=>p.n!==answer.n),
+    PINGS.filter(p=>p.n!==answer.n)
+  ];
+  for(const pool of pools){
+    if(addFrom(pool)) return shuffle([answer, ...wrong]);
+  }
+  return shuffle([answer, ...wrong]);
+}
 
 function makeQuestion(){
   const P = pool();
+  if(P.length < 4){
+    throw new Error("Not enough Teeniepings to build a quiz question.");
+  }
   const detailed = P.filter(p=>!p.x);
   // question types available
   const types = [];
@@ -646,38 +671,45 @@ function makeQuestion(){
   if(t==='season'){
     const answer = pick(PINGS);
     const s = SEASONS[answer.s];
-    const wrong = shuffle(PINGS.filter(p=>p.s!==answer.s)).slice(0,3);
     return {
       kind:"WHICH TEAM?",
       text:`Which one is a ${s.emoji} ${s.name} Teenieping?`,
-      answer, choices: shuffle([answer, ...wrong])
+      answer, choices: answerChoices(answer, PINGS.filter(p=>p.s!==answer.s))
     };
   }
   const src = detailed.length>=4 ? detailed : P;
   const answer = pick(src);
-  const wrongPool = src.filter(p=>p.n!==answer.n);
-  const sameSeason = wrongPool.filter(p=>p.s===answer.s);
-  const wrong = shuffle(sameSeason.length>=3 ? sameSeason : wrongPool).slice(0,3);
+  const choices = answerChoices(answer, src);
   if(t==='power' && answer.p){
-    return {kind:"WHO AM I?", text:`My magic power: “${answer.p}.” Who am I?`, answer, choices:shuffle([answer,...wrong])};
+    return {kind:"WHO AM I?", text:`My magic power: “${answer.p}.” Who am I?`, answer, choices};
   }
-  return {kind:"WHO AM I?", text:`I am the Teenieping of ${answer.e}. Who am I?`, answer, choices:shuffle([answer,...wrong])};
+  return {kind:"WHO AM I?", text:`I am the Teenieping of ${answer.e}. Who am I?`, answer, choices};
 }
 
 function nextQ(){
-  current = makeQuestion();
-  $('qkind').textContent = current.kind;
-  $('qtext').textContent = current.text;
-  $('result').classList.remove('show');
-  $('answers').innerHTML = current.choices.map(c=>
-    `<button class="abtn" onclick="answer(this,${jsString(c.n)})">${esc(c.n)}</button>`
-  ).join('');
+  try{
+    current = makeQuestion();
+    $('qkind').textContent = current.kind;
+    $('qtext').textContent = current.text;
+    $('result').classList.remove('show');
+    $('answers').innerHTML = current.choices.map(c=>
+      `<button class="abtn" data-name="${escAttr(c.n)}" onclick="answer(this)">${esc(c.n)}</button>`
+    ).join('');
+  } catch(e) {
+    current = null;
+    $('qkind').textContent = "TRY AGAIN";
+    $('qtext').textContent = "This quiz group needs a few more Teeniepings.";
+    $('answers').innerHTML = "";
+    $('result').classList.remove('show');
+  }
 }
-function answer(btn, name){
+function answer(btn){
+  if(!current || btn.disabled) return;
+  const name = btn.dataset.name;
   const right = name === current.answer.n;
   document.querySelectorAll('.abtn').forEach(b=>{
     b.disabled = true;
-    if(b.textContent === current.answer.n) b.classList.add('right');
+    if(b.dataset.name === current.answer.n) b.classList.add('right');
   });
   if(right){
     caught++; streak++; if(streak>best) best=streak;
