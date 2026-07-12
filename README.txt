@@ -1,12 +1,13 @@
-TEENIEPING CATCHER — COMPLETE IMAGE-FALLBACK BUILD
+TEENIEPING CATCHER
 
-Upload index.html to the same GitHub Pages repository as before.
+This repository is ready to host directly from GitHub Pages.
 
-This version:
-- keeps all existing verified image URLs
-- adds image URLs for the remaining 48 entries
-- tries a local images/Name.png file first
-- then tries the supplied remote render
-- then tries common Fandom render filename variations automatically
+Use index.html as the main page. The app uses verified local WebP files from
+the images folder when they are listed in IMAGE_MANIFEST inside index.html.
+Characters without a verified local image keep their emoji badge.
 
-An internet connection is required for remote images. For a fully offline version, run get-images.py to create an images folder, then upload that folder beside index.html.
+To publish:
+GitHub Settings -> Pages -> Deploy from a branch -> main -> /(root) -> Save
+
+Expected URL format:
+https://USERNAME.github.io/REPOSITORY-NAME/
