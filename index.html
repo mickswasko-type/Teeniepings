@@ -578,7 +578,7 @@ function renderGrid(){
   $('grid').innerHTML = list.map(p=>{
     const sc = SEASONS[p.s].color;
     const tag = p.g!=='regular' ? `<span class="tag" style="background:${p.g==='villain'?'#8A6B87':sc}">${GROUPS[p.g]}</span>` : `<span class="tag" style="background:${sc}">${SEASONS[p.s].name}</span>`;
-    return `<div class="pcard" onclick="openSheet(${jsString(p.n)})">
+    return `<div class="pcard" data-name="${escAttr(p.n)}" onclick="openSheet(this.dataset.name)">
       <span class="fav">${favs.has(p.n)?'💛':''}</span>
       ${badgeHTML(p)}
       <div class="nm">${esc(p.n)}</div>
@@ -606,7 +606,7 @@ function openSheet(name){
     ${p.t ? `<div class="fact"><b>Transformation:</b> ${esc(p.t)}</div>` : ''}
     <div class="fact"><b>Fun fact:</b> ${esc(p.d)} ${p.x ? '<br><i>(This one is still a bit of a mystery — details can be added later!)</i>':''}</div>
     <div class="rowbtns">
-      <button class="bigbtn ghost" onclick="toggleFav(${jsString(p.n)})">${favs.has(p.n)?'💛 Favorited':'🤍 Favorite'}</button>
+      <button class="bigbtn ghost" data-name="${escAttr(p.n)}" onclick="toggleFav(this.dataset.name)">${favs.has(p.n)?'💛 Favorited':'🤍 Favorite'}</button>
       <button class="bigbtn" onclick="closeSheet()">Done</button>
     </div>
     <a class="wikilink" href="${escAttr(wiki)}" target="_blank" rel="noopener">Look up ${esc(p.n)} on the fan wiki ↗ (grown-ups: good place to save a picture from)</a>
