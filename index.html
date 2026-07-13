@@ -484,7 +484,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
       </div>
     </div>
 
-    <div class="tv-widget">
+    <div class="tv-widget hidden" id="tvWidget">
       <div class="tv-title">📺 Fresh from Teenieping TV</div>
       <div class="tv-sub">The newest video from the official channels — tap to watch</div>
       <div class="tv-cards">
@@ -1125,6 +1125,13 @@ function pingOfTheDay(){
 }
 
 /* ================= TEENIEPING TV ================= */
+// Feature flag: the video widget is OFF for now (kid-browser video permissions).
+// To turn it back on later, set this to true — everything else stays wired up.
+const SHOW_TEENIEPING_TV = false;
+function initTV(){
+  const w = $('tvWidget');
+  if(w) w.classList.toggle('hidden', !SHOW_TEENIEPING_TV);
+}
 // Embeds the official channel's "uploads" playlist (UU…), which always plays
 // newest-first — so it stays current with no API key, no fetch, no build step.
 function playTV(el){
@@ -1715,6 +1722,7 @@ function makeMadLib(){
 /* ================= INIT ================= */
 buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
 initToday();
+initTV();
 showMode('home');
 </script>
 </body>
