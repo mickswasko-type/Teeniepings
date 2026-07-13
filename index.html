@@ -94,6 +94,31 @@ header{
 .ai-sub{font:700 10.5px 'Nunito'; color:rgba(255,255,255,.9); text-align:center; line-height:1.15;}
 @media (max-width:380px){ .appgrid{gap:11px;} .ai-emoji{width:52px; height:52px; font-size:28px;} .ai-sub{font-size:9.5px;} }
 
+/* ---------- Teenieping TV widget ---------- */
+.tv-widget{margin-top:18px;}
+.tv-title{font:800 18px 'Baloo 2'; text-align:center;}
+.tv-sub{font:700 12.5px 'Nunito'; color:var(--ink-soft); text-align:center; margin:2px 0 12px;}
+.tv-cards{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media(max-width:520px){ .tv-cards{grid-template-columns:1fr;} }
+.tv-card{
+  position:relative; aspect-ratio:16/9; overflow:hidden; cursor:pointer;
+  border-radius:20px; border:3px solid #fff;
+  background:linear-gradient(160deg,#FFD8E8,#FFF0F6);
+  box-shadow:0 6px 0 rgba(232,76,139,.14);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  transition:transform .12s;
+}
+.tv-card:active{transform:scale(.98);}
+.tv-play{
+  width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,.9);
+  display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--pink-deep);
+  padding-left:4px; box-shadow:0 3px 10px rgba(71,42,68,.2);
+}
+.tv-name{font:800 16px 'Baloo 2'; color:var(--ink);}
+.tv-cap{font:700 11px 'Nunito'; color:var(--ink-soft);}
+.tv-card.playing{cursor:default; background:#000; padding:0; gap:0;}
+.tv-card iframe{width:100%; height:100%; border:0; display:block;}
+
 /* ---------- Ping of the Day toast ---------- */
 .toast{
   position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(18px);
@@ -456,6 +481,23 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">💎</span><span class="ai-label">Twinkle Timer</span><span class="ai-sub">Beat the clock</span></button>
         <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('story')"><span class="ai-emoji">🪄</span><span class="ai-label">Wonder Tales</span><span class="ai-sub">Silly ping stories</span></button>
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
+      </div>
+    </div>
+
+    <div class="tv-widget">
+      <div class="tv-title">📺 Fresh from Teenieping TV</div>
+      <div class="tv-sub">The newest video from the official channels — tap to watch</div>
+      <div class="tv-cards">
+        <div class="tv-card" data-list="UUtm_ppWxsfRzxaYXMA2bqMw" onclick="playTV(this)">
+          <div class="tv-play">▶</div>
+          <div class="tv-name">🇰🇷 Korean</div>
+          <div class="tv-cap">Newest upload</div>
+        </div>
+        <div class="tv-card" data-list="UU7-z2bwB7d394FGct07OJMQ" onclick="playTV(this)">
+          <div class="tv-play">▶</div>
+          <div class="tv-name">🇬🇧 English</div>
+          <div class="tv-cap">Newest upload</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1080,6 +1122,18 @@ const POTD_INTROS = ["Ping of the Day!","Wild ping spotted!","Catch this one!","
 function pingOfTheDay(){
   const p = pick(PINGS);
   toast(`${p.m} ${pick(POTD_INTROS)} <b>${esc(p.n)}</b> — ${esc(p.p)}`);
+}
+
+/* ================= TEENIEPING TV ================= */
+// Embeds the official channel's "uploads" playlist (UU…), which always plays
+// newest-first — so it stays current with no API key, no fetch, no build step.
+function playTV(el){
+  const list = el.dataset.list;
+  if(!list) return;
+  el.classList.add('playing');
+  el.onclick = null;
+  el.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(list)}&autoplay=1&rel=0&modestbranding=1&playsinline=1"
+    title="Teenieping TV" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
 }
 
 /* ================= TODAY'S TEAM ================= */
