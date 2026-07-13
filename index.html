@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teenieping Catcher</title>
+<title>Willow's Catch! Compact</title>
 <!--
   ══════════════════════════════════════════════════════════
   TEENIEPING CATCHER — Handbook + Guess-the-Teenieping game
@@ -54,14 +54,43 @@ header{
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .brand h1{font-size:22px; margin:0; letter-spacing:.3px;}
 .brand h1 span{color:var(--pink-deep);}
-.tabs{display:flex; gap:8px; margin-top:8px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none;}
-.tabs::-webkit-scrollbar{display:none;}
-.tab{
-  flex:0 0 auto; min-width:104px; border:0; border-radius:16px; padding:10px 12px; font:800 16px 'Baloo 2';
-  color:var(--ink-soft); background:#FFE7F0; cursor:pointer; transition:transform .1s;
+.homebtn{
+  margin-left:auto; border:0; border-radius:14px; padding:8px 14px; white-space:nowrap;
+  font:800 15px 'Baloo 2'; color:#fff; background:var(--pink);
+  box-shadow:var(--shadow); cursor:pointer; transition:transform .1s;
 }
-.tab.on{background:var(--pink); color:#fff; box-shadow:var(--shadow);}
-.tab:active{transform:scale(.97);}
+.homebtn:active{transform:scale(.96);}
+
+/* ---------- Compact home screen ---------- */
+#home{padding-top:8px;}
+.compact{
+  position:relative; margin-top:14px;
+  background:linear-gradient(160deg,#FFD8E8,#FFF0F6);
+  border:3px solid #fff; border-radius:34px; padding:22px 18px 26px;
+  box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55);
+}
+.compact::before{ /* heart clasp, like the top of the toy Compact */
+  content:"💗"; position:absolute; top:-18px; left:50%; transform:translateX(-50%);
+  font-size:30px; filter:drop-shadow(0 3px 0 rgba(232,76,139,.22));
+}
+.compact-greet{text-align:center; font:800 22px 'Baloo 2'; color:var(--ink); margin:4px 0 18px;}
+.compact-greet span{display:block; margin-top:2px; font:700 14px 'Nunito'; color:var(--ink-soft);}
+.appgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+.appicon{
+  border:0; cursor:pointer; border-radius:24px; padding:16px 6px 12px;
+  display:flex; flex-direction:column; align-items:center; gap:9px;
+  background:linear-gradient(160deg,var(--c1),var(--c2));
+  box-shadow:0 6px 0 rgba(71,42,68,.16), inset 0 2px 0 rgba(255,255,255,.5);
+  transition:transform .12s, box-shadow .12s;
+}
+.appicon:active{transform:translateY(3px); box-shadow:0 3px 0 rgba(71,42,68,.16), inset 0 2px 0 rgba(255,255,255,.5);}
+.ai-emoji{
+  font-size:32px; width:58px; height:58px; border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.6); box-shadow:inset 0 0 0 2px rgba(255,255,255,.65);
+}
+.ai-label{font:800 14px 'Baloo 2'; color:#fff; text-shadow:0 1px 1px rgba(71,42,68,.28);}
+@media (max-width:380px){ .appgrid{gap:11px;} .ai-emoji{width:52px; height:52px; font-size:28px;} }
 main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 /* ---------- badges ---------- */
@@ -329,20 +358,28 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
 <header>
   <div class="brand">
     <span class="logo">💖</span>
-    <h1>Teenieping <span>Catcher</span></h1>
-  </div>
-  <div class="tabs">
-    <button class="tab on" id="tabPlay" onclick="showMode('play')">🎮 Play</button>
-    <button class="tab" id="tabWord" onclick="showMode('word')">🔤 Words</button>
-    <button class="tab" id="tabTimer" onclick="showMode('timer')">⏱ Timer</button>
-    <button class="tab" id="tabStory" onclick="showMode('story')">📜 Stories</button>
-    <button class="tab" id="tabBook" onclick="showMode('book')">📖 Handbook</button>
+    <h1>Willow's Catch! <span>Compact</span></h1>
+    <button class="homebtn hidden" id="homeBtn" onclick="showMode('home')">🏠 Apps</button>
   </div>
 </header>
 
 <main>
+  <!-- ============ HOME (Compact app screen) ============ -->
+  <section id="home">
+    <div class="compact">
+      <div class="compact-greet">Hi Willow! 💖<span>Tap an app to play</span></div>
+      <div class="appgrid">
+        <button class="appicon" style="--c1:#FF8FBE;--c2:#E84C8B" onclick="showMode('play')"><span class="ai-emoji">🎮</span><span class="ai-label">Play</span></button>
+        <button class="appicon" style="--c1:#5FE0C0;--c2:#2FAE90" onclick="showMode('word')"><span class="ai-emoji">🔤</span><span class="ai-label">Words</span></button>
+        <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">⏱</span><span class="ai-label">Timer</span></button>
+        <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('story')"><span class="ai-emoji">📜</span><span class="ai-label">Stories</span></button>
+        <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">📖</span><span class="ai-label">Handbook</span></button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ QUIZ ============ -->
-  <section id="play">
+  <section id="play" class="hidden">
     <div class="scorebar">
       <span>💗 Caught: <span id="scCaught">0</span></span>
       <span class="streak">🔥 Streak: <span id="scStreak">0</span></span>
@@ -893,16 +930,14 @@ function escAttr(s){return esc(s);}
 
 /* ================= MODE SWITCH ================= */
 function showMode(m){
+  $('home').classList.toggle('hidden', m!=='home');
   $('play').classList.toggle('hidden', m!=='play');
   $('word').classList.toggle('hidden', m!=='word');
   $('timer').classList.toggle('hidden', m!=='timer');
   $('story').classList.toggle('hidden', m!=='story');
   $('book').classList.toggle('hidden', m!=='book');
-  $('tabPlay').classList.toggle('on', m==='play');
-  $('tabWord').classList.toggle('on', m==='word');
-  $('tabTimer').classList.toggle('on', m==='timer');
-  $('tabStory').classList.toggle('on', m==='story');
-  $('tabBook').classList.toggle('on', m==='book');
+  $('homeBtn').classList.toggle('hidden', m==='home');
+  window.scrollTo(0,0);
 }
 
 /* ================= HANDBOOK ================= */
@@ -1302,6 +1337,7 @@ function makeMadLib(){
 
 /* ================= INIT ================= */
 buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
+showMode('home');
 </script>
 </body>
 </html>
