@@ -148,6 +148,74 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .pcard{position:relative;}
 .tag{font:800 10px 'Baloo 2'; letter-spacing:.4px; padding:2px 8px; border-radius:999px; color:#fff;}
 
+/* ---------- Today's Team (daily check-in) ---------- */
+.today-date{font:800 13px 'Baloo 2'; color:var(--pink-deep); letter-spacing:.6px; text-transform:uppercase; margin-bottom:8px;}
+.today-hi{display:flex; gap:12px; align-items:center; background:#fff; border:2px solid #FFE9F1; border-radius:var(--r); padding:12px 14px;}
+.today-hi .badge{width:58px; height:58px; flex-basis:58px; font-size:28px;}
+.tg-main{font:800 17px 'Baloo 2'; line-height:1.25;}
+.tg-sub{font:700 12.5px 'Nunito'; color:var(--ink-soft); margin-top:3px; line-height:1.4;}
+
+.team-slots{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0 4px;}
+.slot{background:none; border:0; padding:0; display:flex; flex-direction:column; align-items:center; gap:5px; position:relative;}
+.slot.empty .slot-plus{
+  width:64px; height:64px; border-radius:50%; border:3px dashed #FFC9DE; background:#FFF7FB;
+  display:flex; align-items:center; justify-content:center; color:#FFA9C6; font:800 22px 'Baloo 2';
+}
+.slot.filled{cursor:pointer;}
+.slot .badge{width:64px; height:64px; flex-basis:64px; font-size:30px;}
+.slot-nm{font:800 11px 'Baloo 2'; color:var(--ink); line-height:1; text-align:center;}
+.slot-x{position:absolute; top:-3px; right:6px; background:var(--pink-deep); color:#fff; width:20px; height:20px;
+  border-radius:50%; font:800 13px 'Baloo 2'; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(71,42,68,.25);}
+.team-status{text-align:center; font:800 13px 'Baloo 2'; color:var(--ink-soft); margin:8px 0 14px;}
+
+.today-input, .today-search{
+  width:100%; border:2px solid #FFD3E3; border-radius:16px; padding:12px 14px;
+  font:700 16px 'Nunito'; color:var(--ink); background:#fff; outline:none;
+}
+.today-input:focus, .today-search:focus{border-color:var(--pink);}
+.today-tags{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 2px;}
+.help-label{font:800 13px 'Baloo 2'; color:var(--ink-soft); margin:16px 0 6px;}
+.help-row{display:flex; flex-wrap:wrap; gap:6px;}
+
+.suggest-banner{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap; position:relative;
+  background:linear-gradient(160deg,#FFF0F6,#FFE3EF); border:2px solid #FFD3E3;
+  border-radius:var(--r); padding:14px; margin:14px 0;
+}
+.suggest-banner .badge{width:60px; height:60px; flex-basis:60px; font-size:28px;}
+.sb-body{flex:1; min-width:130px;}
+.sb-why{font:700 12px 'Nunito'; color:var(--ink-soft);}
+.sb-name{font:800 19px 'Baloo 2'; color:var(--pink-deep); line-height:1.1;}
+.sb-power{font:700 13px 'Nunito'; color:var(--ink);}
+.sb-btns{display:flex; gap:8px; width:100%;}
+.sb-close{position:absolute; top:6px; right:12px; background:none; border:0; cursor:pointer; color:var(--ink-soft); font:800 18px 'Baloo 2';}
+
+.pool-head{display:flex; align-items:center; justify-content:space-between; margin:18px 0 8px;}
+.pool-title{font:800 17px 'Baloo 2';}
+.pool-shuffle{border:0; background:#FFE7F0; color:var(--pink-deep); border-radius:999px; padding:7px 13px; font:800 13px 'Baloo 2'; cursor:pointer;}
+.pool-shuffle:active{transform:scale(.96);}
+.pcard .pick-check{position:absolute; top:6px; left:8px; font-size:16px;}
+.pcard.picked{opacity:.5; border-color:var(--pink);}
+.pool-empty{grid-column:1/-1; text-align:center; color:var(--ink-soft); font:700 14px 'Nunito'; padding:16px;}
+
+.team-final{
+  margin-top:22px; text-align:center; background:linear-gradient(165deg,#FFE1EC,#FFF3F8);
+  border:3px solid #fff; border-radius:28px; padding:22px 18px 20px;
+  box-shadow:0 12px 0 rgba(232,76,139,.14), inset 0 0 0 3px rgba(255,255,255,.5);
+  animation:finalpop .5s ease;
+}
+@keyframes finalpop{0%{transform:scale(.92); opacity:0;}100%{transform:scale(1); opacity:1;}}
+.tf-spark{font-size:26px;}
+.tf-title{font:800 24px 'Baloo 2';}
+.tf-sub{font:700 13px 'Nunito'; color:var(--ink-soft); margin-bottom:16px;}
+.tf-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px;}
+.tf-member{display:flex; flex-direction:column; align-items:center; gap:4px;}
+.tf-member .badge{width:60px; height:60px; flex-basis:60px; font-size:28px;}
+.tf-nm{font:800 12px 'Baloo 2'; line-height:1;}
+.tf-for{font:700 10px 'Nunito'; color:var(--ink-soft); line-height:1.2;}
+.tf-note{font:800 14px 'Baloo 2'; color:var(--pink-deep); margin:8px 0 14px; line-height:1.35;}
+.tf-btns{display:flex; gap:8px;}
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -382,6 +450,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     <div class="compact">
       <div class="compact-greet">Teenie-P Time, Willow! 💖<span>Tap a Compact app to play</span></div>
       <div class="appgrid">
+        <button class="appicon" style="--c1:#FFAFC8;--c2:#F06FA0" onclick="showMode('today')"><span class="ai-emoji">💖</span><span class="ai-label">Today</span><span class="ai-sub">Today's team</span></button>
         <button class="appicon" style="--c1:#FF8FBE;--c2:#E84C8B" onclick="showMode('play')"><span class="ai-emoji">💫</span><span class="ai-label">Catch!</span><span class="ai-sub">Who's that ping?</span></button>
         <button class="appicon" style="--c1:#5FE0C0;--c2:#2FAE90" onclick="showMode('word')"><span class="ai-emoji">🔑</span><span class="ai-label">Secret Catch</span><span class="ai-sub">Crack the word</span></button>
         <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">💎</span><span class="ai-label">Twinkle Timer</span><span class="ai-sub">Beat the clock</span></button>
@@ -389,6 +458,47 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
       </div>
     </div>
+  </section>
+
+  <!-- ============ TODAY'S TEAM (daily check-in) ============ -->
+  <section id="today" class="hidden">
+    <div class="today-date" id="todayDate">Today</div>
+    <div class="today-hi">
+      <div id="hearHost"></div>
+      <div>
+        <div class="tg-main">Hi Willow. Who should come along today?</div>
+        <div class="tg-sub">Pick four Teeniepings to bring with you. There are no wrong picks. 💖</div>
+      </div>
+    </div>
+
+    <div class="team-slots" id="teamSlots"></div>
+    <div class="team-status" id="teamStatus"></div>
+
+    <input class="today-input" id="todayNote" placeholder="What's happening today?" autocomplete="off">
+    <div class="today-tags" id="todayTags"></div>
+
+    <div class="help-label">Not sure who? Ask Heartsping — only if you want to. 💗</div>
+    <div class="help-row" id="helpRow">
+      <button class="chip" onclick="heartsuggest()">💗 Heartsping, suggest one</button>
+      <button class="chip" onclick="surpriseTeam()">✨ Surprise me</button>
+      <button class="chip" onclick="showHelpers('cozy')">🧸 Cozy</button>
+      <button class="chip" onclick="showHelpers('brave')">⚡ Brave</button>
+      <button class="chip" onclick="showHelpers('focus')">📚 Focus</button>
+      <button class="chip" onclick="showHelpers('fun')">🎉 Fun</button>
+      <button class="chip" onclick="showHelpers('calm')">🍀 Calm</button>
+      <button class="chip" onclick="showHelpers('all')">🌈 Everyone</button>
+    </div>
+
+    <div class="suggest-banner hidden" id="suggestBanner"></div>
+
+    <div class="pool-head">
+      <div class="pool-title" id="poolTitle">Who wants to come along?</div>
+      <button class="pool-shuffle" onclick="shufflePool()">🔀 Shuffle</button>
+    </div>
+    <input class="today-search" id="poolSearch" placeholder="Search by name…" autocomplete="off" oninput="renderPool()">
+    <div class="grid" id="poolGrid" style="margin-top:10px"></div>
+
+    <div class="team-final hidden" id="teamFinal"></div>
   </section>
 
   <!-- ============ QUIZ ============ -->
@@ -946,12 +1056,14 @@ function escAttr(s){return esc(s);}
 /* ================= MODE SWITCH ================= */
 function showMode(m){
   $('home').classList.toggle('hidden', m!=='home');
+  $('today').classList.toggle('hidden', m!=='today');
   $('play').classList.toggle('hidden', m!=='play');
   $('word').classList.toggle('hidden', m!=='word');
   $('timer').classList.toggle('hidden', m!=='timer');
   $('story').classList.toggle('hidden', m!=='story');
   $('book').classList.toggle('hidden', m!=='book');
   $('homeBtn').classList.toggle('hidden', m==='home');
+  if(m==='today') renderTodayDate();
   window.scrollTo(0,0);
 }
 
@@ -968,6 +1080,187 @@ const POTD_INTROS = ["Ping of the Day!","Wild ping spotted!","Catch this one!","
 function pingOfTheDay(){
   const p = pick(PINGS);
   toast(`${p.m} ${pick(POTD_INTROS)} <b>${esc(p.n)}</b> — ${esc(p.p)}`);
+}
+
+/* ================= TODAY'S TEAM ================= */
+let team = [];
+const todayTags = new Set();
+let poolMode = 'all';
+let poolCandidates = [];
+
+const TODAY_TAGS = ["Big day","Quiet day","Something new","Lots of people","Need cozy","Need brave","Just for fun"];
+const TODAY_HELPERS = {
+  cozy:  ["comfort","cozy","snuggle","sleep","sleepy","baby","toy","kindness","warm","gentle","care","cuddle"],
+  brave: ["courage","brave","challenge","competition","hero","strength","strong","fear","dare","anger","roar"],
+  focus: ["studying","study","neat","tidy","clean","organiz","rightness","curiosity","art","smart","goodness","paint"],
+  fun:   ["joy","fun","laughter","laugh","play","music","song","party","game","silly","speed","cute","dance","toy"],
+  calm:  ["hope","calm","trust","luck","nature","peace","flower","quiet","dream","imagination","gentle","clover"],
+};
+const HELPER_TITLES = {all:"Who wants to come along?", cozy:"Cozy helpers 🧸", brave:"Brave helpers ⚡", focus:"Focus helpers 📚", fun:"Fun helpers 🎉", calm:"Calm helpers 🍀"};
+const TAG_BIAS = {"Big day":"brave","Quiet day":"cozy","Something new":"fun","Lots of people":"calm","Need cozy":"cozy","Need brave":"brave","Just for fun":"fun"};
+
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pingMatches(p, keys){
+  const words = (p.n+" "+p.e+" "+p.p+" "+(p.d||"")).toLowerCase().split(/[^a-z]+/);
+  return keys.some(k => words.some(w => w===k || w.startsWith(k)));
+}
+
+function todayKey(){ const d=new Date(); return `wct-today-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+function saveToday(){ try{ localStorage.setItem(todayKey(), JSON.stringify({team, note:$('todayNote').value, tags:[...todayTags]})); }catch(e){} }
+function loadToday(){
+  try{
+    const raw = localStorage.getItem(todayKey());
+    if(!raw) return;
+    const o = JSON.parse(raw);
+    team = (o.team||[]).filter(n=>PINGS.some(p=>p.n===n)).slice(0,4);
+    (o.tags||[]).forEach(t=>todayTags.add(t));
+    if(o.note!=null) $('todayNote').value = o.note;
+  }catch(e){}
+}
+function renderTodayDate(){
+  $('todayDate').textContent = new Date().toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'});
+}
+function buildTodayTags(){
+  $('todayTags').innerHTML = TODAY_TAGS.map(t=>
+    `<button class="chip ${todayTags.has(t)?'on':''}" data-tag="${escAttr(t)}" onclick="toggleTag(this.dataset.tag)">${esc(t)}</button>`
+  ).join('');
+}
+function toggleTag(t){ todayTags.has(t)?todayTags.delete(t):todayTags.add(t); buildTodayTags(); saveToday(); }
+
+function renderSlots(){
+  let h='';
+  for(let i=0;i<4;i++){
+    const name = team[i];
+    if(name){
+      const p = PINGS.find(x=>x.n===name);
+      h += `<button class="slot filled" data-name="${escAttr(name)}" onclick="removeFromTeam(this.dataset.name)" title="Tap to take out">
+        ${badgeHTML(p)}<span class="slot-nm">${esc(name)}</span><span class="slot-x">×</span></button>`;
+    } else {
+      h += `<div class="slot empty"><span class="slot-plus">${i+1}</span></div>`;
+    }
+  }
+  $('teamSlots').innerHTML = h;
+  const left = 4 - team.length;
+  $('teamStatus').textContent = team.length===0 ? "Tap a Teenieping below to bring them along."
+    : left>0 ? `${team.length} chosen · ${left} more to go` : "Your team is ready! 💖";
+  renderFinal();
+}
+
+function addToTeam(name){
+  if(team.includes(name)){ removeFromTeam(name); return; }
+  if(team.length>=4){ toast("💖 Your team is full! Tap a teammate to make room."); return; }
+  team.push(name);
+  const full = team.length===4;
+  saveToday(); renderSlots(); renderPool();
+  if(full){ setTimeout(()=>{ $('teamFinal').scrollIntoView({behavior:'smooth', block:'center'}); burstHearts(); }, 80); }
+}
+function removeFromTeam(name){ team = team.filter(n=>n!==name); saveToday(); renderSlots(); renderPool(); }
+
+function setPoolMode(mode){
+  poolMode = mode;
+  $('poolTitle').textContent = HELPER_TITLES[mode] || HELPER_TITLES.all;
+  poolCandidates = mode==='all' ? shuffle(PINGS) : shuffle(PINGS.filter(p=>pingMatches(p, TODAY_HELPERS[mode]||[])));
+  if(!poolCandidates.length) poolCandidates = shuffle(PINGS);
+  $('poolSearch').value = '';
+  renderPool();
+}
+function showHelpers(g){ setPoolMode(g); $('poolTitle').scrollIntoView({behavior:'smooth', block:'nearest'}); }
+function shufflePool(){ poolCandidates = shuffle(poolCandidates); renderPool(); }
+function renderPool(){
+  const q = ($('poolSearch').value||'').trim().toLowerCase();
+  const list = q ? PINGS.filter(p=>p.n.toLowerCase().includes(q) || p.e.toLowerCase().includes(q)) : poolCandidates.slice(0,12);
+  $('poolGrid').innerHTML = list.map(p=>{
+    const picked = team.includes(p.n);
+    return `<div class="pcard ${picked?'picked':''}" data-name="${escAttr(p.n)}" onclick="addToTeam(this.dataset.name)">
+      ${picked?'<span class="pick-check">💖</span>':''}
+      ${badgeHTML(p)}
+      <div class="nm">${esc(p.n)}</div>
+      <div class="em">Teenieping of ${esc(p.e)}</div>
+    </div>`;
+  }).join('') || `<div class="pool-empty">No Teenieping by that name — try another! 💭</div>`;
+}
+
+function heartsuggest(){
+  const groups = [...todayTags].map(t=>TAG_BIAS[t]).filter(Boolean);
+  let pool;
+  if(groups.length){
+    const keys = [].concat(...groups.map(g=>TODAY_HELPERS[g]||[]));
+    pool = PINGS.filter(p=>pingMatches(p, keys));
+  } else {
+    pool = PINGS.slice();
+  }
+  pool = pool.filter(p=>!team.includes(p.n));
+  if(!pool.length) pool = PINGS.filter(p=>!team.includes(p.n));
+  if(!pool.length){ toast("💖 Your team is already full!"); return; }
+  const p = pick(pool);
+  const why = groups.length ? "Heartsping thought of someone for today…" : "Heartsping picked a friend for you…";
+  const b = $('suggestBanner');
+  b.classList.remove('hidden');
+  b.innerHTML = `<button class="sb-close" onclick="hideSuggest()" title="No thanks">×</button>
+    ${badgeHTML(p)}
+    <div class="sb-body">
+      <div class="sb-why">💗 ${esc(why)}</div>
+      <div class="sb-name">${esc(p.n)}</div>
+      <div class="sb-power">${esc(p.p)}</div>
+    </div>
+    <div class="sb-btns">
+      <button class="bigbtn" data-name="${escAttr(p.n)}" onclick="addToTeam(this.dataset.name); hideSuggest();">Bring along 💖</button>
+      <button class="bigbtn ghost" onclick="heartsuggest()">Someone else</button>
+    </div>`;
+}
+function hideSuggest(){ $('suggestBanner').classList.add('hidden'); }
+function surpriseTeam(){
+  if(team.length>=4){ toast("💖 Your team is full — tap someone to swap!"); return; }
+  const pool = PINGS.filter(p=>!team.includes(p.n));
+  if(pool.length) addToTeam(pick(pool).n);
+}
+
+function renderFinal(){
+  const el = $('teamFinal');
+  if(team.length<4){ el.classList.add('hidden'); el.innerHTML=''; return; }
+  const items = team.map(n=>{
+    const p = PINGS.find(x=>x.n===n);
+    return `<div class="tf-member">${badgeHTML(p)}<div class="tf-nm">${esc(p.n)}</div><div class="tf-for">${esc(p.p)}</div></div>`;
+  }).join('');
+  el.innerHTML = `<div class="tf-spark">✨💖✨</div>
+    <div class="tf-title">Today's Team</div>
+    <div class="tf-sub">These four are coming with you, Willow.</div>
+    <div class="tf-grid">${items}</div>
+    <div class="tf-note">Whenever you need them, they're right here. 💗</div>
+    <div class="tf-btns">
+      <button class="bigbtn" onclick="celebrateTeam()">Start my day ✨</button>
+      <button class="bigbtn ghost" onclick="newCheckin()">New check-in</button>
+    </div>`;
+  el.classList.remove('hidden');
+}
+function celebrateTeam(){ burstHearts(); toast("💖 Have a lovely day, Willow!"); }
+function newCheckin(){
+  team = []; todayTags.clear(); $('todayNote').value='';
+  hideSuggest(); saveToday(); buildTodayTags(); setPoolMode('all'); renderSlots();
+  $('todayDate').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function burstHearts(){
+  const emojis = ['💖','💗','💓','✨','⭐','🌟','💫'];
+  for(let i=0;i<16;i++){
+    const h = document.createElement('div');
+    h.className = 'heart fly'; h.textContent = pick(emojis);
+    h.style.position='fixed'; h.style.left=(45+Math.random()*10)+'%'; h.style.top='58%';
+    h.style.fontSize=(16+Math.random()*18)+'px'; h.style.zIndex=80; h.style.opacity='1';
+    h.style.setProperty('--dx', (Math.random()*320-160)+'px');
+    h.style.setProperty('--dy', (-130-Math.random()*200)+'px');
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 1100);
+  }
+}
+function initToday(){
+  const hearts = PINGS.find(p=>p.n==='Heartsping') || PINGS[0];
+  $('hearHost').innerHTML = badgeHTML(hearts);
+  loadToday();
+  renderTodayDate();
+  buildTodayTags();
+  setPoolMode('all');
+  renderSlots();
+  $('todayNote').addEventListener('input', saveToday);
 }
 
 /* ================= HANDBOOK ================= */
@@ -1367,6 +1660,7 @@ function makeMadLib(){
 
 /* ================= INIT ================= */
 buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
+initToday();
 showMode('home');
 </script>
 </body>
