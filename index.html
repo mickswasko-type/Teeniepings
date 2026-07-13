@@ -65,25 +65,67 @@ header{
 /* ---------- Compact home screen ---------- */
 #home{padding-top:8px;}
 .compact{
-  position:relative; margin-top:14px;
+  position:relative; margin-top:26px;
   background:linear-gradient(160deg,#FFD8E8,#FFF0F6);
-  border:3px solid #fff; border-radius:34px; padding:22px 18px 26px;
-  box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55);
+  border:3px solid #fff; border-radius:34px; padding:26px 18px 26px;
+  box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55), 0 0 22px 3px rgba(255,140,190,.4);
+  animation:compactBreathe 6s ease-in-out infinite;
 }
-.compact::before{ /* heart clasp, like the top of the toy Compact */
-  content:"💗"; position:absolute; top:-18px; left:50%; transform:translateX(-50%);
-  font-size:30px; filter:drop-shadow(0 3px 0 rgba(232,76,139,.22));
+/* scalloped "cupcake" base peeking below, like the toy's fluted bottom */
+.compact::after{
+  content:""; position:absolute; left:28px; right:28px; bottom:-12px; height:18px; z-index:-1;
+  background:radial-gradient(circle at 50% 0, #F3A6C6 0 8px, transparent 9px) 0 0/22px 18px repeat-x;
 }
+/* multicolor "breathing lights" (多彩呼吸灯) */
+@keyframes compactBreathe{
+  0%,100%{ box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55), 0 0 22px 3px rgba(255,140,190,.45); }
+  33%{ box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55), 0 0 27px 5px rgba(150,180,255,.5); }
+  66%{ box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55), 0 0 27px 5px rgba(140,224,190,.5); }
+}
+
+/* gold bow + iridescent gem clasp */
+.clasp{ position:absolute; top:-22px; left:50%; transform:translateX(-50%); width:80px; height:34px; z-index:3; }
+.bow{ position:absolute; inset:0; }
+.bow::before,.bow::after{
+  content:""; position:absolute; top:2px; width:36px; height:30px;
+  background:linear-gradient(135deg,#FFEEB0,#F3B63E 55%,#D98A1C);
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.7), inset 0 -3px 4px rgba(150,90,10,.35);
+}
+.bow::before{ left:2px; clip-path:polygon(0 14%,0 86%,100% 50%); }
+.bow::after{ right:2px; clip-path:polygon(100% 14%,100% 86%,0 50%); }
+.clasp-gem{
+  position:absolute; left:50%; top:50%; width:22px; height:20px;
+  transform:translate(-50%,-50%); z-index:4; animation:gemBreathe 3s ease-in-out infinite;
+}
+.clasp-gem::before,.clasp-gem::after{
+  content:""; position:absolute; top:0; width:11px; height:17px; border-radius:11px 11px 0 0;
+  background:linear-gradient(135deg,#a9e9ff,#cbacff 50%,#ff9ede);
+}
+.clasp-gem::before{ left:11px; transform:rotate(-45deg); transform-origin:0 100%; }
+.clasp-gem::after{ left:0; transform:rotate(45deg); transform-origin:100% 100%; }
+@keyframes gemBreathe{
+  0%,100%{ filter:drop-shadow(0 0 3px rgba(169,233,255,.95)); }
+  33%{ filter:drop-shadow(0 0 6px rgba(203,172,255,1)); }
+  66%{ filter:drop-shadow(0 0 6px rgba(255,158,222,1)); }
+}
+@media (prefers-reduced-motion:reduce){ .compact,.clasp-gem{ animation:none; } }
 .compact-greet{text-align:center; font:800 22px 'Baloo 2'; color:var(--ink); margin:4px 0 18px;}
 .compact-greet span{display:block; margin-top:2px; font:700 14px 'Nunito'; color:var(--ink-soft);}
 .appgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .appicon{
+  position:relative; overflow:hidden;
   border:0; cursor:pointer; border-radius:24px; padding:16px 6px 12px;
   display:flex; flex-direction:column; align-items:center; gap:9px;
   background:linear-gradient(160deg,var(--c1),var(--c2));
   box-shadow:0 6px 0 rgba(71,42,68,.16), inset 0 2px 0 rgba(255,255,255,.5);
   transition:transform .12s, box-shadow .12s;
 }
+.appicon::before{ /* glossy gem sheen */
+  content:""; position:absolute; top:0; left:0; right:0; height:46%;
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0));
+  pointer-events:none;
+}
+.appicon > *{ position:relative; }
 .appicon:active{transform:translateY(3px); box-shadow:0 3px 0 rgba(71,42,68,.16), inset 0 2px 0 rgba(255,255,255,.5);}
 .ai-emoji{
   font-size:32px; width:58px; height:58px; border-radius:18px;
@@ -473,6 +515,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
   <!-- ============ HOME (Compact app screen) ============ -->
   <section id="home">
     <div class="compact">
+      <div class="clasp" aria-hidden="true"><span class="bow"></span><span class="clasp-gem"></span></div>
       <div class="compact-greet">Teenie-P Time, Willow! 💖<span>Tap a Compact app to play</span></div>
       <div class="appgrid">
         <button class="appicon" style="--c1:#FFAFC8;--c2:#F06FA0" onclick="showMode('today')"><span class="ai-emoji">💖</span><span class="ai-label">Today</span><span class="ai-sub">Today's team</span></button>
