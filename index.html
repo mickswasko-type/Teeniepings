@@ -54,9 +54,10 @@ header{
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .brand h1{font-size:22px; margin:0; letter-spacing:.3px;}
 .brand h1 span{color:var(--pink-deep);}
-.tabs{display:flex; gap:8px; margin-top:8px;}
+.tabs{display:flex; gap:8px; margin-top:8px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
 .tab{
-  flex:1; border:0; border-radius:16px; padding:10px 0; font:800 16px 'Baloo 2';
+  flex:0 0 auto; min-width:104px; border:0; border-radius:16px; padding:10px 12px; font:800 16px 'Baloo 2';
   color:var(--ink-soft); background:#FFE7F0; cursor:pointer; transition:transform .1s;
 }
 .tab.on{background:var(--pink); color:#fff; box-shadow:var(--shadow);}
@@ -252,6 +253,65 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
   .word-keyboard{grid-template-columns:repeat(6,1fr);}
   .keybtn{min-height:40px;}
 }
+
+/* ---------- timer ---------- */
+.tool-card{
+  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  padding:16px; text-align:center; overflow:hidden;
+}
+.timer-face{
+  position:relative; width:min(290px,100%); aspect-ratio:1; margin:0 auto 14px;
+  border-radius:50%; background:radial-gradient(circle at 50% 42%,#fff 0 46%,#FFE7F0 47% 100%);
+  border:7px solid #fff; box-shadow:0 8px 20px rgba(71,42,68,.14), inset 0 -10px 0 rgba(255,111,165,.08);
+  display:grid; place-items:center;
+}
+.timer-face:before,.timer-face:after{
+  content:""; position:absolute; top:22px; width:58px; height:70px; border-radius:50% 50% 42% 42%;
+  background:#FFB6D2; border:6px solid #fff; z-index:-1;
+}
+.timer-face:before{left:22px; transform:rotate(-28deg);}
+.timer-face:after{right:22px; transform:rotate(28deg);}
+.timer-label{font:800 15px 'Baloo 2'; color:var(--pink-deep);}
+.timer-main{font:800 54px 'Baloo 2'; line-height:.95; color:var(--ink);}
+.timer-seconds{font:800 23px 'Baloo 2'; color:var(--mint);}
+.timer-sub{font:700 13px 'Nunito'; color:var(--ink-soft);}
+.timer-controls{display:grid; gap:10px;}
+.segrow{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.segbtn,.presetbtn,.stepbtn{
+  border:2px solid #FFD3E3; border-radius:14px; background:#FFF9FB;
+  padding:10px; font:800 15px 'Baloo 2'; color:var(--ink); cursor:pointer;
+}
+.segbtn.on,.presetbtn.on{background:var(--pink); border-color:var(--pink); color:#fff;}
+.segbtn:disabled,.presetbtn:disabled,.stepbtn:disabled{opacity:.55; cursor:default;}
+.presets{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+.steprow{display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:center;}
+.duration-pill{border-radius:14px; background:#FFF4F8; padding:10px; font:800 16px 'Baloo 2'; color:var(--ink);}
+.timer-actions{display:flex; gap:8px;}
+.timer-done{animation:timerPulse .8s ease-in-out infinite alternate;}
+@keyframes timerPulse{from{transform:scale(1)}to{transform:scale(1.025)}}
+
+/* ---------- mad libs ---------- */
+.mad-card{text-align:left;}
+.mad-head{display:flex; gap:12px; align-items:center; margin-bottom:12px;}
+.mad-mark{width:56px; height:56px; border-radius:18px; display:grid; place-items:center; background:#FFE7F0; font-size:28px; flex:0 0 56px;}
+.mad-title{font:800 23px 'Baloo 2'; line-height:1.1;}
+.mad-sub{font:700 13px 'Nunito'; color:var(--ink-soft);}
+.mad-select{width:100%; border:2px solid #FFD3E3; border-radius:16px; padding:11px 12px; font:800 15px 'Baloo 2'; color:var(--ink); background:#FFF9FB; outline:none;}
+.mad-fields{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px;}
+.mad-field label{display:block; font:800 12px 'Baloo 2'; color:var(--pink-deep); margin:0 0 3px 4px;}
+.mad-field input{
+  width:100%; border:2px solid #FFD3E3; border-radius:14px; padding:10px 11px;
+  font:700 15px 'Nunito'; color:var(--ink); background:#fff; outline:none;
+}
+.mad-field input:focus{border-color:var(--pink);}
+.mad-actions{display:flex; gap:8px; margin-top:12px;}
+.story-output{margin-top:14px; padding:14px; background:#FFF4F8; border-radius:18px; font:700 16px 'Nunito'; line-height:1.5;}
+.story-output b{font-family:'Baloo 2'; color:var(--pink-deep);}
+@media(max-width:500px){
+  .presets{grid-template-columns:repeat(2,1fr);}
+  .mad-fields{grid-template-columns:1fr;}
+  .timer-main{font-size:48px;}
+}
 .setuprow{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
 footer{
   position:fixed; bottom:0; left:0; right:0; text-align:center; padding:8px;
@@ -274,6 +334,8 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
   <div class="tabs">
     <button class="tab on" id="tabPlay" onclick="showMode('play')">🎮 Play</button>
     <button class="tab" id="tabWord" onclick="showMode('word')">🔤 Words</button>
+    <button class="tab" id="tabTimer" onclick="showMode('timer')">⏱ Timer</button>
+    <button class="tab" id="tabStory" onclick="showMode('story')">📜 Stories</button>
     <button class="tab" id="tabBook" onclick="showMode('book')">📖 Handbook</button>
   </div>
 </header>
@@ -336,6 +398,56 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="bigbtn ghost" onclick="revealWord()">Peek</button>
         <button class="bigbtn" onclick="newWordRound()">New word</button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ TEENIE TIMER ============ -->
+  <section id="timer" class="hidden">
+    <div class="tool-card">
+      <div class="timer-face" id="timerFace">
+        <div>
+          <div class="timer-label" id="timerLabel">Time remaining</div>
+          <div class="timer-main" id="timerMain">01:00</div>
+          <div class="timer-seconds" id="timerSeconds">60 seconds</div>
+          <div class="timer-sub" id="timerSub">Setup is unlocked.</div>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <div class="segrow">
+          <button class="segbtn on" id="timerModeDown" onclick="setTimerMode('down')">Countdown</button>
+          <button class="segbtn" id="timerModeUp" onclick="setTimerMode('up')">Count up</button>
+        </div>
+        <div class="presets" id="timerPresets"></div>
+        <div class="steprow">
+          <button class="stepbtn" id="timerMinus" onclick="adjustTimerDuration(-15)">-15 sec</button>
+          <div class="duration-pill" id="timerDurationLabel">Set for 60 seconds</div>
+          <button class="stepbtn" id="timerPlus" onclick="adjustTimerDuration(15)">+15 sec</button>
+        </div>
+        <div class="timer-actions">
+          <button class="bigbtn" id="timerStart" onclick="toggleTimer()">Start</button>
+          <button class="bigbtn ghost" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAD LIBS ============ -->
+  <section id="story" class="hidden">
+    <div class="tool-card mad-card">
+      <div class="mad-head">
+        <div class="mad-mark">📜</div>
+        <div>
+          <div class="mad-title">Teenieping Story Maker</div>
+          <div class="mad-sub">Fill the blanks, then make a silly adventure.</div>
+        </div>
+      </div>
+      <select class="mad-select" id="madSelect" onchange="renderMadLib()"></select>
+      <div class="mad-fields" id="madFields"></div>
+      <div class="mad-actions">
+        <button class="bigbtn ghost" onclick="randomizeMadLib()">Surprise me</button>
+        <button class="bigbtn" onclick="makeMadLib()">Make story</button>
+      </div>
+      <div class="story-output" id="storyOutput"></div>
     </div>
   </section>
 
@@ -674,6 +786,48 @@ const WORD_PHRASES = [
   {text:"Rainbow Macaron", category:"Treat", hint:"A colorful dessert phrase."},
   {text:"Choco Balls", category:"Treat", hint:"Trustping's favorite snack."}
 ];
+const MAD_STORIES = [
+  {
+    title:"Willow and the Tiny Trouble",
+    fields:[["hero","person","Willow"],["teenie","Teenieping","Heartsping"],["place","place","Harmony Town"],["snack","snack","cupcake"],["adj","describing word","sparkly"],["object","object","backpack"]],
+    make:p=>`<b>${p.hero}</b> was visiting <b>${p.place}</b> when <b>${p.teenie}</b> made every <b>${p.object}</b> bounce like a <b>${p.adj}</b> balloon. Romi brought the Magic Catcher, but ${p.hero} solved it first by offering a peaceful <b>${p.snack}</b>. Everyone cheered, and ${p.teenie} promised to only bounce things on special picnic days.`
+  },
+  {
+    title:"Dessert Village Picnic",
+    fields:[["hero","person","Willow"],["dessert","dessert","macaron"],["teenie","Teenieping","Jellyping"],["color","color","rainbow"],["action","action word","twirling"],["place","place","Dessert Village"]],
+    make:p=>`At the <b>${p.place}</b> picnic, <b>${p.hero}</b> found a <b>${p.color}</b> <b>${p.dessert}</b> that would not stop <b>${p.action}</b>. <b>${p.teenie}</b> giggled so hard the plates started dancing too. Romi said, "Mystery solved!" and everyone shared the dessert before it could roll away.`
+  },
+  {
+    title:"The Secret Door",
+    fields:[["hero","person","Willow"],["teenie","Teenieping","Trustping"],["place","place","Mystic Town"],["thing","object","key"],["feeling","feeling","brave"],["sound","sound","ding-ding"]],
+    make:p=>`A little <b>${p.thing}</b> in <b>${p.place}</b> made a <b>${p.sound}</b> sound whenever <b>${p.hero}</b> got close. <b>${p.teenie}</b> felt very <b>${p.feeling}</b> and helped open a secret door. Behind it was not a monster at all, just a room full of tiny pillows and one very sleepy Teenieping.`
+  },
+  {
+    title:"Star Village Countdown",
+    fields:[["hero","person","Willow"],["teenie","Teenieping","Twinkleping"],["number","number","10"],["place","place","Space Star Village"],["object","object","star sticker"],["adj","describing word","glowy"]],
+    make:p=>`In <b>${p.place}</b>, <b>${p.hero}</b> counted down from <b>${p.number}</b> while <b>${p.teenie}</b> held a <b>${p.adj}</b> <b>${p.object}</b>. When the countdown reached zero, the sky made a heart-shaped sparkle. Heartsping called it the best tiny celebration in the galaxy.`
+  },
+  {
+    title:"Romi's Silly Catch",
+    fields:[["teenie","Teenieping","Nonoping"],["place","place","Harmony Town"],["snack","snack","broccoli"],["object","object","roller skate"],["adj","describing word","wiggly"],["phrase","silly phrase","sparkle snack attack"]],
+    make:p=>`Romi chased <b>${p.teenie}</b> through <b>${p.place}</b> after a <b>${p.adj}</b> <b>${p.object}</b> started yelling, "${p.phrase}!" The only thing that calmed everything down was a plate of <b>${p.snack}</b>. Even the Magic Catcher seemed impressed.`
+  }
+];
+const MAD_FILLERS = {
+  person:["Willow","Romi","Maya","a tiny princess","the snack captain"],
+  Teenieping:["Heartsping","Jellyping","Nonoping","Trustping","Shashaping","Lalaping","Gogoping","Fluffyping"],
+  place:["Harmony Town","Dessert Village","Space Star Village","Mystic Town","Emotion Kingdom","the tea table"],
+  snack:["cupcake","cotton candy","choco balls","rainbow macaron","broccoli","strawberry pudding"],
+  dessert:["macaron","jelly cup","waffle","pancake","marshmallow","ice cream"],
+  "describing word":["sparkly","wiggly","tiny","bouncy","glowy","super sweet"],
+  object:["backpack","key","star sticker","roller skate","tea cup","Magic Catcher"],
+  color:["pink","rainbow","mint green","sunny yellow","sparkle blue"],
+  "action word":["twirling","bouncing","singing","zooming","tiptoeing"],
+  feeling:["brave","sleepy","happy","curious","extra giggly"],
+  sound:["ding-ding","boing","la-la-la","pop","sparkle"],
+  number:["5","10","30","60","100"],
+  "silly phrase":["sparkle snack attack","tea party tornado","tiny royal wiggle","catchy catchy heart","dessert zoom"]
+};
 
 /* ================= SHARED HELPERS ================= */
 const $ = id => document.getElementById(id);
@@ -693,9 +847,13 @@ function escAttr(s){return esc(s);}
 function showMode(m){
   $('play').classList.toggle('hidden', m!=='play');
   $('word').classList.toggle('hidden', m!=='word');
+  $('timer').classList.toggle('hidden', m!=='timer');
+  $('story').classList.toggle('hidden', m!=='story');
   $('book').classList.toggle('hidden', m!=='book');
   $('tabPlay').classList.toggle('on', m==='play');
   $('tabWord').classList.toggle('on', m==='word');
+  $('tabTimer').classList.toggle('on', m==='timer');
+  $('tabStory').classList.toggle('on', m==='story');
   $('tabBook').classList.toggle('on', m==='book');
 }
 
@@ -971,8 +1129,131 @@ function revealWord(){
   renderWordGame();
 }
 
+/* ================= TEENIE TIMER ================= */
+const TIMER_PRESETS = [30, 60, 120, 180, 300, 600];
+let timerMode = 'down';
+let timerDuration = 60;
+let timerRunning = false;
+let timerStartAt = 0;
+let timerElapsedBefore = 0;
+let timerTick = null;
+
+function formatClock(seconds){
+  seconds = Math.max(0, Math.floor(seconds));
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function timerElapsed(){
+  return timerElapsedBefore + (timerRunning ? Math.floor((Date.now() - timerStartAt) / 1000) : 0);
+}
+function setTimerMode(mode){
+  if(timerRunning) return;
+  timerMode = mode;
+  timerElapsedBefore = 0;
+  renderTimer();
+}
+function setTimerDuration(seconds){
+  if(timerRunning) return;
+  timerDuration = Math.max(15, Math.min(3600, seconds));
+  timerElapsedBefore = 0;
+  renderTimer();
+}
+function adjustTimerDuration(delta){ setTimerDuration(timerDuration + delta); }
+function renderTimerPresets(){
+  $('timerPresets').innerHTML = TIMER_PRESETS.map(sec=>
+    `<button class="presetbtn ${timerDuration===sec?'on':''}" onclick="setTimerDuration(${sec})">${sec < 60 ? sec + ' sec' : sec/60 + ' min'}</button>`
+  ).join('');
+}
+function renderTimer(){
+  const elapsed = timerElapsed();
+  const remaining = timerMode === 'down' ? Math.max(0, timerDuration - elapsed) : elapsed;
+  const done = timerMode === 'down' && elapsed >= timerDuration;
+  if(done && timerRunning){
+    timerRunning = false;
+    timerElapsedBefore = timerDuration;
+    clearInterval(timerTick);
+    timerTick = null;
+  }
+  const shown = done ? 0 : remaining;
+  $('timerLabel').textContent = timerMode === 'down' ? 'Time remaining' : 'Time elapsed';
+  $('timerMain').textContent = formatClock(shown);
+  $('timerSeconds').textContent = `${Math.floor(shown)} seconds`;
+  $('timerSub').textContent = timerRunning
+    ? `Setup locked · ${timerMode === 'down' ? Math.min(elapsed, timerDuration) : elapsed} seconds elapsed`
+    : done ? 'Time is up!' : 'Setup is unlocked.';
+  $('timerDurationLabel').textContent = `Set for ${timerDuration} seconds`;
+  $('timerStart').textContent = timerRunning ? 'Pause' : done ? 'Start again' : 'Start';
+  $('timerFace').classList.toggle('timer-done', done);
+  $('timerModeDown').classList.toggle('on', timerMode==='down');
+  $('timerModeUp').classList.toggle('on', timerMode==='up');
+  ['timerModeDown','timerModeUp','timerMinus','timerPlus'].forEach(id=>$(id).disabled = timerRunning);
+  document.querySelectorAll('.presetbtn').forEach(btn=>btn.disabled = timerRunning);
+  renderTimerPresets();
+  document.querySelectorAll('.presetbtn').forEach(btn=>btn.disabled = timerRunning);
+}
+function toggleTimer(){
+  if(timerRunning){
+    timerElapsedBefore = timerElapsed();
+    timerRunning = false;
+    clearInterval(timerTick);
+    timerTick = null;
+  } else {
+    if(timerMode === 'down' && timerElapsedBefore >= timerDuration) timerElapsedBefore = 0;
+    timerStartAt = Date.now();
+    timerRunning = true;
+    timerTick = setInterval(renderTimer, 250);
+  }
+  renderTimer();
+}
+function resetTimer(){
+  timerRunning = false;
+  timerElapsedBefore = 0;
+  clearInterval(timerTick);
+  timerTick = null;
+  renderTimer();
+}
+
+/* ================= MAD LIBS ================= */
+let madIndex = 0;
+function renderMadOptions(){
+  $('madSelect').innerHTML = MAD_STORIES.map((story,i)=>`<option value="${i}">${esc(story.title)}</option>`).join('');
+}
+function renderMadLib(){
+  madIndex = Number($('madSelect').value || 0);
+  const story = MAD_STORIES[madIndex];
+  $('madFields').innerHTML = story.fields.map(([key,label,fallback])=>`
+    <div class="mad-field">
+      <label for="mad_${key}">${esc(label)}</label>
+      <input id="mad_${key}" data-key="${escAttr(key)}" placeholder="${escAttr(fallback)}" value="${escAttr(fallback)}">
+    </div>
+  `).join('');
+  $('storyOutput').innerHTML = '';
+}
+function madValues(){
+  const story = MAD_STORIES[madIndex];
+  const values = {};
+  story.fields.forEach(([key,,fallback])=>{
+    const input = $(`mad_${key}`);
+    values[key] = (input.value || fallback).trim();
+  });
+  return values;
+}
+function randomizeMadLib(){
+  const story = MAD_STORIES[madIndex];
+  story.fields.forEach(([key,label])=>{
+    const options = MAD_FILLERS[label] || MAD_FILLERS[key] || [key];
+    $(`mad_${key}`).value = pick(options);
+  });
+  makeMadLib();
+}
+function makeMadLib(){
+  const story = MAD_STORIES[madIndex];
+  $('storyOutput').innerHTML = story.make(madValues());
+}
+
 /* ================= INIT ================= */
-buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound();
+buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
 </script>
 </body>
 </html>
