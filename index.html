@@ -177,6 +177,81 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
   0%{transform:translate(0,0) scale(.4); opacity:1;}
   100%{transform:translate(var(--dx),var(--dy)) scale(1.1); opacity:0;}
 }
+
+/* ---------- word catch ---------- */
+.word-card{
+  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  padding:16px; text-align:center; overflow:hidden;
+}
+.word-top{display:grid; grid-template-columns:130px 1fr; gap:14px; align-items:center; text-align:left;}
+.word-stage{
+  width:130px; height:142px; position:relative; border-radius:22px;
+  background:linear-gradient(180deg,#FFF4F8,#FFE7F0); border:2px solid #FFE1EC;
+  overflow:hidden; box-shadow:inset 0 -8px 0 rgba(255,111,165,.08);
+}
+.word-stage:before{
+  content:""; position:absolute; left:18px; right:18px; bottom:13px; height:14px;
+  border-radius:50%; background:rgba(71,42,68,.12);
+}
+.word-pal{position:absolute; left:50%; bottom:22px; width:78px; height:84px; transform:translateX(-50%);}
+.word-pal .part{position:absolute; opacity:0; transform:scale(.82); transition:opacity .25s ease, transform .25s ease;}
+.pal-body{left:11px; bottom:0; width:56px; height:62px; border-radius:50% 50% 45% 45%; background:#FF9FC6; border:3px solid #fff; box-shadow:0 4px 8px rgba(71,42,68,.12);}
+.pal-face{left:22px; bottom:20px; width:8px; height:8px; border-radius:50%; background:var(--ink); box-shadow:26px 0 0 var(--ink);}
+.pal-face:after{content:""; position:absolute; left:8px; top:15px; width:18px; height:9px; border-bottom:3px solid var(--ink); border-radius:0 0 18px 18px;}
+.pal-ear{top:11px; width:22px; height:32px; border-radius:50% 50% 45% 45%; background:#FFB6D2; border:3px solid #fff;}
+.pal-ear.left{left:5px; transform:rotate(-28deg) scale(.82);}
+.pal-ear.right{right:5px; transform:rotate(28deg) scale(.82);}
+.pal-cheek{left:12px; bottom:21px; width:10px; height:7px; border-radius:50%; background:#FF6FA5; box-shadow:44px 0 0 #FF6FA5;}
+.pal-crown{left:26px; top:0; width:28px; height:24px; background:#FFC24B; clip-path:polygon(0 100%,15% 30%,36% 70%,50% 0,64% 70%,85% 30%,100% 100%); filter:drop-shadow(0 2px 0 rgba(71,42,68,.12));}
+.pal-wing{bottom:21px; width:24px; height:34px; background:#CFF7EF; border:3px solid #fff; border-radius:70% 30% 70% 30%;}
+.pal-wing.left{left:-2px; transform:rotate(-22deg) scale(.82);}
+.pal-wing.right{right:-2px; transform:scaleX(-1) rotate(-22deg) scale(.82);}
+.pal-sparkle{left:54px; top:4px; width:24px; height:24px; color:#FFC24B; font-size:23px;}
+.pal-sparkle:before{content:"✨";}
+.word-stage.stage-1 .pal-body,
+.word-stage.stage-2 .pal-body,.word-stage.stage-2 .pal-face,
+.word-stage.stage-3 .pal-body,.word-stage.stage-3 .pal-face,.word-stage.stage-3 .pal-ear,
+.word-stage.stage-4 .pal-body,.word-stage.stage-4 .pal-face,.word-stage.stage-4 .pal-ear,.word-stage.stage-4 .pal-cheek,
+.word-stage.stage-5 .pal-body,.word-stage.stage-5 .pal-face,.word-stage.stage-5 .pal-ear,.word-stage.stage-5 .pal-cheek,.word-stage.stage-5 .pal-crown,
+.word-stage.stage-6 .part,
+.word-stage.complete .part{opacity:1; transform:scale(1);}
+.word-stage.stage-3 .pal-ear.left,.word-stage.stage-4 .pal-ear.left,.word-stage.stage-5 .pal-ear.left,.word-stage.stage-6 .pal-ear.left,.word-stage.complete .pal-ear.left{transform:rotate(-28deg) scale(1);}
+.word-stage.stage-3 .pal-ear.right,.word-stage.stage-4 .pal-ear.right,.word-stage.stage-5 .pal-ear.right,.word-stage.stage-6 .pal-ear.right,.word-stage.complete .pal-ear.right{transform:rotate(28deg) scale(1);}
+.word-stage.stage-6 .pal-wing.left,.word-stage.complete .pal-wing.left{transform:rotate(-22deg) scale(1);}
+.word-stage.stage-6 .pal-wing.right,.word-stage.complete .pal-wing.right{transform:scaleX(-1) rotate(-22deg) scale(1);}
+.word-meta{display:grid; gap:8px;}
+.word-pill{display:inline-block; width:max-content; max-width:100%; border-radius:999px; padding:4px 12px; font:800 12px 'Baloo 2'; color:#fff; background:var(--mint);}
+.word-title{font:800 22px 'Baloo 2'; line-height:1.15;}
+.word-hint{font:700 14px 'Nunito'; color:var(--ink-soft); line-height:1.35;}
+.word-progress{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;}
+.heartdot{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:#FFE7F0; color:var(--pink-deep); font-size:13px;}
+.heartdot.used{background:#FFD9D9; color:#B04A4A;}
+.mystery-word{display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:18px 0 14px;}
+.word-letter{
+  min-width:28px; height:38px; border-bottom:4px solid #FFD3E3;
+  display:grid; place-items:center; font:800 24px 'Baloo 2'; color:var(--ink);
+}
+.word-letter.space{min-width:16px; border-bottom:0;}
+.word-letter.punc{border-bottom:0; min-width:12px;}
+.word-keyboard{display:grid; grid-template-columns:repeat(7,1fr); gap:7px; margin-top:12px;}
+.keybtn{
+  border:2px solid #FFD3E3; background:#FFF9FB; border-radius:12px;
+  min-height:42px; font:800 18px 'Baloo 2'; color:var(--ink); cursor:pointer;
+}
+.keybtn:active{transform:scale(.96);}
+.keybtn.good{background:var(--mint); border-color:var(--mint); color:#fff;}
+.keybtn.miss{background:#FFE7F0; color:var(--pink-deep);}
+.keybtn:disabled{opacity:.9; cursor:default;}
+.word-status{min-height:26px; margin-top:12px; font:800 17px 'Baloo 2'; color:var(--pink-deep);}
+.word-actions{display:flex; gap:8px; margin-top:12px;}
+.word-actions .bigbtn{box-shadow:none;}
+@media(max-width:430px){
+  .word-top{grid-template-columns:1fr; text-align:center;}
+  .word-stage{margin:0 auto;}
+  .word-pill{margin:0 auto;}
+  .word-keyboard{grid-template-columns:repeat(6,1fr);}
+  .keybtn{min-height:40px;}
+}
 .setuprow{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
 footer{
   position:fixed; bottom:0; left:0; right:0; text-align:center; padding:8px;
@@ -198,6 +273,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
   </div>
   <div class="tabs">
     <button class="tab on" id="tabPlay" onclick="showMode('play')">🎮 Play</button>
+    <button class="tab" id="tabWord" onclick="showMode('word')">🔤 Words</button>
     <button class="tab" id="tabBook" onclick="showMode('book')">📖 Handbook</button>
   </div>
 </header>
@@ -225,6 +301,40 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
           </div>
         </div>
         <button class="bigbtn" style="margin-top:12px;width:100%" onclick="nextQ()">Next one! ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORD CATCH ============ -->
+  <section id="word" class="hidden">
+    <div class="word-card">
+      <div class="word-top">
+        <div class="word-stage stage-0" id="wordStage" aria-hidden="true">
+          <div class="word-pal">
+            <span class="part pal-wing left"></span>
+            <span class="part pal-wing right"></span>
+            <span class="part pal-ear left"></span>
+            <span class="part pal-ear right"></span>
+            <span class="part pal-body"></span>
+            <span class="part pal-face"></span>
+            <span class="part pal-cheek"></span>
+            <span class="part pal-crown"></span>
+            <span class="part pal-sparkle"></span>
+          </div>
+        </div>
+        <div class="word-meta">
+          <span class="word-pill" id="wordCategory">Mystery Word</span>
+          <div class="word-title">Guess the hidden Teenieping word.</div>
+          <div class="word-hint" id="wordHint">Pick letters to reveal the phrase.</div>
+          <div class="word-progress" id="wordProgress"></div>
+        </div>
+      </div>
+      <div class="mystery-word" id="mysteryWord"></div>
+      <div class="word-status" id="wordStatus"></div>
+      <div class="word-keyboard" id="wordKeyboard"></div>
+      <div class="word-actions">
+        <button class="bigbtn ghost" onclick="revealWord()">Peek</button>
+        <button class="bigbtn" onclick="newWordRound()">New word</button>
       </div>
     </div>
   </section>
@@ -532,6 +642,39 @@ const PINGS = [
 {n:"Henryping",s:6,g:"regular",e:"nobility",m:"🎩",p:"Prince magic",d:"A Prince Teenieping.",x:1,img:"https://catchteenieping.fandom.com/wiki/Special:Redirect/file/Henryping%20Render%201.png"}
 ];
 
+const WORD_PHRASES = [
+  {text:"Fairies of Emotion", category:"Show phrase", hint:"A sweet way to describe Season 1."},
+  {text:"Dessert Catch Teenieping", category:"Show phrase", hint:"The season full of treats and sugar magic."},
+  {text:"Twinkle Catch", category:"Show phrase", hint:"The Jewel season's show title."},
+  {text:"Secret Catch", category:"Show phrase", hint:"The Key season's show title."},
+  {text:"Star Catch", category:"Show phrase", hint:"The Space Star Village season."},
+  {text:"Princess Catch", category:"Show phrase", hint:"The princess-themed season."},
+  {text:"Magic Catcher", category:"Magic item", hint:"Romi uses this to help catch Teeniepings."},
+  {text:"Harmony Town", category:"Place", hint:"Where many Teenieping adventures happen."},
+  {text:"Emotion Kingdom", category:"Place", hint:"The home kingdom connected to Season 1."},
+  {text:"Space Star Village", category:"Place", hint:"A faraway starry place from Season 5."},
+  {text:"Royal Teenieping", category:"Group", hint:"A special group with princess transformations."},
+  {text:"Legend Teenieping", category:"Group", hint:"A rare and powerful kind of Teenieping."},
+  {text:"Jewel Teenieping", category:"Group", hint:"A gem-themed Teenieping from Season 2."},
+  {text:"Dessert Teenieping", category:"Group", hint:"A treat-themed Teenieping from Season 4."},
+  {text:"Princess Heart", category:"Transformation", hint:"Heartsping's princess transformation."},
+  {text:"Princess Sunshine", category:"Transformation", hint:"Happying's sunny transformation."},
+  {text:"Princess Emerald", category:"Transformation", hint:"Joahping's princess transformation."},
+  {text:"Princess Ruby", category:"Transformation", hint:"Teeheeping's princess transformation."},
+  {text:"Princess Sapphire", category:"Transformation", hint:"Trustping's princess transformation."},
+  {text:"Princess Shabetina", category:"Transformation", hint:"Shashaping's ice-cream-themed form."},
+  {text:"Princess SweetFloss", category:"Transformation", hint:"Fluffyping's cotton-candy-themed form."},
+  {text:"Princess Jellystin", category:"Transformation", hint:"Jellyping's bouncy princess form."},
+  {text:"Princess Harmonious", category:"Transformation", hint:"Sweetping's transformation."},
+  {text:"Shooting Star Pact", category:"Magic item", hint:"A starry pact from the Space Star Village."},
+  {text:"Magic Sugar Ball", category:"Magic item", hint:"A Dessert season magical treasure."},
+  {text:"Love and Courage", category:"Fun phrase", hint:"Two big Teenieping feelings."},
+  {text:"Clover and Melody", category:"Fun phrase", hint:"Two royal Season 1 themes."},
+  {text:"Cotton Candy", category:"Treat", hint:"Charmping and Fluffyping would approve."},
+  {text:"Rainbow Macaron", category:"Treat", hint:"A colorful dessert phrase."},
+  {text:"Choco Balls", category:"Treat", hint:"Trustping's favorite snack."}
+];
+
 /* ================= SHARED HELPERS ================= */
 const $ = id => document.getElementById(id);
 function badgeHTML(p, big){
@@ -549,8 +692,10 @@ function escAttr(s){return esc(s);}
 /* ================= MODE SWITCH ================= */
 function showMode(m){
   $('play').classList.toggle('hidden', m!=='play');
+  $('word').classList.toggle('hidden', m!=='word');
   $('book').classList.toggle('hidden', m!=='book');
   $('tabPlay').classList.toggle('on', m==='play');
+  $('tabWord').classList.toggle('on', m==='word');
   $('tabBook').classList.toggle('on', m==='book');
 }
 
@@ -741,8 +886,93 @@ function burst(){
   }
 }
 
+/* ================= WORD CATCH ================= */
+const WORD_MAX_MISSES = 6;
+const WORD_KEYS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+let wordRound = null;
+let guessedLetters = new Set();
+let wordMisses = 0;
+let wordFinished = false;
+let lastWordText = "";
+
+function wordItems(){
+  const names = PINGS.map(p=>({
+    text:p.n,
+    category:`${SEASONS[p.s].name} name`,
+    hint:`Season: ${SEASONS[p.s].name}. Teenieping of ${p.e}.`
+  }));
+  return names.concat(WORD_PHRASES);
+}
+function isWordLetter(ch){ return /^[A-Z]$/.test(ch); }
+function wordLetters(text){ return text.toUpperCase().split('').filter(isWordLetter); }
+function pickWordItem(){
+  const bank = wordItems();
+  let item = pick(bank);
+  if(bank.length > 1){
+    let guard = 0;
+    while(item.text === lastWordText && guard < 12){ item = pick(bank); guard++; }
+  }
+  lastWordText = item.text;
+  return item;
+}
+function newWordRound(){
+  wordRound = pickWordItem();
+  guessedLetters = new Set();
+  wordMisses = 0;
+  wordFinished = false;
+  renderWordGame();
+}
+function renderWordGame(){
+  if(!wordRound) return;
+  const answer = wordRound.text.toUpperCase();
+  const letters = wordLetters(wordRound.text);
+  const won = letters.every(ch=>guessedLetters.has(ch));
+  const lost = wordMisses >= WORD_MAX_MISSES;
+  if(won || lost) wordFinished = true;
+
+  $('wordCategory').textContent = wordRound.category;
+  $('wordHint').textContent = wordMisses >= 2 || wordFinished ? wordRound.hint : "Clue appears after 2 misses.";
+  $('wordStage').className = `word-stage stage-${Math.min(wordMisses, WORD_MAX_MISSES)}${won ? ' complete' : ''}`;
+  $('wordProgress').innerHTML = Array.from({length:WORD_MAX_MISSES}, (_,i)=>
+    `<span class="heartdot ${i < wordMisses ? 'used' : ''}">${i < wordMisses ? '×' : '💗'}</span>`
+  ).join('');
+  $('mysteryWord').innerHTML = answer.split('').map(ch=>{
+    if(ch === ' ') return `<span class="word-letter space" aria-label="space"></span>`;
+    if(!isWordLetter(ch)) return `<span class="word-letter punc">${esc(ch)}</span>`;
+    return `<span class="word-letter">${guessedLetters.has(ch) || wordFinished ? esc(ch) : ''}</span>`;
+  }).join('');
+  $('wordKeyboard').innerHTML = WORD_KEYS.map(ch=>{
+    const used = guessedLetters.has(ch);
+    const good = used && answer.includes(ch);
+    const miss = used && !answer.includes(ch);
+    return `<button class="keybtn ${good?'good':''} ${miss?'miss':''}" data-letter="${ch}" onclick="guessWordLetter(this.dataset.letter)" ${used || wordFinished ? 'disabled' : ''}>${ch}</button>`;
+  }).join('');
+
+  if(won){
+    $('wordStatus').textContent = `You caught it: ${wordRound.text}!`;
+    $('wordStage').classList.add('complete');
+  } else if(lost){
+    $('wordStatus').textContent = `The answer was ${wordRound.text}. Try another one!`;
+    $('wordStage').classList.add('complete');
+  } else {
+    $('wordStatus').textContent = `${WORD_MAX_MISSES - wordMisses} hearts left.`;
+  }
+}
+function guessWordLetter(letter){
+  if(wordFinished || guessedLetters.has(letter)) return;
+  guessedLetters.add(letter);
+  if(!wordRound.text.toUpperCase().includes(letter)) wordMisses++;
+  renderWordGame();
+}
+function revealWord(){
+  if(!wordRound) return;
+  wordLetters(wordRound.text).forEach(ch=>guessedLetters.add(ch));
+  wordFinished = true;
+  renderWordGame();
+}
+
 /* ================= INIT ================= */
-buildChips(); renderGrid(); buildSeasonPick(); nextQ();
+buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound();
 </script>
 </body>
 </html>
