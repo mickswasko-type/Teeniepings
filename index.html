@@ -283,6 +283,45 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .tf-note{font:800 14px 'Baloo 2'; color:var(--pink-deep); margin:8px 0 14px; line-height:1.35;}
 .tf-btns{display:flex; gap:8px;}
 
+/* ---------- Mystery Ping ---------- */
+.my-card{text-align:left;}
+.my-card .qtext{text-align:center;}
+#myClues{margin-bottom:12px;}
+.my-clue{animation:cluein .35s ease;}
+@keyframes cluein{from{opacity:0; transform:translateY(6px);}to{opacity:1; transform:none;}}
+.my-sug{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+.dimstar{opacity:.25; filter:grayscale(1);}
+
+/* ---------- Shadow Catch ---------- */
+.shadow-stage{
+  height:210px; margin:12px 0 14px; border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,#E9DFF2,#F8EFF7); border:2px solid #EFE3F0;
+}
+.shadow-stage img{max-height:185px; max-width:80%; filter:brightness(0) opacity(.85); transition:filter .5s ease;}
+.shadow-stage.revealed img{filter:none;}
+
+/* ---------- Catch Album ---------- */
+.al-head{text-align:center; margin-bottom:4px;}
+.al-title{font:800 24px 'Baloo 2';}
+.al-sub{font:700 13px 'Nunito'; color:var(--ink-soft); margin:2px 0 10px;}
+.al-bar{height:14px; border-radius:999px; background:#fff; border:2px solid #FFD3E3; overflow:hidden;}
+.al-fill{height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--pink),var(--pink-deep)); transition:width .4s;}
+.al-count{font:800 13px 'Baloo 2'; color:var(--pink-deep); margin-top:6px;}
+.al-season{margin-top:18px;}
+.al-sea-head{display:flex; justify-content:space-between; align-items:baseline; font:800 16px 'Baloo 2'; margin-bottom:8px;}
+.al-sea-head small{font:700 11px 'Nunito'; color:var(--ink-soft);}
+.al-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(88px,1fr)); gap:8px;}
+.al-card{
+  background:var(--card); border:2px solid #FFE9F1; border-radius:18px; padding:8px 4px 7px;
+  display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;
+}
+.al-card .badge{width:54px; height:54px; flex-basis:54px; font-size:24px;}
+.al-card .nm{font:800 11.5px 'Baloo 2'; line-height:1.1; text-align:center;}
+.al-card.sil .badge img{filter:brightness(0); opacity:.3; background:transparent; padding:7px;}
+.al-card.sil .badge span{opacity:0;}
+.al-card.sil .nm{color:var(--ink-soft);}
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -519,8 +558,11 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
       <div class="compact-greet">Teenie-P Time, Willow! 💖<span>Tap a Compact app to play</span></div>
       <div class="appgrid">
         <button class="appicon" style="--c1:#FFAFC8;--c2:#F06FA0" onclick="showMode('today')"><span class="ai-emoji">💖</span><span class="ai-label">Today</span><span class="ai-sub">Today's team</span></button>
-        <button class="appicon" style="--c1:#FF8FBE;--c2:#E84C8B" onclick="showMode('play')"><span class="ai-emoji">💫</span><span class="ai-label">Catch!</span><span class="ai-sub">Who's that ping?</span></button>
+        <button class="appicon" style="--c1:#E0A2E8;--c2:#A94FBF" onclick="showMode('mystery')"><span class="ai-emoji">🔮</span><span class="ai-label">Mystery Ping</span><span class="ai-sub">Daily riddle</span></button>
+        <button class="appicon" style="--c1:#FF8FBE;--c2:#E84C8B" onclick="showMode('play')"><span class="ai-emoji">💫</span><span class="ai-label">Catch!</span><span class="ai-sub">Quiz time!</span></button>
         <button class="appicon" style="--c1:#5FE0C0;--c2:#2FAE90" onclick="showMode('word')"><span class="ai-emoji">🔑</span><span class="ai-label">Secret Catch</span><span class="ai-sub">Crack the word</span></button>
+        <button class="appicon" style="--c1:#8E93B8;--c2:#4E5578" onclick="showMode('shadow')"><span class="ai-emoji">👀</span><span class="ai-label">Shadow Catch</span><span class="ai-sub">Who's that ping?</span></button>
+        <button class="appicon" style="--c1:#FFAD85;--c2:#F2703A" onclick="showMode('album')"><span class="ai-emoji">🏆</span><span class="ai-label">Catch Album</span><span class="ai-sub" id="albumTileSub">Collect them all</span></button>
         <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">💎</span><span class="ai-label">Twinkle Timer</span><span class="ai-sub">Beat the clock</span></button>
         <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('story')"><span class="ai-emoji">🪄</span><span class="ai-label">Wonder Tales</span><span class="ai-sub">Silly ping stories</span></button>
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
@@ -644,6 +686,54 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="bigbtn" onclick="newWordRound()">New word</button>
       </div>
     </div>
+  </section>
+
+  <!-- ============ MYSTERY PING (daily riddle) ============ -->
+  <section id="mystery" class="hidden">
+    <div class="scorebar">
+      <span>🔮 Mystery Ping</span>
+      <span class="streak">🔥 Streak: <span id="myStreak">0</span></span>
+      <span id="myStars">⭐⭐⭐⭐⭐</span>
+    </div>
+    <div class="qcard my-card">
+      <div class="today-date" id="myDate">Today</div>
+      <div class="qtext">A mystery Teenieping is hiding today… who is it?</div>
+      <div id="myClues"></div>
+      <div id="myGuessArea">
+        <input class="today-input" id="myInput" placeholder="Type a name to guess…" autocomplete="off" oninput="renderMysterySuggestions()">
+        <div class="my-sug" id="mySug"></div>
+        <button class="bigbtn ghost" id="myMoreClue" style="margin-top:12px;width:100%" onclick="mysteryMoreClue()">One more clue, please! 💭</button>
+      </div>
+      <div id="mySolved" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ============ SHADOW CATCH (silhouette game) ============ -->
+  <section id="shadow" class="hidden">
+    <div class="scorebar">
+      <span>💗 Caught: <span id="shCaught">0</span></span>
+      <span class="streak">🔥 Streak: <span id="shStreak">0</span></span>
+      <span>⭐ Best: <span id="shBest">0</span></span>
+    </div>
+    <div class="qcard shadow-card">
+      <div class="catchword" id="shadowCatchword">Catch!</div>
+      <span class="qkind">WHO'S THAT TEENIEPING?</span>
+      <div class="shadow-stage" id="shadowStage"></div>
+      <div class="answers" id="shadowAnswers"></div>
+      <div class="team-status" id="shadowStatus" style="margin:10px 0 0"></div>
+      <button class="bigbtn hidden" id="shadowNext" style="margin-top:12px;width:100%" onclick="newShadowRound()">Next shadow! ➜</button>
+    </div>
+  </section>
+
+  <!-- ============ CATCH ALBUM (collection) ============ -->
+  <section id="album" class="hidden">
+    <div class="al-head">
+      <div class="al-title">🏆 Willow's Catch Album</div>
+      <div class="al-sub">Win any game to catch that Teenieping for your collection!</div>
+      <div class="al-bar"><div class="al-fill" id="alFill"></div></div>
+      <div class="al-count" id="alCount"></div>
+    </div>
+    <div id="alSeasons"></div>
   </section>
 
   <!-- ============ TEENIE TIMER ============ -->
@@ -1147,8 +1237,13 @@ function showMode(m){
   $('timer').classList.toggle('hidden', m!=='timer');
   $('story').classList.toggle('hidden', m!=='story');
   $('book').classList.toggle('hidden', m!=='book');
+  $('mystery').classList.toggle('hidden', m!=='mystery');
+  $('shadow').classList.toggle('hidden', m!=='shadow');
+  $('album').classList.toggle('hidden', m!=='album');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
+  if(m==='mystery') renderMystery();
+  if(m==='album') renderAlbum();
   window.scrollTo(0,0);
 }
 
@@ -1431,7 +1526,7 @@ function toggleFav(n){ favs.has(n)?favs.delete(n):favs.add(n); openSheet(n); ren
 function closeSheet(){ $('sheet').classList.remove('open'); $('sheetBg').classList.remove('open'); }
 
 /* ================= QUIZ ================= */
-let caught=0, streak=0, best=0, current=null, quizSeason=0;
+let caught=0, streak=0, best=+(localStorage.getItem('wct-quiz-best')||0), current=null, quizSeason=0;
 function buildSeasonPick(){
   let h = `<button class="chip ${quizSeason===0?'on':''}" onclick="setQuizSeason(0)">All seasons</button>`;
   for(const k in SEASONS){
@@ -1525,8 +1620,10 @@ function answer(btn){
     if(b.dataset.name === current.answer.n) b.classList.add('right');
   });
   if(right){
-    caught++; streak++; if(streak>best) best=streak;
+    caught++; streak++;
+    if(streak>best){ best=streak; try{ localStorage.setItem('wct-quiz-best', best); }catch(e){} }
     burst();
+    albumCatch(current.answer.n, 'quiz');
   } else {
     btn.classList.add('wrong');
     streak = 0;
@@ -1561,6 +1658,8 @@ let wordRound = null;
 let guessedLetters = new Set();
 let wordMisses = 0;
 let wordFinished = false;
+let wordRevealed = false;
+let wordAwarded = false;
 let lastWordText = "";
 
 function wordItems(){
@@ -1588,6 +1687,8 @@ function newWordRound(){
   guessedLetters = new Set();
   wordMisses = 0;
   wordFinished = false;
+  wordRevealed = false;
+  wordAwarded = false;
   renderWordGame();
 }
 function renderWordGame(){
@@ -1619,6 +1720,10 @@ function renderWordGame(){
   if(won){
     $('wordStatus').textContent = `You caught it: ${wordRound.text}!`;
     $('wordStage').classList.add('complete');
+    if(!wordRevealed && !wordAwarded){
+      wordAwarded = true;
+      if(PINGS.some(p=>p.n===wordRound.text)) albumCatch(wordRound.text, 'word');
+    }
   } else if(lost){
     $('wordStatus').textContent = `The answer was ${wordRound.text}. Try another one!`;
     $('wordStage').classList.add('complete');
@@ -1634,6 +1739,7 @@ function guessWordLetter(letter){
 }
 function revealWord(){
   if(!wordRound) return;
+  wordRevealed = true; // a peek is not a catch!
   wordLetters(wordRound.text).forEach(ch=>guessedLetters.add(ch));
   wordFinished = true;
   renderWordGame();
@@ -1762,8 +1868,186 @@ function makeMadLib(){
   $('storyOutput').innerHTML = story.make(madValues());
 }
 
+/* ================= CATCH ALBUM ================= */
+// Persistent collection: winning any game "catches" that ping into the album.
+let album = {};
+function loadAlbum(){ try{ album = JSON.parse(localStorage.getItem('wct-album')) || {}; }catch(e){ album = {}; } }
+function saveAlbum(){ try{ localStorage.setItem('wct-album', JSON.stringify(album)); }catch(e){} }
+function albumCount(){ return Object.keys(album).length; }
+function updateAlbumTile(){
+  $('albumTileSub').textContent = `${albumCount()} / ${PINGS.length} caught`;
+}
+function albumCatch(name, via){
+  if(!PINGS.some(p=>p.n===name) || album[name]) return false;
+  album[name] = via;
+  saveAlbum(); updateAlbumTile();
+  toast(`✨ NEW for the album! <b>${esc(name)}</b> caught!`);
+  return true;
+}
+function renderAlbum(){
+  const total = PINGS.length, got = albumCount();
+  $('alCount').textContent = `${got} of ${total} Teeniepings caught`;
+  $('alFill').style.width = (got/total*100).toFixed(1) + '%';
+  let h = '';
+  for(const k in SEASONS){
+    const s = SEASONS[k];
+    const list = PINGS.filter(p=>p.s==k);
+    const gotHere = list.filter(p=>album[p.n]).length;
+    h += `<div class="al-season">
+      <div class="al-sea-head"><span>${s.emoji} ${esc(s.name)} <small>· ${esc(s.show)}</small></span><span>${gotHere}/${list.length}</span></div>
+      <div class="al-grid">` +
+      list.map(p=>`<div class="al-card ${album[p.n]?'':'sil'}" data-name="${escAttr(p.n)}" onclick="albumTap(this.dataset.name)">
+          ${badgeHTML(p)}
+          <div class="nm">${album[p.n]?esc(p.n):'???'}</div>
+        </div>`).join('') +
+      `</div></div>`;
+  }
+  $('alSeasons').innerHTML = h;
+}
+function albumTap(name){
+  if(album[name]){ openSheet(name); return; }
+  const p = PINGS.find(x=>x.n===name);
+  toast(`💭 Not caught yet! Hint: Teenieping of <b>${esc(p.e)}</b>`);
+}
+
+/* ================= MYSTERY PING (daily riddle) ================= */
+const MYSTERY_CLUE_MAX = 5;
+function dayString(d){ d = d || new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+function yesterdayString(){ const d = new Date(); d.setDate(d.getDate()-1); return dayString(d); }
+function mysteryPing(){
+  const s = dayString(); let h = 0;
+  for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) >>> 0;
+  return PINGS[h % PINGS.length];
+}
+function mysteryClues(p){
+  const s = SEASONS[p.s];
+  const g = {royal:"I'm a Royal Teenieping! 👑", legend:"I'm a rare Legend Teenieping! 🌟",
+             villain:"I've been a little bit of a villain… 😈"}[p.g] || "I'm one of the Teenieping friends!";
+  return [
+    `${s.emoji} My season is <b>${esc(s.name)}</b> (${esc(s.show)})`,
+    esc(g),
+    `My magic power: <b>“${esc(p.p)}”</b>`,
+    `My emoji is a big ${esc(p.m)}`,
+    `My name starts with <b>“${esc(p.n[0])}”</b> and has <b>${p.n.length}</b> letters`
+  ];
+}
+let myState = null, myStateDay = '';
+function loadMystery(){
+  myStateDay = dayString();
+  try{ myState = JSON.parse(localStorage.getItem(`wct-mystery-${myStateDay}`)); }catch(e){ myState = null; }
+  if(!myState) myState = {done:false, clues:1, wrong:[]};
+}
+function saveMystery(){ try{ localStorage.setItem(`wct-mystery-${myStateDay}`, JSON.stringify(myState)); }catch(e){} }
+function mysteryStreak(){
+  try{ return JSON.parse(localStorage.getItem('wct-mystery-streak')) || {n:0, last:''}; }catch(e){ return {n:0, last:''}; }
+}
+function mysteryStars(){ return Math.max(1, MYSTERY_CLUE_MAX + 1 - myState.clues); }
+function renderMystery(){
+  if(!myState || myStateDay !== dayString()) loadMystery();
+  const p = mysteryPing();
+  $('myDate').textContent = new Date().toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'});
+  $('myStreak').textContent = mysteryStreak().n;
+  const stars = myState.done ? (myState.stars || 1) : mysteryStars();
+  $('myStars').innerHTML = '⭐'.repeat(stars) + `<span class="dimstar">${'⭐'.repeat(MYSTERY_CLUE_MAX - stars)}</span>`;
+  $('myClues').innerHTML = mysteryClues(p).slice(0, myState.clues).map(c=>`<div class="fact my-clue">${c}</div>`).join('');
+  $('myMoreClue').classList.toggle('hidden', myState.clues >= MYSTERY_CLUE_MAX);
+  $('myGuessArea').classList.toggle('hidden', myState.done);
+  $('mySolved').classList.toggle('hidden', !myState.done);
+  if(myState.done){
+    $('mySolved').innerHTML = `<div class="result show"><div class="who">
+      ${badgeHTML(p,true)}
+      <div>
+        <div class="nm">It's ${esc(p.n)}! 🎉</div>
+        <div class="dd">${esc(p.d)}</div>
+        <div class="dd" style="margin-top:6px">You earned ${'⭐'.repeat(stars)} — come back tomorrow for a new Mystery Ping!</div>
+      </div>
+    </div></div>`;
+  } else {
+    renderMysterySuggestions();
+  }
+}
+function renderMysterySuggestions(){
+  const q = ($('myInput').value||'').trim().toLowerCase();
+  if(q.length < 1){ $('mySug').innerHTML = ''; return; }
+  const list = PINGS.filter(p=>p.n.toLowerCase().includes(q) && !myState.wrong.includes(p.n)).slice(0,6);
+  $('mySug').innerHTML = list.map(p=>
+    `<button class="chip" data-name="${escAttr(p.n)}" onclick="guessMystery(this.dataset.name)">${esc(p.m)} ${esc(p.n)}</button>`
+  ).join('');
+}
+function mysteryMoreClue(){
+  if(myState.done || myState.clues >= MYSTERY_CLUE_MAX) return;
+  myState.clues++; saveMystery(); renderMystery();
+}
+function guessMystery(name){
+  if(myState.done) return;
+  const p = mysteryPing();
+  if(name === p.n){
+    myState.done = true;
+    myState.stars = mysteryStars();
+    saveMystery();
+    const st = mysteryStreak();
+    const next = {n: st.last === yesterdayString() ? st.n + 1 : 1, last: dayString()};
+    try{ localStorage.setItem('wct-mystery-streak', JSON.stringify(next)); }catch(e){}
+    albumCatch(p.n, 'mystery');
+    burstHearts();
+    renderMystery();
+  } else {
+    myState.wrong.push(name);
+    if(myState.clues < MYSTERY_CLUE_MAX) myState.clues++;
+    saveMystery();
+    toast(`Not ${esc(name)}! Here's another clue… 💭`);
+    $('myInput').value = '';
+    renderMystery();
+  }
+}
+
+/* ================= SHADOW CATCH (silhouette game) ================= */
+let shadowRound = null, shCaught = 0, shStreak = 0;
+let shBest = +(localStorage.getItem('wct-shadow-best') || 0);
+function newShadowRound(){
+  const withImg = PINGS.filter(p=>IMAGE_MANIFEST[p.n]);
+  const fresh = withImg.filter(p=>!album[p.n]); // help fill the album first
+  const answer = pick(fresh.length ? fresh : withImg);
+  const decoys = shuffle(withImg.filter(p=>p.n!==answer.n)).slice(0,3);
+  shadowRound = {answer, choices: shuffle(decoys.concat(answer)), done:false};
+  $('shadowStage').className = 'shadow-stage';
+  $('shadowStage').innerHTML = `<img src="${escAttr(IMAGE_MANIFEST[answer.n])}" alt="Mystery shadow">`;
+  $('shadowAnswers').innerHTML = shadowRound.choices.map(c=>
+    `<button class="abtn" data-name="${escAttr(c.n)}" onclick="shadowGuess(this)">${esc(c.n)}</button>`
+  ).join('');
+  $('shadowStatus').textContent = 'Who is hiding in the shadow?';
+  $('shadowNext').classList.add('hidden');
+}
+function shadowGuess(btn){
+  if(!shadowRound || shadowRound.done) return;
+  shadowRound.done = true;
+  const right = btn.dataset.name === shadowRound.answer.n;
+  document.querySelectorAll('#shadowAnswers .abtn').forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.name === shadowRound.answer.n) b.classList.add('right');
+  });
+  $('shadowStage').classList.add('revealed');
+  if(right){
+    shCaught++; shStreak++;
+    if(shStreak > shBest){ shBest = shStreak; try{ localStorage.setItem('wct-shadow-best', shBest); }catch(e){} }
+    const cw = $('shadowCatchword');
+    cw.classList.remove('go'); void cw.offsetWidth; cw.classList.add('go');
+    burstHearts();
+    $('shadowStatus').textContent = `It's ${shadowRound.answer.n}! ✨`;
+    albumCatch(shadowRound.answer.n, 'shadow');
+  } else {
+    btn.classList.add('wrong');
+    shStreak = 0;
+    $('shadowStatus').textContent = `It was ${shadowRound.answer.n}!`;
+  }
+  $('shCaught').textContent = shCaught; $('shStreak').textContent = shStreak; $('shBest').textContent = shBest;
+  $('shadowNext').classList.remove('hidden');
+}
+
 /* ================= INIT ================= */
-buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
+loadAlbum(); updateAlbumTile(); loadMystery();
+buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); newShadowRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
+$('scBest').textContent = best;
 initToday();
 initTV();
 showMode('home');
