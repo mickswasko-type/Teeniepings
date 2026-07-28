@@ -29,6 +29,7 @@
 :root{
   --paper:#FFF4F8; --card:#FFFFFF; --ink:#472A44; --ink-soft:#8A6B87;
   --pink:#FF6FA5; --pink-deep:#E84C8B; --sun:#FFC24B; --mint:#3EC9A7;
+  --edge:#FFE1EC; --edge2:#FFD3E3; --soft:#FFF4F8; --soft2:#FFE7F0; --soft3:#FFD8E8;
   --shadow:0 6px 0 rgba(232,76,139,.14);
   --r:22px;
 }
@@ -46,7 +47,7 @@ body{
 h1,h2,h3,.disp{font-family:'Baloo 2','Nunito',sans-serif;}
 header{
   position:sticky; top:0; z-index:40; background:rgba(255,244,248,.94);
-  backdrop-filter:blur(6px); border-bottom:2px solid #FFE1EC;
+  backdrop-filter:blur(6px); border-bottom:2px solid var(--edge);
   padding:10px 14px 8px;
 }
 .brand{display:flex; align-items:center; gap:8px;}
@@ -66,7 +67,7 @@ header{
 #home{padding-top:8px;}
 .compact{
   position:relative; margin-top:26px;
-  background:linear-gradient(160deg,#FFD8E8,#FFF0F6);
+  background:linear-gradient(160deg,var(--soft3),var(--soft));
   border:3px solid #fff; border-radius:34px; padding:26px 18px 26px;
   box-shadow:0 12px 0 rgba(232,76,139,.15), inset 0 0 0 3px rgba(255,255,255,.55), 0 0 22px 3px rgba(255,140,190,.4);
   animation:compactBreathe 6s ease-in-out infinite;
@@ -145,7 +146,7 @@ header{
 .tv-card{
   position:relative; aspect-ratio:16/9; overflow:hidden; cursor:pointer;
   border-radius:20px; border:3px solid #fff;
-  background:linear-gradient(160deg,#FFD8E8,#FFF0F6);
+  background:linear-gradient(160deg,var(--soft3),var(--soft));
   box-shadow:0 6px 0 rgba(232,76,139,.14);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
   transition:transform .12s;
@@ -187,7 +188,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 /* ---------- handbook ---------- */
 .searchrow{display:flex; gap:8px; margin-bottom:10px;}
 .searchrow input{
-  flex:1; border:2px solid #FFD3E3; border-radius:16px; padding:11px 14px;
+  flex:1; border:2px solid var(--edge2); border-radius:16px; padding:11px 14px;
   font:700 16px 'Nunito'; color:var(--ink); background:#fff; outline:none;
 }
 .searchrow input:focus{border-color:var(--pink);}
@@ -196,7 +197,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .chip{
   border:0; border-radius:999px; padding:8px 13px; font:800 14px 'Baloo 2';
   background:#fff; color:var(--ink-soft); cursor:pointer; white-space:nowrap;
-  border:2px solid #FFE1EC;
+  border:2px solid var(--edge);
 }
 .chip.on{background:var(--ink); color:#fff; border-color:var(--ink);}
 .count{font:700 13px 'Nunito'; color:var(--ink-soft); margin:2px 2px 8px;}
@@ -205,7 +206,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .pcard{
   background:var(--card); border-radius:var(--r); padding:12px 10px 10px;
   display:flex; flex-direction:column; align-items:center; gap:6px;
-  border:2px solid #FFE9F1; cursor:pointer; text-align:center;
+  border:2px solid var(--edge); cursor:pointer; text-align:center;
   transition:transform .12s;
 }
 .pcard:active{transform:scale(.96);}
@@ -217,7 +218,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 /* ---------- Today's Team (daily check-in) ---------- */
 .today-date{font:800 13px 'Baloo 2'; color:var(--pink-deep); letter-spacing:.6px; text-transform:uppercase; margin-bottom:8px;}
-.today-hi{display:flex; gap:12px; align-items:center; background:#fff; border:2px solid #FFE9F1; border-radius:var(--r); padding:12px 14px;}
+.today-hi{display:flex; gap:12px; align-items:center; background:#fff; border:2px solid var(--edge); border-radius:var(--r); padding:12px 14px;}
 .today-hi .badge{width:58px; height:58px; flex-basis:58px; font-size:28px;}
 .tg-main{font:800 17px 'Baloo 2'; line-height:1.25;}
 .tg-sub{font:700 12.5px 'Nunito'; color:var(--ink-soft); margin-top:3px; line-height:1.4;}
@@ -236,7 +237,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .team-status{text-align:center; font:800 13px 'Baloo 2'; color:var(--ink-soft); margin:8px 0 14px;}
 
 .today-input, .today-search{
-  width:100%; border:2px solid #FFD3E3; border-radius:16px; padding:12px 14px;
+  width:100%; border:2px solid var(--edge2); border-radius:16px; padding:12px 14px;
   font:700 16px 'Nunito'; color:var(--ink); background:#fff; outline:none;
 }
 .today-input:focus, .today-search:focus{border-color:var(--pink);}
@@ -246,7 +247,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 .suggest-banner{
   display:flex; gap:12px; align-items:center; flex-wrap:wrap; position:relative;
-  background:linear-gradient(160deg,#FFF0F6,#FFE3EF); border:2px solid #FFD3E3;
+  background:linear-gradient(160deg,var(--soft),#FFE3EF); border:2px solid var(--edge2);
   border-radius:var(--r); padding:14px; margin:14px 0;
 }
 .suggest-banner .badge{width:60px; height:60px; flex-basis:60px; font-size:28px;}
@@ -259,14 +260,14 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 .pool-head{display:flex; align-items:center; justify-content:space-between; margin:18px 0 8px;}
 .pool-title{font:800 17px 'Baloo 2';}
-.pool-shuffle{border:0; background:#FFE7F0; color:var(--pink-deep); border-radius:999px; padding:7px 13px; font:800 13px 'Baloo 2'; cursor:pointer;}
+.pool-shuffle{border:0; background:var(--soft2); color:var(--pink-deep); border-radius:999px; padding:7px 13px; font:800 13px 'Baloo 2'; cursor:pointer;}
 .pool-shuffle:active{transform:scale(.96);}
 .pcard .pick-check{position:absolute; top:6px; left:8px; font-size:16px;}
 .pcard.picked{opacity:.5; border-color:var(--pink);}
 .pool-empty{grid-column:1/-1; text-align:center; color:var(--ink-soft); font:700 14px 'Nunito'; padding:16px;}
 
 .team-final{
-  margin-top:22px; text-align:center; background:linear-gradient(165deg,#FFE1EC,#FFF3F8);
+  margin-top:22px; text-align:center; background:linear-gradient(165deg,var(--edge),#FFF3F8);
   border:3px solid #fff; border-radius:28px; padding:22px 18px 20px;
   box-shadow:0 12px 0 rgba(232,76,139,.14), inset 0 0 0 3px rgba(255,255,255,.5);
   animation:finalpop .5s ease;
@@ -305,7 +306,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .al-head{text-align:center; margin-bottom:4px;}
 .al-title{font:800 24px 'Baloo 2';}
 .al-sub{font:700 13px 'Nunito'; color:var(--ink-soft); margin:2px 0 10px;}
-.al-bar{height:14px; border-radius:999px; background:#fff; border:2px solid #FFD3E3; overflow:hidden;}
+.al-bar{height:14px; border-radius:999px; background:#fff; border:2px solid var(--edge2); overflow:hidden;}
 .al-fill{height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--pink),var(--pink-deep)); transition:width .4s;}
 .al-count{font:800 13px 'Baloo 2'; color:var(--pink-deep); margin-top:6px;}
 .al-season{margin-top:18px;}
@@ -313,7 +314,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .al-sea-head small{font:700 11px 'Nunito'; color:var(--ink-soft);}
 .al-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(88px,1fr)); gap:8px;}
 .al-card{
-  background:var(--card); border:2px solid #FFE9F1; border-radius:18px; padding:8px 4px 7px;
+  background:var(--card); border:2px solid var(--edge); border-radius:18px; padding:8px 4px 7px;
   display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;
 }
 .al-card .badge{width:54px; height:54px; flex-basis:54px; font-size:24px;}
@@ -321,6 +322,122 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .al-card.sil .badge img{filter:brightness(0); opacity:.3; background:transparent; padding:7px;}
 .al-card.sil .badge span{opacity:0;}
 .al-card.sil .nm{color:var(--ink-soft);}
+/* staggered entrance + holo foil on rare Legends */
+.al-card{animation:alIn .32s ease backwards;}
+@keyframes alIn{from{opacity:0; transform:translateY(8px) scale(.96);}to{opacity:1; transform:none;}}
+.al-card.holo{border-color:#FFD86B; background:linear-gradient(135deg,#FFF8E6,#FFEFF8 40%,#EAF6FF 70%,#FFF8E6); position:relative; overflow:hidden;}
+.al-card.holo::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.75) 46%,transparent 62%);
+  background-size:250% 100%; animation:holoSweep 3.4s linear infinite;
+}
+@keyframes holoSweep{from{background-position:180% 0;}to{background-position:-80% 0;}}
+.al-legend{position:absolute; top:4px; right:6px; font-size:11px;}
+
+/* ---------- SEASON THEMES ---------- */
+.theme-pick{margin-top:18px; text-align:center;}
+.theme-label{font:800 14px 'Baloo 2'; color:var(--ink-soft); margin-bottom:8px;}
+.theme-gems{display:flex; justify-content:center; gap:9px; flex-wrap:wrap;}
+.gem{
+  width:40px; height:40px; border-radius:50%; border:3px solid #fff; cursor:pointer; padding:0;
+  display:grid; place-items:center; font-size:17px;
+  background:linear-gradient(150deg,var(--g1),var(--g2)); box-shadow:0 3px 0 rgba(71,42,68,.16);
+  transition:transform .14s;
+}
+.gem:active{transform:scale(.92);}
+.gem.on{transform:scale(1.14); box-shadow:0 0 0 3px #fff, 0 0 0 6px var(--g2), 0 3px 8px rgba(71,42,68,.25);}
+body[data-theme="2"]{--pink:#3EC9A7; --pink-deep:#1F9E80; --sun:#7ED9F5; --paper:#F0FCF8;
+  --edge:#CFF1E7; --edge2:#B3E8D9; --soft:#EFFBF7; --soft2:#D6F4EA; --soft3:#BDEEDF; --shadow:0 6px 0 rgba(31,158,128,.16);}
+body[data-theme="3"]{--pink:#9B7BFF; --pink-deep:#6F45E8; --sun:#FFC24B; --paper:#F6F2FF;
+  --edge:#E2D8FF; --edge2:#D2C2FF; --soft:#F4F0FF; --soft2:#E7DEFF; --soft3:#D9CCFF; --shadow:0 6px 0 rgba(111,69,232,.16);}
+body[data-theme="4"]{--pink:#FF9E5C; --pink-deep:#E86B2A; --sun:#FFD86B; --paper:#FFF6EF;
+  --edge:#FFE0C9; --edge2:#FFD0B0; --soft:#FFF4EA; --soft2:#FFE6D5; --soft3:#FFD9C0; --shadow:0 6px 0 rgba(232,107,42,.16);}
+body[data-theme="5"]{--pink:#5B6BE8; --pink-deep:#3A48C4; --sun:#FFD86B; --paper:#F1F3FF;
+  --edge:#D8DDFF; --edge2:#C3CBFF; --soft:#EEF1FF; --soft2:#DDE3FF; --soft3:#CBD3FF; --shadow:0 6px 0 rgba(58,72,196,.16);}
+body[data-theme="6"]{--pink:#E8619B; --pink-deep:#C23A78; --sun:#FFC24B; --paper:#FFF0F6;
+  --edge:#FFD6E7; --edge2:#FFC2DA; --soft:#FFF2F7; --soft2:#FFDCEB; --soft3:#FFCBE0; --shadow:0 6px 0 rgba(194,58,120,.16);}
+
+/* ---------- SPLASH: the Compact opens ---------- */
+.splash{
+  position:fixed; inset:0; z-index:200; display:grid; place-content:center; justify-items:center; gap:22px;
+  background:radial-gradient(circle at 50% 42%, #FFE7F1, var(--paper) 70%);
+  animation:splashOut .5s ease 2.5s forwards;
+}
+.splash.gone{display:none;}
+.splash-compact{width:190px; height:190px; position:relative; perspective:900px;}
+.sp-lid,.sp-base{
+  position:absolute; left:0; width:190px; height:95px; box-sizing:border-box;
+  background:linear-gradient(160deg,#FFC2DC,#FF8FBE); border:4px solid #fff;
+}
+.sp-lid{
+  top:0; border-radius:95px 95px 8px 8px; transform-origin:50% 100%; z-index:2;
+  animation:lidOpen .9s cubic-bezier(.6,-0.25,.3,1.4) 1.25s forwards;
+  box-shadow:inset 0 6px 0 rgba(255,255,255,.4);
+}
+.sp-base{ top:95px; border-radius:8px 8px 95px 95px; z-index:1; overflow:hidden;
+  box-shadow:inset 0 -6px 0 rgba(232,76,139,.18); }
+/* centred with inset, not transform — so the bob animation can't fight it */
+.sp-heart{position:absolute; left:0; right:0; top:34%; text-align:center; font-size:40px; animation:bob 2s ease-in-out infinite;}
+.sp-mirror{
+  position:absolute; left:50%; top:34%; transform:translate(-50%,-50%);
+  width:104px; height:104px; border-radius:50%; background:radial-gradient(circle at 38% 32%,#fff,#FFEAF3);
+  display:grid; place-items:center; font-size:26px; box-shadow:inset 0 0 0 5px rgba(255,255,255,.85);
+  opacity:0; animation:mirrorIn .5s ease 1.55s forwards; /* only revealed once the lid lifts */
+}
+@keyframes mirrorIn{to{opacity:1;}}
+.splash .clasp{top:-14px;}
+.splash-word{
+  font:800 30px 'Baloo 2'; color:var(--pink-deep); text-shadow:0 2px 0 #fff; opacity:0;
+  animation:wordPop .6s ease 1.9s forwards;
+}
+@keyframes lidOpen{to{transform:rotateX(-155deg);}}
+@keyframes wordPop{0%{opacity:0; transform:scale(.6);}60%{opacity:1; transform:scale(1.12);}100%{opacity:1; transform:scale(1);}}
+@keyframes splashOut{to{opacity:0; visibility:hidden;}}
+
+/* ---------- ambient drifting hearts ---------- */
+.sky{position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;}
+.sky span{position:absolute; bottom:-40px; opacity:0; animation:drift linear infinite;}
+@keyframes drift{
+  0%{opacity:0; transform:translateY(0) rotate(0);}
+  12%{opacity:.5;}
+  88%{opacity:.5;}
+  100%{opacity:0; transform:translateY(-108vh) rotate(160deg);}
+}
+main, header{position:relative; z-index:1;}
+
+/* ---------- tap sparkles ---------- */
+.spark{position:fixed; pointer-events:none; z-index:190; font-size:15px; animation:sparkFly .7s ease-out forwards;}
+@keyframes sparkFly{
+  0%{opacity:1; transform:translate(-50%,-50%) scale(.4);}
+  100%{opacity:0; transform:translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1.15);}
+}
+
+/* ---------- page transitions ---------- */
+main > section:not(.hidden){animation:pageIn .34s ease;}
+@keyframes pageIn{from{opacity:0; transform:translateY(10px);}to{opacity:1; transform:none;}}
+@media (prefers-reduced-motion:reduce){
+  main > section:not(.hidden), .al-card, .splash, .sp-lid, .splash-word{animation:none !important;}
+  .sky{display:none;}
+}
+
+/* ---------- PING MATCH ---------- */
+.match-board{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:4px 0 12px;}
+@media(min-width:560px){.match-board{gap:11px;}}
+.mcard{aspect-ratio:3/4; perspective:800px; background:none; border:0; padding:0; cursor:pointer;}
+.mcard-in{display:block; position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .42s cubic-bezier(.4,.1,.3,1.3);}
+.mcard.up .mcard-in{transform:rotateY(180deg);}
+.mface{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:16px; border:3px solid #fff;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+  box-shadow:0 4px 0 rgba(71,42,68,.15);
+}
+.mback{background:linear-gradient(150deg,var(--pink),var(--pink-deep)); font-size:26px; color:#fff;}
+.mfront{background:#fff; transform:rotateY(180deg); padding:5px;}
+.mfront img{width:100%; height:100%; object-fit:contain;}
+.mcard.done{cursor:default;}
+.mcard.done .mfront{border-color:var(--sun); box-shadow:0 0 0 3px var(--sun), 0 4px 0 rgba(71,42,68,.15);}
+.mcard.done .mcard-in{animation:matchPop .45s ease;}
+@keyframes matchPop{0%,100%{transform:rotateY(180deg) scale(1);}45%{transform:rotateY(180deg) scale(1.13);}}
 
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
@@ -335,25 +452,25 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .sheet .top{display:flex; gap:14px; align-items:center;}
 .sheet h2{margin:0; font-size:26px;}
 .sheet .sub{font:800 14px 'Baloo 2'; color:var(--pink-deep);}
-.fact{background:#FFF4F8; border-radius:16px; padding:10px 12px; margin-top:10px; font-size:15px; line-height:1.45;}
+.fact{background:var(--soft); border-radius:16px; padding:10px 12px; margin-top:10px; font-size:15px; line-height:1.45;}
 .fact b{font-family:'Baloo 2';}
 .sheet .rowbtns{display:flex; gap:8px; margin-top:14px;}
 .bigbtn{
   flex:1; border:0; border-radius:16px; padding:12px; font:800 16px 'Baloo 2';
   background:var(--pink); color:#fff; cursor:pointer; box-shadow:var(--shadow);
 }
-.bigbtn.ghost{background:#FFE7F0; color:var(--pink-deep); box-shadow:none;}
+.bigbtn.ghost{background:var(--soft2); color:var(--pink-deep); box-shadow:none;}
 .wikilink{display:inline-block; margin-top:12px; font:700 13px 'Nunito'; color:var(--ink-soft);}
 
 /* ---------- quiz ---------- */
 .scorebar{
   display:flex; justify-content:space-between; align-items:center;
-  background:#fff; border:2px solid #FFE9F1; border-radius:18px;
+  background:#fff; border:2px solid var(--edge); border-radius:18px;
   padding:10px 14px; margin-bottom:12px; font:800 15px 'Baloo 2';
 }
 .scorebar .streak{color:var(--pink-deep);}
 .qcard{
-  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  background:#fff; border:2px solid var(--edge); border-radius:var(--r);
   padding:18px 16px; text-align:center; position:relative; overflow:hidden;
 }
 .qkind{font:800 12px 'Baloo 2'; letter-spacing:1px; color:#fff; background:var(--mint);
@@ -361,7 +478,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .qtext{font:800 20px 'Baloo 2'; line-height:1.3; margin:4px 0 16px;}
 .answers{display:grid; gap:10px;}
 .abtn{
-  border:2px solid #FFD3E3; background:#FFF9FB; border-radius:16px;
+  border:2px solid var(--edge2); background:var(--soft); border-radius:16px;
   padding:14px; font:800 17px 'Baloo 2'; color:var(--ink); cursor:pointer;
   transition:transform .1s;
 }
@@ -373,7 +490,7 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .result{margin-top:14px; display:none;}
 .result.show{display:block;}
 .result .who{display:flex; gap:12px; align-items:center; text-align:left;
-  background:#FFF4F8; border-radius:18px; padding:12px;}
+  background:var(--soft); border-radius:18px; padding:12px;}
 .result .who .nm{font:800 18px 'Baloo 2';}
 .result .who .dd{font:700 13px 'Nunito'; color:var(--ink-soft); line-height:1.35;}
 .catchword{
@@ -397,13 +514,13 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 /* ---------- word catch ---------- */
 .word-card{
-  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  background:#fff; border:2px solid var(--edge); border-radius:var(--r);
   padding:16px; text-align:center; overflow:hidden;
 }
 .word-top{display:grid; grid-template-columns:130px 1fr; gap:14px; align-items:center; text-align:left;}
 .word-stage{
   width:130px; height:142px; position:relative; border-radius:22px;
-  background:linear-gradient(180deg,#FFF4F8,#FFE7F0); border:2px solid #FFE1EC;
+  background:linear-gradient(180deg,var(--soft),var(--soft2)); border:2px solid var(--edge);
   overflow:hidden; box-shadow:inset 0 -8px 0 rgba(255,111,165,.08);
 }
 .word-stage:before{
@@ -441,23 +558,23 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .word-title{font:800 22px 'Baloo 2'; line-height:1.15;}
 .word-hint{font:700 14px 'Nunito'; color:var(--ink-soft); line-height:1.35;}
 .word-progress{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;}
-.heartdot{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:#FFE7F0; color:var(--pink-deep); font-size:13px;}
+.heartdot{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:var(--soft2); color:var(--pink-deep); font-size:13px;}
 .heartdot.used{background:#FFD9D9; color:#B04A4A;}
 .mystery-word{display:flex; flex-wrap:wrap; justify-content:center; gap:8px 10px; margin:18px 0 14px;}
 .word-letter{
-  min-width:28px; height:38px; border-bottom:4px solid #FFD3E3;
+  min-width:28px; height:38px; border-bottom:4px solid var(--edge2);
   display:grid; place-items:center; font:800 24px 'Baloo 2'; color:var(--ink);
 }
 .word-letter.space{min-width:16px; border-bottom:0;}
 .word-letter.punc{border-bottom:0; min-width:12px;}
 .word-keyboard{display:grid; grid-template-columns:repeat(7,1fr); gap:7px; margin-top:12px;}
 .keybtn{
-  border:2px solid #FFD3E3; background:#FFF9FB; border-radius:12px;
+  border:2px solid var(--edge2); background:var(--soft); border-radius:12px;
   min-height:42px; font:800 18px 'Baloo 2'; color:var(--ink); cursor:pointer;
 }
 .keybtn:active{transform:scale(.96);}
 .keybtn.good{background:var(--mint); border-color:var(--mint); color:#fff;}
-.keybtn.miss{background:#FFE7F0; color:var(--pink-deep);}
+.keybtn.miss{background:var(--soft2); color:var(--pink-deep);}
 .keybtn:disabled{opacity:.9; cursor:default;}
 .word-status{min-height:26px; margin-top:12px; font:800 17px 'Baloo 2'; color:var(--pink-deep);}
 .word-actions{display:flex; gap:8px; margin-top:12px;}
@@ -472,12 +589,12 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 
 /* ---------- timer ---------- */
 .tool-card{
-  background:#fff; border:2px solid #FFE9F1; border-radius:var(--r);
+  background:#fff; border:2px solid var(--edge); border-radius:var(--r);
   padding:16px; text-align:center; overflow:hidden;
 }
 .timer-face{
   position:relative; width:min(290px,100%); aspect-ratio:1; margin:0 auto 14px;
-  border-radius:50%; background:radial-gradient(circle at 50% 42%,#fff 0 46%,#FFE7F0 47% 100%);
+  border-radius:50%; background:radial-gradient(circle at 50% 42%,#fff 0 46%,var(--soft2) 47% 100%);
   border:7px solid #fff; box-shadow:0 8px 20px rgba(71,42,68,.14), inset 0 -10px 0 rgba(255,111,165,.08);
   display:grid; place-items:center;
 }
@@ -494,38 +611,20 @@ main{max-width:640px; margin:0 auto; padding:14px 14px 90px;}
 .timer-controls{display:grid; gap:10px;}
 .segrow{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
 .segbtn,.presetbtn,.stepbtn{
-  border:2px solid #FFD3E3; border-radius:14px; background:#FFF9FB;
+  border:2px solid var(--edge2); border-radius:14px; background:var(--soft);
   padding:10px; font:800 15px 'Baloo 2'; color:var(--ink); cursor:pointer;
 }
 .segbtn.on,.presetbtn.on{background:var(--pink); border-color:var(--pink); color:#fff;}
 .segbtn:disabled,.presetbtn:disabled,.stepbtn:disabled{opacity:.55; cursor:default;}
 .presets{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
 .steprow{display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:center;}
-.duration-pill{border-radius:14px; background:#FFF4F8; padding:10px; font:800 16px 'Baloo 2'; color:var(--ink);}
+.duration-pill{border-radius:14px; background:var(--soft); padding:10px; font:800 16px 'Baloo 2'; color:var(--ink);}
 .timer-actions{display:flex; gap:8px;}
 .timer-done{animation:timerPulse .8s ease-in-out infinite alternate;}
 @keyframes timerPulse{from{transform:scale(1)}to{transform:scale(1.025)}}
 
-/* ---------- mad libs ---------- */
-.mad-card{text-align:left;}
-.mad-head{display:flex; gap:12px; align-items:center; margin-bottom:12px;}
-.mad-mark{width:56px; height:56px; border-radius:18px; display:grid; place-items:center; background:#FFE7F0; font-size:28px; flex:0 0 56px;}
-.mad-title{font:800 23px 'Baloo 2'; line-height:1.1;}
-.mad-sub{font:700 13px 'Nunito'; color:var(--ink-soft);}
-.mad-select{width:100%; border:2px solid #FFD3E3; border-radius:16px; padding:11px 12px; font:800 15px 'Baloo 2'; color:var(--ink); background:#FFF9FB; outline:none;}
-.mad-fields{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px;}
-.mad-field label{display:block; font:800 12px 'Baloo 2'; color:var(--pink-deep); margin:0 0 3px 4px;}
-.mad-field input{
-  width:100%; border:2px solid #FFD3E3; border-radius:14px; padding:10px 11px;
-  font:700 15px 'Nunito'; color:var(--ink); background:#fff; outline:none;
-}
-.mad-field input:focus{border-color:var(--pink);}
-.mad-actions{display:flex; gap:8px; margin-top:12px;}
-.story-output{margin-top:14px; padding:14px; background:#FFF4F8; border-radius:18px; font:700 16px 'Nunito'; line-height:1.5;}
-.story-output b{font-family:'Baloo 2'; color:var(--pink-deep);}
 @media(max-width:500px){
   .presets{grid-template-columns:repeat(2,1fr);}
-  .mad-fields{grid-template-columns:1fr;}
   .timer-main{font-size:48px;}
 }
 .setuprow{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
@@ -541,6 +640,22 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
 </style>
 </head>
 <body>
+
+<!-- Splash: the Compact sits closed, twinkles, then flips open -->
+<div class="splash" id="splash">
+  <div class="splash-compact" id="splashCompact">
+    <div class="sp-lid">
+      <div class="clasp" aria-hidden="true"><span class="bow"></span><span class="clasp-gem"></span></div>
+      <div class="sp-heart">💖</div>
+    </div>
+    <div class="sp-base">
+      <div class="sp-mirror">✨</div>
+    </div>
+  </div>
+  <div class="splash-word" id="splashWord">Teenie-P Time!</div>
+</div>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
 
 <header>
   <div class="brand">
@@ -564,9 +679,14 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#8E93B8;--c2:#4E5578" onclick="showMode('shadow')"><span class="ai-emoji">👀</span><span class="ai-label">Shadow Catch</span><span class="ai-sub">Who's that ping?</span></button>
         <button class="appicon" style="--c1:#FFAD85;--c2:#F2703A" onclick="showMode('album')"><span class="ai-emoji">🏆</span><span class="ai-label">Catch Album</span><span class="ai-sub" id="albumTileSub">Collect them all</span></button>
         <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">💎</span><span class="ai-label">Twinkle Timer</span><span class="ai-sub">Beat the clock</span></button>
-        <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('story')"><span class="ai-emoji">🪄</span><span class="ai-label">Wonder Tales</span><span class="ai-sub">Silly ping stories</span></button>
+        <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('match')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Match</span><span class="ai-sub">Find the pairs</span></button>
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
       </div>
+    </div>
+
+    <div class="theme-pick">
+      <div class="theme-label">🎨 Pick your world</div>
+      <div class="theme-gems" id="themeGems"></div>
     </div>
 
     <div class="tv-widget hidden" id="tvWidget">
@@ -766,24 +886,17 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     </div>
   </section>
 
-  <!-- ============ MAD LIBS ============ -->
-  <section id="story" class="hidden">
-    <div class="tool-card mad-card">
-      <div class="mad-head">
-        <div class="mad-mark">📜</div>
-        <div>
-          <div class="mad-title">Teenieping Story Maker</div>
-          <div class="mad-sub">Fill the blanks, then make a silly adventure.</div>
-        </div>
-      </div>
-      <select class="mad-select" id="madSelect" onchange="renderMadLib()"></select>
-      <div class="mad-fields" id="madFields"></div>
-      <div class="mad-actions">
-        <button class="bigbtn ghost" onclick="randomizeMadLib()">Surprise me</button>
-        <button class="bigbtn" onclick="makeMadLib()">Make story</button>
-      </div>
-      <div class="story-output" id="storyOutput"></div>
+  <!-- ============ PING MATCH (memory game) ============ -->
+  <section id="match" class="hidden">
+    <div class="scorebar">
+      <span>🃏 Moves: <span id="mtMoves">0</span></span>
+      <span class="streak">💗 Pairs: <span id="mtPairs">0</span></span>
+      <span>⭐ Best: <span id="mtBest">—</span></span>
     </div>
+    <div class="setuprow" id="mtLevels"></div>
+    <div class="match-board" id="mtBoard"></div>
+    <div class="team-status" id="mtStatus">Tap two cards to find a matching pair!</div>
+    <div class="team-final hidden" id="mtWin"></div>
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1171,48 +1284,6 @@ const WORD_PHRASES = [
   {text:"Rainbow Macaron", category:"Treat", hint:"A colorful dessert phrase."},
   {text:"Choco Balls", category:"Treat", hint:"Trustping's favorite snack."}
 ];
-const MAD_STORIES = [
-  {
-    title:"Willow and the Tiny Trouble",
-    fields:[["hero","person","Willow"],["teenie","Teenieping","Heartsping"],["place","place","Harmony Town"],["snack","snack","cupcake"],["adj","describing word","sparkly"],["object","object","backpack"]],
-    make:p=>`<b>${p.hero}</b> was visiting <b>${p.place}</b> when <b>${p.teenie}</b> made every <b>${p.object}</b> bounce like a <b>${p.adj}</b> balloon. Romi brought the Magic Catcher, but ${p.hero} solved it first by offering a peaceful <b>${p.snack}</b>. Everyone cheered, and ${p.teenie} promised to only bounce things on special picnic days.`
-  },
-  {
-    title:"Dessert Village Picnic",
-    fields:[["hero","person","Willow"],["dessert","dessert","macaron"],["teenie","Teenieping","Jellyping"],["color","color","rainbow"],["action","action word","twirling"],["place","place","Dessert Village"]],
-    make:p=>`At the <b>${p.place}</b> picnic, <b>${p.hero}</b> found a <b>${p.color}</b> <b>${p.dessert}</b> that would not stop <b>${p.action}</b>. <b>${p.teenie}</b> giggled so hard the plates started dancing too. Romi said, "Mystery solved!" and everyone shared the dessert before it could roll away.`
-  },
-  {
-    title:"The Secret Door",
-    fields:[["hero","person","Willow"],["teenie","Teenieping","Trustping"],["place","place","Mystic Town"],["thing","object","key"],["feeling","feeling","brave"],["sound","sound","ding-ding"]],
-    make:p=>`A little <b>${p.thing}</b> in <b>${p.place}</b> made a <b>${p.sound}</b> sound whenever <b>${p.hero}</b> got close. <b>${p.teenie}</b> felt very <b>${p.feeling}</b> and helped open a secret door. Behind it was not a monster at all, just a room full of tiny pillows and one very sleepy Teenieping.`
-  },
-  {
-    title:"Star Village Countdown",
-    fields:[["hero","person","Willow"],["teenie","Teenieping","Twinkleping"],["number","number","10"],["place","place","Space Star Village"],["object","object","star sticker"],["adj","describing word","glowy"]],
-    make:p=>`In <b>${p.place}</b>, <b>${p.hero}</b> counted down from <b>${p.number}</b> while <b>${p.teenie}</b> held a <b>${p.adj}</b> <b>${p.object}</b>. When the countdown reached zero, the sky made a heart-shaped sparkle. Heartsping called it the best tiny celebration in the galaxy.`
-  },
-  {
-    title:"Romi's Silly Catch",
-    fields:[["teenie","Teenieping","Nonoping"],["place","place","Harmony Town"],["snack","snack","broccoli"],["object","object","roller skate"],["adj","describing word","wiggly"],["phrase","silly phrase","sparkle snack attack"]],
-    make:p=>`Romi chased <b>${p.teenie}</b> through <b>${p.place}</b> after a <b>${p.adj}</b> <b>${p.object}</b> started yelling, "${p.phrase}!" The only thing that calmed everything down was a plate of <b>${p.snack}</b>. Even the Magic Catcher seemed impressed.`
-  }
-];
-const MAD_FILLERS = {
-  person:["Willow","Romi","Maya","a tiny princess","the snack captain"],
-  Teenieping:["Heartsping","Jellyping","Nonoping","Trustping","Shashaping","Lalaping","Gogoping","Fluffyping"],
-  place:["Harmony Town","Dessert Village","Space Star Village","Mystic Town","Emotion Kingdom","the tea table"],
-  snack:["cupcake","cotton candy","choco balls","rainbow macaron","broccoli","strawberry pudding"],
-  dessert:["macaron","jelly cup","waffle","pancake","marshmallow","ice cream"],
-  "describing word":["sparkly","wiggly","tiny","bouncy","glowy","super sweet"],
-  object:["backpack","key","star sticker","roller skate","tea cup","Magic Catcher"],
-  color:["pink","rainbow","mint green","sunny yellow","sparkle blue"],
-  "action word":["twirling","bouncing","singing","zooming","tiptoeing"],
-  feeling:["brave","sleepy","happy","curious","extra giggly"],
-  sound:["ding-ding","boing","la-la-la","pop","sparkle"],
-  number:["5","10","30","60","100"],
-  "silly phrase":["sparkle snack attack","tea party tornado","tiny royal wiggle","catchy catchy heart","dessert zoom"]
-};
 
 /* ================= SHARED HELPERS ================= */
 const $ = id => document.getElementById(id);
@@ -1235,7 +1306,7 @@ function showMode(m){
   $('play').classList.toggle('hidden', m!=='play');
   $('word').classList.toggle('hidden', m!=='word');
   $('timer').classList.toggle('hidden', m!=='timer');
-  $('story').classList.toggle('hidden', m!=='story');
+  $('match').classList.toggle('hidden', m!=='match');
   $('book').classList.toggle('hidden', m!=='book');
   $('mystery').classList.toggle('hidden', m!=='mystery');
   $('shadow').classList.toggle('hidden', m!=='shadow');
@@ -1244,6 +1315,7 @@ function showMode(m){
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
   if(m==='album') renderAlbum();
+  if(m==='match' && !mtCards.length) newMatchGame();
   window.scrollTo(0,0);
 }
 
@@ -1464,7 +1536,9 @@ function initToday(){
 
 /* ================= HANDBOOK ================= */
 let filterSeason = 0; // 0 = all
-const favs = new Set();
+let favs = new Set();
+try{ favs = new Set(JSON.parse(localStorage.getItem('wct-favs')) || []); }catch(e){}
+function saveFavs(){ try{ localStorage.setItem('wct-favs', JSON.stringify([...favs])); }catch(e){} }
 function buildChips(){
   let h = `<button class="chip ${filterSeason===0?'on':''}" onclick="setSeason(0)">All</button>`;
   for(const k in SEASONS){
@@ -1522,7 +1596,7 @@ function openSheet(name){
   $('sheet').classList.add('open');
   $('sheetBg').classList.add('open');
 }
-function toggleFav(n){ favs.has(n)?favs.delete(n):favs.add(n); openSheet(n); renderGrid(); }
+function toggleFav(n){ favs.has(n)?favs.delete(n):favs.add(n); saveFavs(); openSheet(n); renderGrid(); }
 function closeSheet(){ $('sheet').classList.remove('open'); $('sheetBg').classList.remove('open'); }
 
 /* ================= QUIZ ================= */
@@ -1830,43 +1904,6 @@ function resetTimer(){
   renderTimer();
 }
 
-/* ================= MAD LIBS ================= */
-let madIndex = 0;
-function renderMadOptions(){
-  $('madSelect').innerHTML = MAD_STORIES.map((story,i)=>`<option value="${i}">${esc(story.title)}</option>`).join('');
-}
-function renderMadLib(){
-  madIndex = Number($('madSelect').value || 0);
-  const story = MAD_STORIES[madIndex];
-  $('madFields').innerHTML = story.fields.map(([key,label,fallback])=>`
-    <div class="mad-field">
-      <label for="mad_${key}">${esc(label)}</label>
-      <input id="mad_${key}" data-key="${escAttr(key)}" placeholder="${escAttr(fallback)}" value="${escAttr(fallback)}">
-    </div>
-  `).join('');
-  $('storyOutput').innerHTML = '';
-}
-function madValues(){
-  const story = MAD_STORIES[madIndex];
-  const values = {};
-  story.fields.forEach(([key,,fallback])=>{
-    const input = $(`mad_${key}`);
-    values[key] = (input.value || fallback).trim();
-  });
-  return values;
-}
-function randomizeMadLib(){
-  const story = MAD_STORIES[madIndex];
-  story.fields.forEach(([key,label])=>{
-    const options = MAD_FILLERS[label] || MAD_FILLERS[key] || [key];
-    $(`mad_${key}`).value = pick(options);
-  });
-  makeMadLib();
-}
-function makeMadLib(){
-  const story = MAD_STORIES[madIndex];
-  $('storyOutput').innerHTML = story.make(madValues());
-}
 
 /* ================= CATCH ALBUM ================= */
 // Persistent collection: winning any game "catches" that ping into the album.
@@ -1882,6 +1919,19 @@ function albumCatch(name, via){
   album[name] = via;
   saveAlbum(); updateAlbumTile();
   toast(`✨ NEW for the album! <b>${esc(name)}</b> caught!`);
+
+  // did that finish a whole season? (or the entire album!)
+  const p = PINGS.find(x=>x.n===name);
+  const sibs = PINGS.filter(x=>x.s === p.s);
+  if(sibs.every(x=>album[x.n])){
+    setTimeout(()=>{
+      burstHearts(); burstHearts();
+      toast(`🎉 ${SEASONS[p.s].emoji} <b>${esc(SEASONS[p.s].name)}</b> season COMPLETE!`);
+    }, 900);
+  }
+  if(albumCount() === PINGS.length){
+    setTimeout(()=>toast(`🏆 You caught <b>ALL ${PINGS.length}</b> Teeniepings, Willow!!`), 1900);
+  }
   return true;
 }
 function renderAlbum(){
@@ -1893,13 +1943,20 @@ function renderAlbum(){
     const s = SEASONS[k];
     const list = PINGS.filter(p=>p.s==k);
     const gotHere = list.filter(p=>album[p.n]).length;
+    const done = gotHere === list.length;
     h += `<div class="al-season">
-      <div class="al-sea-head"><span>${s.emoji} ${esc(s.name)} <small>· ${esc(s.show)}</small></span><span>${gotHere}/${list.length}</span></div>
+      <div class="al-sea-head"><span>${s.emoji} ${esc(s.name)} <small>· ${esc(s.show)}</small></span><span>${gotHere}/${list.length}${done?' 🎉':''}</span></div>
       <div class="al-grid">` +
-      list.map(p=>`<div class="al-card ${album[p.n]?'':'sil'}" data-name="${escAttr(p.n)}" onclick="albumTap(this.dataset.name)">
+      list.map((p,i)=>{
+        const got = !!album[p.n];
+        const holo = got && p.g === 'legend';
+        return `<div class="al-card ${got?'':'sil'} ${holo?'holo':''}" style="animation-delay:${Math.min(i*22,520)}ms"
+            data-name="${escAttr(p.n)}" onclick="albumTap(this.dataset.name)">
+          ${holo?'<span class="al-legend">🌟</span>':''}
           ${badgeHTML(p)}
-          <div class="nm">${album[p.n]?esc(p.n):'???'}</div>
-        </div>`).join('') +
+          <div class="nm">${got?esc(p.n):'???'}</div>
+        </div>`;
+      }).join('') +
       `</div></div>`;
   }
   $('alSeasons').innerHTML = h;
@@ -2044,9 +2101,155 @@ function shadowGuess(btn){
   $('shadowNext').classList.remove('hidden');
 }
 
+/* ================= SPLASH ================= */
+function initSplash(){
+  const sp = $('splash');
+  if(sessionStorage.getItem('wct-splash-seen')){ sp.classList.add('gone'); return; }
+  try{ sessionStorage.setItem('wct-splash-seen','1'); }catch(e){}
+  const finish = ()=>sp.classList.add('gone');
+  setTimeout(finish, 3000);
+  sp.addEventListener('click', finish); // impatient taps skip it
+}
+
+/* ================= SEASON THEMES ================= */
+function buildThemeGems(){
+  const cur = localStorage.getItem('wct-theme') || '1';
+  let h = '';
+  for(const k in SEASONS){
+    const s = SEASONS[k];
+    h += `<button class="gem ${cur===k?'on':''}" style="--g1:${s.color}; --g2:${s.color}" data-k="${k}"
+      title="${escAttr(s.name)}" onclick="setTheme(this.dataset.k)">${s.emoji}</button>`;
+  }
+  $('themeGems').innerHTML = h;
+}
+function setTheme(k){
+  try{ localStorage.setItem('wct-theme', k); }catch(e){}
+  applyTheme();
+  buildThemeGems();
+  toast(`${SEASONS[k].emoji} ${esc(SEASONS[k].name)} world! ${esc(SEASONS[k].show)}`);
+}
+function applyTheme(){
+  const k = localStorage.getItem('wct-theme') || '1';
+  if(k === '1') document.body.removeAttribute('data-theme');
+  else document.body.setAttribute('data-theme', k);
+}
+
+/* ================= SPARKLES & SKY ================= */
+const SPARK_CHARS = ['✨','💖','⭐','💗','🌟'];
+document.addEventListener('pointerdown', e=>{
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for(let i=0;i<3;i++){
+    const s = document.createElement('span');
+    s.className = 'spark'; s.textContent = pick(SPARK_CHARS);
+    s.style.left = e.clientX+'px'; s.style.top = e.clientY+'px';
+    s.style.setProperty('--sx', (Math.random()*70-35)+'px');
+    s.style.setProperty('--sy', (-25-Math.random()*45)+'px');
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 750);
+  }
+}, {passive:true});
+
+function initSky(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const sky = $('sky');
+  sky.innerHTML = Array.from({length:14}, ()=>{
+    const dur = 15 + Math.random()*16, delay = -Math.random()*28;
+    return `<span style="left:${Math.random()*100}%; font-size:${9+Math.random()*13}px;
+      animation-duration:${dur}s; animation-delay:${delay}s;">${pick(SPARK_CHARS)}</span>`;
+  }).join('');
+}
+
+/* ================= PING MATCH (memory game) ================= */
+const MATCH_LEVELS = [{n:6, label:'Easy · 6 pairs'}, {n:8, label:'Medium · 8 pairs'}, {n:10, label:'Tricky · 10 pairs'}];
+let mtLevel = 0, mtCards = [], mtUp = [], mtMoves = 0, mtPairs = 0, mtLock = false;
+function mtBestKey(){ return `wct-match-best-${MATCH_LEVELS[mtLevel].n}`; }
+function buildMatchLevels(){
+  $('mtLevels').innerHTML = MATCH_LEVELS.map((lv,i)=>
+    `<button class="chip ${i===mtLevel?'on':''}" data-i="${i}" onclick="setMatchLevel(+this.dataset.i)">${esc(lv.label)}</button>`
+  ).join('');
+}
+function setMatchLevel(i){ mtLevel = i; buildMatchLevels(); newMatchGame(); }
+function newMatchGame(){
+  const pairs = MATCH_LEVELS[mtLevel].n;
+  const withImg = PINGS.filter(p=>IMAGE_MANIFEST[p.n]);
+  const fresh = withImg.filter(p=>!album[p.n]);
+  // favour pings she hasn't caught yet, then top up from everyone
+  const chosen = shuffle(fresh).slice(0, pairs);
+  if(chosen.length < pairs){
+    chosen.push(...shuffle(withImg.filter(p=>!chosen.includes(p))).slice(0, pairs - chosen.length));
+  }
+  mtCards = shuffle(chosen.concat(chosen).map((p,i)=>({p, id:i})));
+  mtUp = []; mtMoves = 0; mtPairs = 0; mtLock = false;
+  $('mtWin').classList.add('hidden'); $('mtWin').innerHTML = '';
+  $('mtStatus').textContent = 'Tap two cards to find a matching pair!';
+  const best = localStorage.getItem(mtBestKey());
+  $('mtBest').textContent = best ? `${best} moves` : '—';
+  renderMatchBoard();
+  updateMatchScore();
+}
+function renderMatchBoard(){
+  $('mtBoard').innerHTML = mtCards.map((c,i)=>
+    `<button class="mcard" data-i="${i}" onclick="flipCard(+this.dataset.i)">
+      <span class="mcard-in">
+        <span class="mface mback">💖</span>
+        <span class="mface mfront"><img src="${escAttr(IMAGE_MANIFEST[c.p.n])}" alt="${escAttr(c.p.n)}"></span>
+      </span>
+    </button>`).join('');
+}
+function updateMatchScore(){
+  $('mtMoves').textContent = mtMoves;
+  $('mtPairs').textContent = `${mtPairs}/${MATCH_LEVELS[mtLevel].n}`;
+}
+function flipCard(i){
+  if(mtLock) return;
+  const el = $('mtBoard').children[i];
+  if(!el || el.classList.contains('up') || el.classList.contains('done')) return;
+  el.classList.add('up');
+  mtUp.push(i);
+  if(mtUp.length < 2) return;
+
+  mtMoves++; updateMatchScore();
+  const [a,b] = mtUp;
+  const board = $('mtBoard');
+  if(mtCards[a].p.n === mtCards[b].p.n){
+    mtUp = [];
+    board.children[a].classList.add('done');
+    board.children[b].classList.add('done');
+    mtPairs++; updateMatchScore();
+    const name = mtCards[a].p.n;
+    $('mtStatus').textContent = `${name} — matched! 💖`;
+    albumCatch(name, 'match');
+    if(mtPairs === MATCH_LEVELS[mtLevel].n) setTimeout(winMatch, 480);
+  } else {
+    mtLock = true;
+    $('mtStatus').textContent = 'Not a pair — try again!';
+    setTimeout(()=>{
+      board.children[a].classList.remove('up');
+      board.children[b].classList.remove('up');
+      mtUp = []; mtLock = false;
+    }, 850);
+  }
+}
+function winMatch(){
+  const best = +(localStorage.getItem(mtBestKey()) || 0);
+  const isBest = !best || mtMoves < best;
+  if(isBest){ try{ localStorage.setItem(mtBestKey(), mtMoves); }catch(e){} $('mtBest').textContent = `${mtMoves} moves`; }
+  burstHearts();
+  $('mtStatus').textContent = '';
+  const el = $('mtWin');
+  el.innerHTML = `<div class="tf-spark">✨🃏✨</div>
+    <div class="tf-title">All matched!</div>
+    <div class="tf-sub">You found every pair in <b>${mtMoves}</b> moves${isBest?' — a new best! ⭐':''}</div>
+    <div class="tf-btns"><button class="bigbtn" onclick="newMatchGame()">Play again 💖</button></div>`;
+  el.classList.remove('hidden');
+}
+
 /* ================= INIT ================= */
+applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
-buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); newShadowRound(); renderTimerPresets(); renderTimer(); renderMadOptions(); renderMadLib();
+buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); newShadowRound();
+buildMatchLevels(); newMatchGame();
+renderTimerPresets(); renderTimer();
 $('scBest').textContent = best;
 initToday();
 initTV();
