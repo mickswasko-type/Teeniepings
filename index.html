@@ -439,6 +439,60 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .mcard.done .mcard-in{animation:matchPop .45s ease;}
 @keyframes matchPop{0%,100%{transform:rotateY(180deg) scale(1);}45%{transform:rotateY(180deg) scale(1.13);}}
 
+/* ---------- PAINT STUDIO ---------- */
+.paint-basepick{display:flex; gap:10px; justify-content:center; margin:2px 0 14px; flex-wrap:wrap;}
+.pt-basebtn{
+  border:3px solid var(--edge); background:#fff; border-radius:20px; padding:8px 10px 6px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:4px; width:84px; transition:transform .12s, border-color .12s;
+}
+.pt-basebtn svg{width:56px; height:56px;}
+.pt-basebtn span{font:800 12px 'Baloo 2'; color:var(--ink-soft);}
+.pt-basebtn.on{border-color:var(--pink); transform:translateY(-2px); box-shadow:0 4px 0 rgba(232,76,139,.18);}
+.pt-basebtn.on span{color:var(--pink-deep);}
+.pt-basebtn:active{transform:scale(.95);}
+
+.paint-stage{
+  background:linear-gradient(165deg,#fff,var(--soft)); border:3px solid #fff; border-radius:28px;
+  padding:14px; margin-bottom:14px; box-shadow:0 8px 0 rgba(71,42,68,.1), inset 0 0 0 2px var(--edge);
+  display:flex; justify-content:center;
+}
+.paint-canvas{width:100%; max-width:320px;}
+.paint-canvas svg{width:100%; height:auto; display:block; overflow:visible;}
+.pt-region{cursor:pointer; transition:opacity .1s, filter .12s;}
+.pt-region:active{opacity:.82;}
+.pt-region.pulse{animation:ptPulse 1.1s ease-in-out infinite;}
+@keyframes ptPulse{0%,100%{filter:brightness(1);}50%{filter:brightness(1.18);}}
+.pt-fixed{pointer-events:none;}
+
+.paint-palette{
+  display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-bottom:14px;
+  background:#fff; border:2px solid var(--edge); border-radius:20px; padding:10px;
+}
+.pt-swatch{
+  aspect-ratio:1; border-radius:50%; border:3px solid #fff; cursor:pointer; padding:0;
+  box-shadow:0 2px 5px rgba(71,42,68,.18), inset 0 0 0 1px rgba(0,0,0,.05); transition:transform .1s;
+}
+.pt-swatch.on{box-shadow:0 0 0 3px #fff, 0 0 0 6px var(--pink-deep), 0 2px 5px rgba(71,42,68,.18); transform:scale(1.08);}
+.pt-swatch:active{transform:scale(.9);}
+
+.paint-actions{display:flex; flex-direction:column; gap:10px;}
+.paint-btnrow{display:flex; gap:8px;}
+.paint-btnrow .bigbtn{flex:1;}
+
+.paint-gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; margin-top:10px;}
+.pt-card{
+  background:var(--card); border:2px solid var(--edge2); border-radius:20px; padding:10px 8px 8px;
+  display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; position:relative;
+}
+.pt-card svg{width:78px; height:78px;}
+.pt-card .nm{font:800 13px 'Baloo 2'; text-align:center; line-height:1.15;}
+.pt-del{
+  position:absolute; top:4px; right:4px; width:24px; height:24px; border-radius:50%; border:0;
+  background:#fff; color:var(--pink-deep); font:800 13px 'Baloo 2'; box-shadow:0 2px 5px rgba(71,42,68,.2); cursor:pointer;
+}
+.pt-del.confirm{background:var(--pink-deep); color:#fff;}
+@media(max-width:420px){ .paint-palette{grid-template-columns:repeat(6,1fr);} }
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -681,6 +735,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#FFD06A;--c2:#F5A623" onclick="showMode('timer')"><span class="ai-emoji">💎</span><span class="ai-label">Twinkle Timer</span><span class="ai-sub">Beat the clock</span></button>
         <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('match')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Match</span><span class="ai-sub">Find the pairs</span></button>
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
+        <button class="appicon" style="--c1:#FFB0E0;--c2:#D666C9" onclick="showMode('paint')"><span class="ai-emoji">🎨</span><span class="ai-label">Paint Studio</span><span class="ai-sub">Make your own!</span></button>
       </div>
     </div>
 
@@ -899,6 +954,37 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     <div class="team-final hidden" id="mtWin"></div>
   </section>
 
+  <!-- ============ PAINT STUDIO (make your own Teenie-P) ============ -->
+  <section id="paint" class="hidden">
+    <div class="setuprow">
+      <button class="chip" id="paintTabEditor" onclick="setPaintView('editor')">🎨 Create</button>
+      <button class="chip" id="paintTabGallery" onclick="setPaintView('gallery')">🖼️ My Teeniepings <span id="paintGalleryCount"></span></button>
+    </div>
+
+    <div id="paintEditorView">
+      <div class="paint-basepick" id="paintBasePick"></div>
+
+      <div class="paint-stage">
+        <div class="paint-canvas" id="paintCanvas"></div>
+      </div>
+
+      <div class="paint-palette" id="paintPalette"></div>
+
+      <div class="paint-actions">
+        <input class="today-input" id="paintName" placeholder="Name your Teenie-P…" maxlength="24" autocomplete="off">
+        <div class="paint-btnrow">
+          <button class="bigbtn ghost" onclick="clearPaint()">🔄 Start over</button>
+          <button class="bigbtn" onclick="savePaint()">💖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="paintGalleryView" class="hidden">
+      <div class="al-count" id="paintGalleryEmpty">No creations yet — go make one! 🎨</div>
+      <div class="paint-gallery" id="paintGallery"></div>
+    </div>
+  </section>
+
   <!-- ============ HANDBOOK ============ -->
   <section id="book" class="hidden">
     <div class="searchrow">
@@ -913,7 +999,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
 <div class="sheet-bg" id="sheetBg" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet"></div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" onclick="this.classList.remove('show')" title="Tap to close"></div>
 
 <footer>Made with 💗 for Willow &nbsp;·&nbsp; Catch 'em all with Romi! &nbsp;·&nbsp; <button onclick="alert(PHOTO_HELP)">📸 How to add real pictures</button></footer>
 
@@ -1311,22 +1397,25 @@ function showMode(m){
   $('mystery').classList.toggle('hidden', m!=='mystery');
   $('shadow').classList.toggle('hidden', m!=='shadow');
   $('album').classList.toggle('hidden', m!=='album');
+  $('paint').classList.toggle('hidden', m!=='paint');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
   if(m==='album') renderAlbum();
   if(m==='match' && !mtCards.length) newMatchGame();
+  if(m==='paint' && paintView==='gallery') renderPaintGallery();
   window.scrollTo(0,0);
 }
 
 /* ================= PING OF THE DAY (tap the 💖) ================= */
 let toastTimer;
-function toast(msg){
+function toast(msg, duration){
   const t = $('toast');
   t.innerHTML = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+  // long enough to actually read a fact out loud, not just glimpse it
+  toastTimer = setTimeout(()=>t.classList.remove('show'), duration || 7000);
 }
 const POTD_INTROS = ["Ping of the Day!","Wild ping spotted!","Catch this one!","Teenie-P alert!","Sparkle pick!"];
 function pingOfTheDay(){
@@ -2244,12 +2333,239 @@ function winMatch(){
   el.classList.remove('hidden');
 }
 
+/* ================= PAINT STUDIO ================= */
+// A kid can't cleanly color the real (detailed) character renders — quantizing
+// them to tappable regions turns them into an unrecognizable blob (tested).
+// So instead she designs her OWN original chibi creature: hand-built SVG
+// regions she taps to fill, in the spirit of a Teenieping rather than a trace
+// of one. viewBox is shared (0 0 240 260) so all three bases line up.
+const PAINT_PALETTE = [
+  {hex:'#FF6FA5', name:'Pink'},      {hex:'#FF9EC4', name:'Blush'},
+  {hex:'#E84C8B', name:'Magenta'},   {hex:'#FF4D6D', name:'Red'},
+  {hex:'#FF9E5C', name:'Orange'},    {hex:'#FFC24B', name:'Gold'},
+  {hex:'#FFE96B', name:'Yellow'},    {hex:'#8CE0A0', name:'Mint'},
+  {hex:'#3EC9A7', name:'Teal'},      {hex:'#7EC8E3', name:'Sky'},
+  {hex:'#5B6BE8', name:'Blue'},      {hex:'#9B7BFF', name:'Purple'},
+  {hex:'#C79BFF', name:'Lavender'},  {hex:'#B98868', name:'Brown'},
+];
+
+// fixed (non-colorable) face — same on every base, drawn on top
+const PAINT_FACE = `
+  <ellipse class="pt-fixed" cx="98" cy="132" rx="8" ry="9" fill="#3A2733"/>
+  <ellipse class="pt-fixed" cx="142" cy="132" rx="8" ry="9" fill="#3A2733"/>
+  <circle class="pt-fixed" cx="95.5" cy="128.5" r="2.4" fill="#fff"/>
+  <circle class="pt-fixed" cx="139.5" cy="128.5" r="2.4" fill="#fff"/>
+  <path class="pt-fixed" d="M110,152 Q120,159 130,152" stroke="#3A2733" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+`;
+const PAINT_COMMON_REGIONS = `
+  <ellipse class="pt-region" data-region="body" cx="120" cy="146" rx="86" ry="92"/>
+  <ellipse class="pt-region" data-region="feet" cx="85" cy="228" rx="26" ry="15"/>
+  <ellipse class="pt-region" data-region="feet" cx="155" cy="228" rx="26" ry="15"/>
+  <ellipse class="pt-region" data-region="tummy" cx="120" cy="180" rx="46" ry="50"/>
+  <ellipse class="pt-region" data-region="cheeks" cx="76" cy="153" rx="14" ry="10"/>
+  <ellipse class="pt-region" data-region="cheeks" cx="164" cy="153" rx="14" ry="10"/>
+`;
+const PAINT_BASES = {
+  bunny: {
+    label:'Bunny-P',
+    defaults:{body:'#FFD3E3', tummy:'#FFF3F8', ears:'#FF9EC4', cheeks:'#FFB3C6', feet:'#FFD3E3', accessory:'#FFC24B'},
+    parts:`
+      <ellipse class="pt-region" data-region="ears" cx="80" cy="55" rx="20" ry="46" transform="rotate(-14 80 55)"/>
+      <ellipse class="pt-region" data-region="ears" cx="160" cy="55" rx="20" ry="46" transform="rotate(14 160 55)"/>
+      <ellipse class="pt-fixed" cx="82" cy="60" rx="9" ry="30" transform="rotate(-14 80 55)" fill="#FFE3EE" opacity=".85"/>
+      <ellipse class="pt-fixed" cx="158" cy="60" rx="9" ry="30" transform="rotate(14 160 55)" fill="#FFE3EE" opacity=".85"/>
+      <path class="pt-region" data-region="accessory" d="M104,34 L120,46 L104,58 Z M136,34 L120,46 L136,58 Z"/>
+      <circle class="pt-region" data-region="accessory" cx="120" cy="46" r="6.5"/>
+    `
+  },
+  kitty: {
+    label:'Kitty-P',
+    defaults:{body:'#C9E9FF', tummy:'#EEF9FF', ears:'#8FD3F4', tail:'#8FD3F4', cheeks:'#FFC2D6', feet:'#C9E9FF', accessory:'#FF9EC4'},
+    parts:`
+      <path class="pt-region" data-region="tail" d="M199,192 C244,182 250,118 216,96 C254,106 268,178 222,218 C210,226 199,212 199,192 Z"/>
+      <path class="pt-region" data-region="ears" d="M60,74 L83,6 L106,74 Z"/>
+      <path class="pt-region" data-region="ears" d="M134,74 L157,6 L180,74 Z"/>
+      <path class="pt-fixed" d="M70,66 L83,28 L96,66 Z" fill="#FFCFE4" opacity=".9"/>
+      <path class="pt-fixed" d="M144,66 L157,28 L170,66 Z" fill="#FFCFE4" opacity=".9"/>
+      <g class="pt-region" data-region="accessory">
+        <circle cx="88" cy="38" r="7"/><circle cx="88" cy="54" r="7"/>
+        <circle cx="80" cy="46" r="7"/><circle cx="96" cy="46" r="7"/>
+        <circle cx="88" cy="46" r="5.5" fill="#FFE96B" stroke="none"/>
+      </g>
+    `
+  },
+  star: {
+    label:'Star-P',
+    defaults:{body:'#E5D4FF', tummy:'#F7F1FF', ears:'#C7A6FF', cheeks:'#FFC2D6', feet:'#E5D4FF', accessory:'#FFE96B'},
+    parts:`
+      <path class="pt-region" data-region="ears" d="M75,82 L92,14 L109,84 Z"/>
+      <path class="pt-region" data-region="ears" d="M131,84 L148,14 L165,82 Z"/>
+      <path class="pt-region" data-region="accessory" d="M120,24 L133,42 L120,60 L107,42 Z"/>
+    `
+  }
+};
+function paintDefaults(baseKey){ return {...PAINT_BASES[baseKey].defaults}; }
+function renderPaintCreature(baseKey, colors, interactive){
+  const base = PAINT_BASES[baseKey];
+  const c = {...base.defaults, ...colors};
+  // paint each data-region element by walking the combined markup client-side after insert (see paintApplyColors)
+  return `<svg viewBox="0 0 240 260" class="${interactive?'pt-interactive':''}">
+    ${PAINT_COMMON_REGIONS}
+    ${base.parts}
+    ${PAINT_FACE}
+  </svg>`;
+}
+function paintApplyColors(svgEl, baseKey, colors){
+  const c = {...PAINT_BASES[baseKey].defaults, ...colors};
+  svgEl.querySelectorAll('[data-region]').forEach(el=>{
+    el.setAttribute('fill', c[el.dataset.region] || '#FFD3E3');
+  });
+}
+
+let paintView = 'editor';
+let paintBase = 'bunny';
+let paintColors = paintDefaults('bunny');
+let paintSelectedRegion = null;
+let paintSelectedColor = PAINT_PALETTE[0].hex;
+let paintEditId = null;
+
+function buildPaintBasePicker(){
+  $('paintBasePick').innerHTML = Object.keys(PAINT_BASES).map(k=>{
+    const b = PAINT_BASES[k];
+    return `<button class="pt-basebtn ${k===paintBase?'on':''}" data-k="${k}" onclick="choosePaintBase(this.dataset.k)">
+      ${renderPaintCreature(k, b.defaults)}
+      <span>${esc(b.label)}</span>
+    </button>`;
+  }).join('');
+  $('paintBasePick').querySelectorAll('svg').forEach((svg,i)=>{
+    const k = Object.keys(PAINT_BASES)[i];
+    paintApplyColors(svg, k, PAINT_BASES[k].defaults);
+  });
+}
+function choosePaintBase(k){
+  if(paintBase === k && !paintEditId) return;
+  paintBase = k;
+  paintColors = paintDefaults(k);
+  paintEditId = null;
+  $('paintName').value = '';
+  buildPaintBasePicker();
+  renderPaintCanvas();
+}
+function renderPaintCanvas(){
+  $('paintCanvas').innerHTML = renderPaintCreature(paintBase, paintColors, true);
+  const svg = $('paintCanvas').querySelector('svg');
+  paintApplyColors(svg, paintBase, paintColors);
+  svg.querySelectorAll('.pt-region').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const region = el.dataset.region;
+      paintColors[region] = paintSelectedColor;
+      svg.querySelectorAll(`[data-region="${region}"]`).forEach(sib=>sib.setAttribute('fill', paintSelectedColor));
+      pulseRegion(svg, region);
+    });
+  });
+}
+function pulseRegion(svg, region){
+  svg.querySelectorAll(`[data-region="${region}"]`).forEach(el=>{
+    el.classList.add('pulse');
+    setTimeout(()=>el.classList.remove('pulse'), 550);
+  });
+}
+function buildPaintPalette(){
+  $('paintPalette').innerHTML = PAINT_PALETTE.map(c=>
+    `<button class="pt-swatch ${c.hex===paintSelectedColor?'on':''}" style="background:${c.hex}" data-hex="${c.hex}" title="${esc(c.name)}" onclick="selectPaintColor(this.dataset.hex)"></button>`
+  ).join('');
+}
+function selectPaintColor(hex){
+  paintSelectedColor = hex;
+  $('paintPalette').querySelectorAll('.pt-swatch').forEach(s=>s.classList.toggle('on', s.dataset.hex===hex));
+}
+function clearPaint(){
+  paintColors = paintDefaults(paintBase);
+  paintEditId = null;
+  $('paintName').value = '';
+  renderPaintCanvas();
+  toast('🔄 Fresh canvas! Tap a part, then a color.');
+}
+function savePaint(){
+  const name = ($('paintName').value || '').trim() || `My ${PAINT_BASES[paintBase].label}`;
+  let paints = [];
+  try{ paints = JSON.parse(localStorage.getItem('wct-paints')) || []; }catch(e){}
+  if(paintEditId){
+    const i = paints.findIndex(p=>p.id===paintEditId);
+    if(i>=0) paints[i] = {...paints[i], base:paintBase, name, colors:paintColors, ts:Date.now()};
+  } else {
+    paintEditId = 'pt' + Date.now() + Math.floor(Math.random()*1000);
+    paints.unshift({id:paintEditId, base:paintBase, name, colors:paintColors, ts:Date.now()});
+  }
+  try{ localStorage.setItem('wct-paints', JSON.stringify(paints)); }catch(e){}
+  toast(`💖 Saved <b>${esc(name)}</b> to your Teeniepings!`);
+  burstHearts();
+  renderPaintGallery();
+}
+function loadPaintsFromStorage(){
+  try{ return JSON.parse(localStorage.getItem('wct-paints')) || []; }catch(e){ return []; }
+}
+function renderPaintGallery(){
+  const paints = loadPaintsFromStorage();
+  $('paintGalleryCount').textContent = paints.length ? `(${paints.length})` : '';
+  $('paintGalleryEmpty').classList.toggle('hidden', paints.length>0);
+  $('paintGallery').innerHTML = paints.map(p=>
+    `<div class="pt-card" data-id="${escAttr(p.id)}" onclick="openPaintEntry(this.dataset.id)">
+      <button class="pt-del" data-id="${escAttr(p.id)}" onclick="event.stopPropagation(); deletePaintEntry(this)">✕</button>
+      ${renderPaintCreature(p.base, p.colors)}
+      <div class="nm">${esc(p.name)}</div>
+    </div>`
+  ).join('');
+  $('paintGallery').querySelectorAll('.pt-card').forEach(card=>{
+    const id = card.dataset.id;
+    const p = paints.find(x=>x.id===id);
+    if(p) paintApplyColors(card.querySelector('svg'), p.base, p.colors);
+  });
+}
+function openPaintEntry(id){
+  const p = loadPaintsFromStorage().find(x=>x.id===id);
+  if(!p) return;
+  paintBase = p.base; paintColors = {...p.colors}; paintEditId = p.id;
+  $('paintName').value = p.name;
+  setPaintView('editor');
+  buildPaintBasePicker();
+  renderPaintCanvas();
+  toast('🎨 Keep decorating — tap Save when you\'re happy!');
+}
+function deletePaintEntry(btn){
+  if(!btn.classList.contains('confirm')){
+    btn.classList.add('confirm'); btn.textContent = '!';
+    setTimeout(()=>{ btn.classList.remove('confirm'); btn.textContent='✕'; }, 2500);
+    return;
+  }
+  const id = btn.dataset.id;
+  const paints = loadPaintsFromStorage().filter(p=>p.id!==id);
+  try{ localStorage.setItem('wct-paints', JSON.stringify(paints)); }catch(e){}
+  if(paintEditId===id) paintEditId = null;
+  renderPaintGallery();
+}
+function setPaintView(v){
+  paintView = v;
+  $('paintEditorView').classList.toggle('hidden', v!=='editor');
+  $('paintGalleryView').classList.toggle('hidden', v!=='gallery');
+  $('paintTabEditor').classList.toggle('on', v==='editor');
+  $('paintTabGallery').classList.toggle('on', v==='gallery');
+  if(v==='gallery') renderPaintGallery();
+}
+function initPaint(){
+  buildPaintBasePicker();
+  buildPaintPalette();
+  renderPaintCanvas();
+  setPaintView('editor');
+}
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
 buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); newShadowRound();
 buildMatchLevels(); newMatchGame();
 renderTimerPresets(); renderTimer();
+initPaint();
 $('scBest').textContent = best;
 initToday();
 initTV();
