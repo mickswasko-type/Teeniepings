@@ -517,6 +517,42 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .det-card.shake{animation:shake .35s;}
 .det-card.wronged{opacity:.4; filter:grayscale(1);}
 
+/* ---------- TEA PARTY ---------- */
+.tea-rules{display:flex; flex-direction:column; gap:8px; margin-bottom:16px;}
+.tea-rule{
+  display:flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--edge);
+  border-radius:16px; padding:10px 14px; font:700 14px 'Nunito'; color:var(--ink);
+}
+.tea-rule b{font-family:'Baloo 2';}
+.tea-rule-icon{font-size:18px; flex:0 0 auto; width:22px; text-align:center;}
+.tea-rule.pass{border-color:var(--mint); background:#F2FBF8;}
+.tea-rule.fail{border-color:#F5A3A3; background:#FFF5F5;}
+
+.tea-table-wrap{display:flex; justify-content:center; margin-bottom:8px;}
+.tea-table{
+  position:relative; width:100%; max-width:340px; aspect-ratio:1;
+  background:radial-gradient(circle at 50% 50%, #FFF3E8 0%, #FFE3C7 62%, #FFD3A8 100%);
+  border:5px solid #fff; border-radius:50%; box-shadow:0 10px 0 rgba(232,148,76,.16), inset 0 0 0 2px #FFE0BC;
+}
+.tea-teapot{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-size:34px; filter:drop-shadow(0 3px 0 rgba(232,148,76,.25));
+}
+.tea-seat{position:absolute; transform:translate(-50%,-50%); width:74px;}
+.tea-seat .badge{width:60px; height:60px; flex-basis:60px; font-size:26px;}
+.tea-seat.empty .slot-plus{width:60px; height:60px;}
+.tea-seat .slot-nm{font-size:9.5px; max-width:70px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+.tea-waiting{display:flex; flex-wrap:wrap; gap:8px; justify-content:center;}
+.tea-wcard{
+  display:flex; flex-direction:column; align-items:center; gap:3px; border:0; background:#fff;
+  border:2px solid var(--edge2); border-radius:16px; padding:8px 10px 6px; cursor:pointer;
+}
+.tea-wcard .badge{width:46px; height:46px; flex-basis:46px; font-size:20px;}
+.tea-wcard .nm{font:800 10px 'Baloo 2'; color:var(--ink); max-width:56px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.tea-wcard:active{transform:scale(.94);}
+@media(max-width:380px){ .tea-seat{width:60px;} .tea-seat .badge{width:48px; height:48px; flex-basis:48px; font-size:22px;} }
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -761,6 +797,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
         <button class="appicon" style="--c1:#FFB0E0;--c2:#D666C9" onclick="showMode('paint')"><span class="ai-emoji">🎨</span><span class="ai-label">Paint Studio</span><span class="ai-sub">Make your own!</span></button>
         <button class="appicon" style="--c1:#7A8AA8;--c2:#3E4A66" onclick="showMode('detective')"><span class="ai-emoji">🕵️</span><span class="ai-label">Ping Detective</span><span class="ai-sub">Solve the case</span></button>
+        <button class="appicon" style="--c1:#FFC48C;--c2:#E8935A" onclick="showMode('tea')"><span class="ai-emoji">🫖</span><span class="ai-label">Tea Party</span><span class="ai-sub">Seat everyone!</span></button>
       </div>
     </div>
 
@@ -1028,6 +1065,23 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     <div class="det-board" id="detBoard"></div>
 
     <div class="team-final hidden" id="detWin"></div>
+  </section>
+
+  <!-- ============ TEA PARTY (seating puzzle) ============ -->
+  <section id="tea" class="hidden">
+    <div class="tea-rules" id="teaRules"></div>
+
+    <div class="tea-table-wrap">
+      <div class="tea-table">
+        <div class="tea-teapot">🫖</div>
+        <div id="teaSeats"></div>
+      </div>
+    </div>
+
+    <div class="team-status" id="teaStatus">Tap a friend below, then tap again to try a different seat.</div>
+    <div class="tea-waiting" id="teaWaiting"></div>
+
+    <div class="team-final hidden" id="teaWin"></div>
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1444,6 +1498,7 @@ function showMode(m){
   $('album').classList.toggle('hidden', m!=='album');
   $('paint').classList.toggle('hidden', m!=='paint');
   $('detective').classList.toggle('hidden', m!=='detective');
+  $('tea').classList.toggle('hidden', m!=='tea');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
@@ -2740,6 +2795,135 @@ function winDetective(){
 }
 function initDetective(){ newDetectiveCase(); }
 
+/* ================= TEA PARTY (seating puzzle) ================= */
+// Correctness-by-construction: pick a reference seating FIRST, then derive
+// clues that are true of it. That guarantees at least one solution exists
+// (the reference itself) — no separate "is this puzzle solvable?" check
+// needed. Relational rules (next-to/across/apart) are also rotation- and
+// reflection-invariant, so in practice many arrangements satisfy them, not
+// just the exact reference — a kid can find her own way there.
+const TEA_SEAT_POS = [[50,8],[85,29],[85,71],[50,92],[15,71],[15,29]];
+
+let teaGuests = [], teaRules = [], teaSeats = new Array(6).fill(null), teaWon = false;
+
+function teaAdjacent(i,j){ const d=(i-j+6)%6; return d===1||d===5; }
+function teaAcross(i,j){ return (i-j+6)%6===3; }
+
+function newTeaParty(){
+  const poolPref = PINGS.filter(p=>!album[p.n]);
+  const pool = shuffle(poolPref.length>=6 ? poolPref : PINGS);
+  teaGuests = pool.slice(0,6);
+  teaSeats = new Array(6).fill(null);
+  teaWon = false;
+  $('teaWin').classList.add('hidden'); $('teaWin').innerHTML='';
+
+  const adjPairs = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0]];
+  const acrossPairs = [[0,3],[1,4],[2,5]];
+  const isAdjPair = pr=>adjPairs.some(([a,b])=>(a===pr[0]&&b===pr[1])||(a===pr[1]&&b===pr[0]));
+  const allPairs = [];
+  for(let i=0;i<6;i++) for(let j=i+1;j<6;j++) allPairs.push([i,j]);
+  const nonAdjPairs = allPairs.filter(pr=>!isAdjPair(pr));
+
+  const nextPair = pick(adjPairs);
+  const acrossPair = pick(acrossPairs);
+  const apartPool = nonAdjPairs.filter(pr=>!(pr[0]===acrossPair[0] && pr[1]===acrossPair[1]));
+  const apartPair = pick(apartPool);
+
+  teaRules = [
+    {type:'next', a:nextPair[0], b:nextPair[1]},
+    {type:'across', a:acrossPair[0], b:acrossPair[1]},
+    {type:'apart', a:apartPair[0], b:apartPair[1]},
+  ];
+
+  renderTeaRules();
+  renderTeaSeats();
+  renderTeaWaiting();
+  $('teaStatus').textContent = 'Tap a friend below to seat them, or tap a seat to move them back.';
+}
+function teaRuleText(rule){
+  const A = teaGuests[rule.a], B = teaGuests[rule.b];
+  if(rule.type==='next')   return `<b>${esc(A.n)}</b> wants to sit right next to <b>${esc(B.n)}</b>! 💕`;
+  if(rule.type==='across') return `<b>${esc(A.n)}</b> wants to sit across from <b>${esc(B.n)}</b> so they can wave! 👋`;
+  return `<b>${esc(A.n)}</b> and <b>${esc(B.n)}</b> get too giggly together — sit them apart! 😄`;
+}
+function teaRuleStatus(rule){
+  const ai = teaSeats.indexOf(teaGuests[rule.a].n);
+  const bi = teaSeats.indexOf(teaGuests[rule.b].n);
+  if(ai===-1 || bi===-1) return 'pending';
+  if(rule.type==='next')   return teaAdjacent(ai,bi) ? 'pass':'fail';
+  if(rule.type==='across') return teaAcross(ai,bi) ? 'pass':'fail';
+  return !teaAdjacent(ai,bi) ? 'pass':'fail';
+}
+function renderTeaRules(){
+  $('teaRules').innerHTML = teaRules.map(r=>{
+    const st = teaRuleStatus(r);
+    const icon = st==='pass' ? '✅' : st==='fail' ? '❌' : '⏳';
+    return `<div class="tea-rule ${st}"><span class="tea-rule-icon">${icon}</span><span>${teaRuleText(r)}</span></div>`;
+  }).join('');
+}
+function renderTeaSeats(){
+  let html = '';
+  for(let i=0;i<6;i++){
+    const [l,t] = TEA_SEAT_POS[i];
+    const name = teaSeats[i];
+    if(name){
+      const p = teaGuests.find(g=>g.n===name);
+      html += `<button class="slot filled tea-seat" style="left:${l}%; top:${t}%" data-i="${i}" onclick="teaUnseat(${i})">${badgeHTML(p)}<span class="slot-nm">${esc(name)}</span></button>`;
+    } else {
+      html += `<div class="slot empty tea-seat" style="left:${l}%; top:${t}%"><span class="slot-plus">+</span></div>`;
+    }
+  }
+  $('teaSeats').innerHTML = html;
+}
+function renderTeaWaiting(){
+  const waiting = teaGuests.filter(g=>!teaSeats.includes(g.n));
+  $('teaWaiting').innerHTML = waiting.map(p=>
+    `<button class="tea-wcard" data-name="${escAttr(p.n)}" onclick="teaSeatNext(this.dataset.name)">${badgeHTML(p)}<span class="nm">${esc(p.n)}</span></button>`
+  ).join('');
+}
+function teaSeatNext(name){
+  if(teaWon) return;
+  const idx = teaSeats.indexOf(null);
+  if(idx===-1) return;
+  teaSeats[idx] = name;
+  afterTeaChange();
+}
+function teaUnseat(i){
+  if(teaWon) return;
+  teaSeats[i] = null;
+  afterTeaChange();
+}
+function afterTeaChange(){
+  renderTeaSeats();
+  renderTeaWaiting();
+  renderTeaRules();
+  const filled = teaSeats.filter(Boolean).length;
+  if(filled===6){
+    const allPass = teaRules.every(r=>teaRuleStatus(r)==='pass');
+    if(allPass){ winTeaParty(); }
+    else {
+      const passCount = teaRules.filter(r=>teaRuleStatus(r)==='pass').length;
+      $('teaStatus').textContent = `${passCount} of ${teaRules.length} friends are happy — try tapping a seat to move someone!`;
+    }
+  } else {
+    $('teaStatus').textContent = 'Tap a friend below to seat them, or tap a seat to move them back.';
+  }
+}
+function winTeaParty(){
+  teaWon = true;
+  teaGuests.forEach(p=>albumCatch(p.n,'tea'));
+  burstHearts();
+  $('teaStatus').textContent = '';
+  const el = $('teaWin');
+  el.innerHTML = `<div class="tf-spark">🫖✨🫖</div>
+    <div class="tf-title">Tea Party Time!</div>
+    <div class="tf-sub">Everyone is happy with their seat! 💕</div>
+    <div class="tf-grid" style="grid-template-columns:repeat(3,1fr)">${teaGuests.map(p=>`<div class="tf-member">${badgeHTML(p)}<div class="tf-nm">${esc(p.n)}</div></div>`).join('')}</div>
+    <div class="tf-btns"><button class="bigbtn" onclick="newTeaParty()">New party 🫖</button></div>`;
+  el.classList.remove('hidden');
+}
+function initTeaParty(){ newTeaParty(); }
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -2748,6 +2932,7 @@ buildMatchLevels(); newMatchGame();
 renderTimerPresets(); renderTimer();
 initPaint();
 initDetective();
+initTeaParty();
 $('scBest').textContent = best;
 initToday();
 initTV();
