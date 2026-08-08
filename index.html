@@ -493,6 +493,30 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .pt-del.confirm{background:var(--pink-deep); color:#fff;}
 @media(max-width:420px){ .paint-palette{grid-template-columns:repeat(6,1fr);} }
 
+/* ---------- PING DETECTIVE ---------- */
+.det-remaining{text-align:center; font:800 15px 'Baloo 2'; color:var(--pink-deep); margin:2px 0 12px;}
+.det-qgrid{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:8px;}
+.det-qbtn{
+  border:2px solid var(--edge2); background:#fff; border-radius:16px; padding:9px 13px;
+  font:700 13.5px 'Nunito'; color:var(--ink); cursor:pointer; transition:transform .1s;
+}
+.det-qbtn:active{transform:scale(.95);}
+.det-qbtn:hover{border-color:var(--pink);}
+.det-board{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(54px,1fr)); gap:6px;
+  margin-top:14px; background:#fff; border:2px solid var(--edge); border-radius:20px; padding:12px;
+}
+.det-card{
+  position:relative; border:0; background:none; padding:0; cursor:pointer; display:flex;
+  flex-direction:column; align-items:center; gap:2px; transition:transform .12s, opacity .25s, filter .25s;
+}
+.det-card:active{transform:scale(.88);}
+.det-card .badge{width:48px; height:48px; flex-basis:48px; font-size:22px; border-width:2px;}
+.det-card .nm{font:700 8.5px 'Nunito'; color:var(--ink-soft); line-height:1; max-width:52px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.det-card.out{opacity:.22; filter:grayscale(1); pointer-events:none;}
+.det-card.shake{animation:shake .35s;}
+.det-card.wronged{opacity:.4; filter:grayscale(1);}
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -736,6 +760,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#B79BFF;--c2:#8B5CF6" onclick="showMode('match')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Match</span><span class="ai-sub">Find the pairs</span></button>
         <button class="appicon" style="--c1:#7FA8FF;--c2:#4F76E8" onclick="showMode('book')"><span class="ai-emoji">⭐</span><span class="ai-label">Ping-Dex</span><span class="ai-sub">All 149 pings</span></button>
         <button class="appicon" style="--c1:#FFB0E0;--c2:#D666C9" onclick="showMode('paint')"><span class="ai-emoji">🎨</span><span class="ai-label">Paint Studio</span><span class="ai-sub">Make your own!</span></button>
+        <button class="appicon" style="--c1:#7A8AA8;--c2:#3E4A66" onclick="showMode('detective')"><span class="ai-emoji">🕵️</span><span class="ai-label">Ping Detective</span><span class="ai-sub">Solve the case</span></button>
       </div>
     </div>
 
@@ -983,6 +1008,26 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
       <div class="al-count" id="paintGalleryEmpty">No creations yet — go make one! 🎨</div>
       <div class="paint-gallery" id="paintGallery"></div>
     </div>
+  </section>
+
+  <!-- ============ PING DETECTIVE (Guess Who) ============ -->
+  <section id="detective" class="hidden">
+    <div class="scorebar">
+      <span>🕵️ Case #<span id="detCaseNum">1</span></span>
+      <span class="streak">❓ Asked: <span id="detAsked">0</span></span>
+      <span>⭐ Best: <span id="detBest">—</span></span>
+    </div>
+
+    <div class="det-remaining" id="detRemaining">149 suspects</div>
+
+    <div id="detQuestionArea">
+      <div class="det-qgrid" id="detQGrid"></div>
+      <div class="team-status" id="detHint">Ask a question to narrow it down — then tap a suspect to accuse!</div>
+    </div>
+
+    <div class="det-board" id="detBoard"></div>
+
+    <div class="team-final hidden" id="detWin"></div>
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1398,6 +1443,7 @@ function showMode(m){
   $('shadow').classList.toggle('hidden', m!=='shadow');
   $('album').classList.toggle('hidden', m!=='album');
   $('paint').classList.toggle('hidden', m!=='paint');
+  $('detective').classList.toggle('hidden', m!=='detective');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
@@ -2559,6 +2605,141 @@ function initPaint(){
   setPaintView('editor');
 }
 
+/* ================= PING DETECTIVE (Guess Who) ================= */
+// The app secretly picks a ping; she asks yes/no questions and the board
+// auto-eliminates non-matches, "Guess Who"-style, until she accuses someone.
+const DET_QUESTIONS = (()=>{
+  const qs = [];
+  for(const k in SEASONS){
+    const s = SEASONS[k];
+    qs.push({id:'season'+k, text:`Are you from the ${s.emoji} ${s.name} season?`, test:p=>p.s==k});
+  }
+  qs.push({id:'g-royal',   text:'Are you Royal? 👑',   test:p=>p.g==='royal'});
+  qs.push({id:'g-legend',  text:'Are you a Legend? 🌟', test:p=>p.g==='legend'});
+  qs.push({id:'g-villain', text:'Have you been a villain? 😈', test:p=>p.g==='villain'});
+  qs.push({id:'g-regular', text:'Are you just a regular friend? 🙂', test:p=>p.g==='regular'});
+  for(const k in TODAY_HELPERS){
+    const label = {brave:'brave ⚡', cozy:'cozy 🧸', focus:'focused 📚', fun:'fun 🎉', calm:'calm 🍀', speak:'chatty 💬'}[k] || k;
+    qs.push({id:'vibe-'+k, text:`Do you have a ${label} vibe?`, test:p=>pingMatches(p, TODAY_HELPERS[k])});
+  }
+  qs.push({id:'name-am', text:'Does your name start with A–M?', test:p=>p.n[0].toUpperCase() <= 'M'});
+  qs.push({id:'name-nz', text:'Does your name start with N–Z?', test:p=>p.n[0].toUpperCase() > 'M'});
+  return qs;
+})();
+
+let detSecret = null, detAsked = new Set(), detEliminated = new Set(), detQCount = 0, detWrongCount = 0;
+let detCaseNum = +(localStorage.getItem('wct-det-case') || 0);
+
+function detRemainingPings(){ return PINGS.filter(p=>!detEliminated.has(p.n)); }
+function detBestKey(){ return 'wct-det-best'; }
+
+function newDetectiveCase(){
+  const pool = PINGS.filter(p=>!album[p.n]);
+  detSecret = pick(pool.length ? pool : PINGS);
+  detAsked = new Set();
+  detEliminated = new Set();
+  detQCount = 0; detWrongCount = 0;
+  detCaseNum++;
+  try{ localStorage.setItem('wct-det-case', detCaseNum); }catch(e){}
+  $('detWin').classList.add('hidden'); $('detWin').innerHTML = '';
+  $('detQuestionArea').classList.remove('hidden');
+  $('detHint').textContent = 'Ask a question to narrow it down — then tap a suspect to accuse!';
+  const best = localStorage.getItem(detBestKey());
+  $('detBest').textContent = best ? `${best} moves` : '—';
+  updateDetScore();
+  buildDetQuestions();
+  renderDetBoard();
+}
+function updateDetScore(){
+  $('detCaseNum').textContent = detCaseNum;
+  $('detAsked').textContent = detQCount;
+  $('detRemaining').textContent = `${detRemainingPings().length} suspect${detRemainingPings().length===1?'':'s'} left`;
+}
+function buildDetQuestions(){
+  const remaining = detRemainingPings();
+  const scored = DET_QUESTIONS
+    .filter(q=>!detAsked.has(q.id))
+    .map(q=>{
+      const yes = remaining.filter(q.test).length;
+      const no = remaining.length - yes;
+      return {q, score: Math.min(yes,no)};
+    })
+    .filter(x=>x.score > 0) // only questions that actually split the remaining pool
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,8);
+  $('detQGrid').innerHTML = scored.map(({q})=>
+    `<button class="det-qbtn" data-id="${escAttr(q.id)}" onclick="askDetQuestion(this.dataset.id)">${esc(q.text)}</button>`
+  ).join('');
+  if(!scored.length && remaining.length>1){
+    $('detHint').textContent = "No more clues left — time to make your best guess! Tap a suspect.";
+  }
+}
+function askDetQuestion(id){
+  const q = DET_QUESTIONS.find(x=>x.id===id);
+  if(!q || !detSecret) return;
+  detAsked.add(id);
+  detQCount++;
+  const answer = q.test(detSecret);
+  detRemainingPings().forEach(p=>{ if(q.test(p) !== answer) detEliminated.add(p.n); });
+  toast(answer ? `✅ Yes! ${esc(q.text.replace(/\?$/,''))}.` : `❌ No, that's not it.`);
+  updateDetScore();
+  buildDetQuestions();
+  renderDetBoard();
+  const left = detRemainingPings().length;
+  if(left === 1) $('detHint').textContent = "Just one suspect left — tap them to accuse! 🔍";
+}
+function renderDetBoard(){
+  $('detBoard').innerHTML = PINGS.map(p=>{
+    const out = detEliminated.has(p.n);
+    return `<button class="det-card ${out?'out':''}" data-name="${escAttr(p.n)}" onclick="accuseDetective(this.dataset.name)" ${out?'tabindex="-1"':''}>
+      ${badgeHTML(p)}
+      <span class="nm">${esc(p.n)}</span>
+    </button>`;
+  }).join('');
+}
+function detStars(actions){
+  if(actions<=8) return 5; if(actions<=12) return 4; if(actions<=16) return 3; if(actions<=22) return 2; return 1;
+}
+function accuseDetective(name){
+  if(!detSecret || detEliminated.has(name)) return;
+  const card = $('detBoard').querySelector(`.det-card[data-name="${CSS.escape(name)}"]`);
+  if(name === detSecret.n){
+    winDetective();
+  } else {
+    detWrongCount++;
+    detEliminated.add(name);
+    if(card){ card.classList.add('shake'); setTimeout(()=>card.classList.remove('shake'), 350); }
+    toast(`🔎 Not ${esc(name)} — keep investigating!`);
+    updateDetScore();
+    buildDetQuestions();
+    renderDetBoard();
+  }
+}
+function winDetective(){
+  const actions = detQCount + detWrongCount;
+  const stars = detStars(actions);
+  const best = +(localStorage.getItem(detBestKey()) || 0);
+  const isBest = !best || actions < best;
+  if(isBest) try{ localStorage.setItem(detBestKey(), actions); }catch(e){}
+  albumCatch(detSecret.n, 'detective');
+  burstHearts();
+  $('detQuestionArea').classList.add('hidden');
+  $('detBoard').innerHTML = '';
+  const p = detSecret;
+  const el = $('detWin');
+  el.innerHTML = `<div class="tf-spark">🕵️✨🕵️</div>
+    <div class="tf-title">Case Closed!</div>
+    <div class="tf-sub">It was <b>${esc(p.n)}</b> — solved in ${detQCount} question${detQCount===1?'':'s'}${detWrongCount?` and ${detWrongCount} wrong guess${detWrongCount===1?'':'es'}`:''}${isBest?' — new best! ⭐':''}</div>
+    <div class="tf-grid" style="grid-template-columns:1fr">
+      <div class="tf-member">${badgeHTML(p,true)}<div class="tf-nm">${esc(p.n)}</div><div class="tf-for">${esc(p.p)}</div></div>
+    </div>
+    <div class="tf-note">${'⭐'.repeat(stars)}</div>
+    <div class="tf-btns"><button class="bigbtn" onclick="newDetectiveCase()">New case 🔍</button></div>`;
+  el.classList.remove('hidden');
+  $('detBest').textContent = `${Math.min(actions, best||actions)} moves`;
+}
+function initDetective(){ newDetectiveCase(); }
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -2566,6 +2747,7 @@ buildChips(); renderGrid(); buildSeasonPick(); nextQ(); newWordRound(); newShado
 buildMatchLevels(); newMatchGame();
 renderTimerPresets(); renderTimer();
 initPaint();
+initDetective();
 $('scBest').textContent = best;
 initToday();
 initTV();
