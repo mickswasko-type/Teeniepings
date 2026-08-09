@@ -553,6 +553,52 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .tea-wcard:active{transform:scale(.94);}
 @media(max-width:380px){ .tea-seat{width:60px;} .tea-seat .badge{width:48px; height:48px; flex-basis:48px; font-size:22px;} }
 
+/* ---------- TEENIE TIMES ---------- */
+.tt-slide{
+  background:#fff; border:2px solid var(--edge); border-radius:var(--r); padding:22px 20px;
+  text-align:center; min-height:280px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+}
+.tt-slide-title{font:800 22px 'Baloo 2'; color:var(--pink-deep);}
+.tt-slide-body{font:700 15px 'Nunito'; color:var(--ink); line-height:1.5; max-width:360px;}
+.tt-baskets{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:6px 0;}
+.tt-basket{
+  background:linear-gradient(165deg,#FFE7CC,#FFD9AD); border:3px solid #fff; border-radius:18px;
+  padding:10px; display:flex; flex-wrap:wrap; gap:4px; justify-content:center; width:110px; box-shadow:0 4px 0 rgba(232,148,76,.2);
+}
+.tt-basket .badge{width:30px; height:30px; flex-basis:30px; font-size:15px; border-width:2px;}
+.tt-big{font:800 30px 'Baloo 2'; color:var(--pink-deep);}
+.tt-skiptxt{font:800 15px 'Nunito'; color:var(--mint);}
+.tt-dots{display:flex; gap:6px; justify-content:center; margin:12px 0;}
+.tt-dot{width:8px; height:8px; border-radius:50%; background:var(--edge2);}
+.tt-dot.on{background:var(--pink);}
+
+.tt-hubgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:10px; margin-top:10px;}
+.tt-tile{
+  border:2px solid var(--edge2); background:#fff; border-radius:20px; padding:14px 8px 10px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:5px; position:relative; transition:transform .12s;
+}
+.tt-tile:active{transform:scale(.94);}
+.tt-tile-num{font:800 26px 'Baloo 2'; color:var(--pink-deep);}
+.tt-tile-bar{width:100%; height:8px; border-radius:999px; background:var(--edge); overflow:hidden;}
+.tt-tile-fill{height:100%; background:linear-gradient(90deg,var(--pink),var(--mint)); border-radius:999px;}
+.tt-tile-stat{font:700 10.5px 'Nunito'; color:var(--ink-soft);}
+.tt-tile.locked{opacity:.55; cursor:default;}
+.tt-tile.locked .tt-tile-num{color:var(--ink-soft);}
+.tt-tile.done{border-color:var(--sun); background:#FFFBEF;}
+.tt-tile-star{position:absolute; top:6px; right:8px; font-size:14px;}
+
+.tt-qcard{text-align:center;}
+.tt-story{font:700 15px 'Nunito'; color:var(--ink); line-height:1.45; margin-bottom:12px;}
+.tt-arraywrap{margin-bottom:14px;}
+.tt-array{
+  display:grid; gap:5px; justify-content:center; background:var(--soft); border-radius:16px;
+  padding:12px; margin-bottom:8px; max-width:100%; overflow-x:auto;
+}
+.tt-cell{font-size:20px; line-height:1; width:26px; height:26px; display:flex; align-items:center; justify-content:center;}
+.tt-array.hidden-arr{visibility:hidden; height:0; padding:0; margin:0; overflow:hidden;}
+#ttEquation{font:800 26px 'Baloo 2'; margin:6px 0 16px;}
+@media(max-width:380px){ .tt-hubgrid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));} .tt-cell{width:20px; height:20px; font-size:16px;} }
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -798,6 +844,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#FFB0E0;--c2:#D666C9" onclick="showMode('paint')"><span class="ai-emoji">🎨</span><span class="ai-label">Paint Studio</span><span class="ai-sub">Make your own!</span></button>
         <button class="appicon" style="--c1:#7A8AA8;--c2:#3E4A66" onclick="showMode('detective')"><span class="ai-emoji">🕵️</span><span class="ai-label">Ping Detective</span><span class="ai-sub">Solve the case</span></button>
         <button class="appicon" style="--c1:#FFC48C;--c2:#E8935A" onclick="showMode('tea')"><span class="ai-emoji">🫖</span><span class="ai-label">Tea Party</span><span class="ai-sub">Seat everyone!</span></button>
+        <button class="appicon" style="--c1:#7BC9A8;--c2:#3E9C79" onclick="showMode('times')"><span class="ai-emoji">🧮</span><span class="ai-label">Teenie Times</span><span class="ai-sub" id="timesTileSub">Learn to multiply!</span></button>
       </div>
     </div>
 
@@ -1082,6 +1129,49 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     <div class="tea-waiting" id="teaWaiting"></div>
 
     <div class="team-final hidden" id="teaWin"></div>
+  </section>
+
+  <!-- ============ TEENIE TIMES (multiplication) ============ -->
+  <section id="times" class="hidden">
+
+    <!-- ---- intro lesson (what does x mean) ---- -->
+    <div id="ttIntroView">
+      <div class="tt-slide" id="ttSlide"></div>
+      <div class="tt-dots" id="ttDots"></div>
+      <div class="paint-btnrow">
+        <button class="bigbtn ghost" onclick="ttSkipIntro()">Skip, I know this! ⏩</button>
+        <button class="bigbtn" id="ttNextBtn" onclick="ttNextSlide()">Next ➜</button>
+      </div>
+    </div>
+
+    <!-- ---- table hub (choose a times table) ---- -->
+    <div id="ttHubView" class="hidden">
+      <div class="al-head">
+        <div class="al-title">🧮 Teenie Times</div>
+        <div class="al-sub">Tap a table to practice! Finish one to unlock the next. 💪</div>
+      </div>
+      <div class="tt-hubgrid" id="ttHubGrid"></div>
+      <button class="chip" style="margin-top:14px" onclick="ttShowIntro(true)">❓ What does × mean again?</button>
+    </div>
+
+    <!-- ---- practice ---- -->
+    <div id="ttPracticeView" class="hidden">
+      <div class="scorebar">
+        <span id="ttTableLabel">×1 table</span>
+        <span class="streak">⭐ Mastered: <span id="ttMastered">0</span>/10</span>
+        <button class="pool-shuffle" onclick="ttShowHub()">🏠 Tables</button>
+      </div>
+      <div class="qcard tt-qcard">
+        <div class="tt-story" id="ttStory"></div>
+        <div class="tt-arraywrap">
+          <div class="tt-array" id="ttArray"></div>
+          <button class="chip" id="ttHideBtn" onclick="ttToggleHide()">🙈 Hide the pings</button>
+        </div>
+        <div class="qtext" id="ttEquation"></div>
+        <div class="answers" id="ttChoices"></div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1499,12 +1589,14 @@ function showMode(m){
   $('paint').classList.toggle('hidden', m!=='paint');
   $('detective').classList.toggle('hidden', m!=='detective');
   $('tea').classList.toggle('hidden', m!=='tea');
+  $('times').classList.toggle('hidden', m!=='times');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
   if(m==='album') renderAlbum();
   if(m==='match' && !mtCards.length) newMatchGame();
   if(m==='paint' && paintView==='gallery') renderPaintGallery();
+  if(m==='times') ttEnterMode();
   window.scrollTo(0,0);
 }
 
@@ -2924,6 +3016,222 @@ function winTeaParty(){
 }
 function initTeaParty(){ newTeaParty(); }
 
+/* ================= TEENIE TIMES (multiplication) ================= */
+// Pedagogy: concrete arrays first ("N groups of k, count them"), then a
+// light story wrapper on every practice question (not a separate reading
+// mode — Wonder Tales taught us she doesn't go for those), then multiple
+// choice with the array always available as a support she can hide herself.
+// Tables unlock in an easy-to-hard order, gated on mastering the one before.
+const TT_TABLE_ORDER = [1,2,5,10,3,4,6,7,8,9];
+const TT_CONTAINERS = [
+  {w:'basket', e:'🧺'}, {w:'plate', e:'🍽️'}, {w:'box', e:'📦'},
+  {w:'gift bag', e:'🎁'}, {w:'teacup', e:'☕'}, {w:'garden', e:'🌷'},
+];
+const TT_ITEMS = [
+  {w:'sticker', e:'⭐'}, {w:'cupcake', e:'🧁'}, {w:'flower', e:'🌸'},
+  {w:'heart', e:'💖'}, {w:'gem', e:'💎'}, {w:'cookie', e:'🍪'}, {w:'bow', e:'🎀'},
+];
+const TT_INTRO_SLIDES = [
+  {
+    title:'What does × mean?',
+    body:()=>{
+      const g = pick(PINGS);
+      return `<div class="tt-slide-body">${esc(g.n)} has <b>2 baskets</b>. Each basket has <b>3</b> friends inside!</div>
+        <div class="tt-baskets">
+          ${[0,1].map(()=>`<div class="tt-basket">${shuffle(PINGS).slice(0,3).map(p=>badgeHTML(p)).join('')}</div>`).join('')}
+        </div>`;
+    }
+  },
+  {
+    title:'Let\'s count them all!',
+    body:()=>`<div class="tt-slide-body">3 + 3 = <b>6</b> friends in all!<br>That's <b>2 groups of 3</b>.</div><div class="tt-big">3 + 3 = 6</div>`
+  },
+  {
+    title:'That\'s a shortcut!',
+    body:()=>`<div class="tt-slide-body">"2 groups of 3" has a fast way to write it:</div><div class="tt-big">2 × 3 = 6</div><div class="tt-slide-body">The <b>×</b> just means <b>"groups of"</b>!</div>`
+  },
+  {
+    title:'Try skip counting!',
+    body:()=>`<div class="tt-slide-body">Count by 3s, two times:</div><div class="tt-big">3 … 6</div><div class="tt-slide-body">That's the same answer — <b>skip counting</b> is multiplying too!</div>`
+  },
+  {
+    title:'You\'re ready! 🎉',
+    body:()=>`<div class="tt-slide-body">Let's practice with your Teeniepings! We'll start with the easiest table.</div>`
+  },
+];
+let ttSlideIdx = 0;
+let ttCurTable = 1, ttCurFact = null, ttHidden = false;
+
+function ttLoadMastery(){ try{ return JSON.parse(localStorage.getItem('wct-times-mastery')) || {}; }catch(e){ return {}; } }
+function ttSaveMastery(m){ try{ localStorage.setItem('wct-times-mastery', JSON.stringify(m)); }catch(e){} }
+function ttFactCount(table, k){ const m = ttLoadMastery(); return (m[table] && m[table][k]) || 0; }
+function ttMasteredCount(table){
+  let n = 0;
+  for(let k=1;k<=10;k++) if(ttFactCount(table,k) >= 2) n++;
+  return n;
+}
+function ttTableDone(table){ return ttMasteredCount(table) >= 10; }
+function ttIsUnlocked(table){
+  const i = TT_TABLE_ORDER.indexOf(table);
+  if(i <= 0) return true;
+  return ttTableDone(TT_TABLE_ORDER[i-1]);
+}
+function ttRecordAnswer(table, k, correct){
+  const m = ttLoadMastery();
+  m[table] = m[table] || {};
+  const wasDone = ttTableDone(table);
+  if(correct) m[table][k] = (m[table][k]||0) + 1;
+  ttSaveMastery(m);
+  updateTimesTile();
+  if(correct && !wasDone && ttTableDone(table)){
+    setTimeout(()=>{
+      burstHearts();
+      const i = TT_TABLE_ORDER.indexOf(table);
+      const next = TT_TABLE_ORDER[i+1];
+      toast(next ? `🎉 <b>×${table}</b> table mastered! <b>×${next}</b> is now unlocked!` : `🏆 <b>×${table}</b> mastered — you've finished every table, Willow!!`);
+    }, 300);
+  }
+}
+function updateTimesTile(){
+  const doneCount = TT_TABLE_ORDER.filter(ttTableDone).length;
+  $('timesTileSub').textContent = doneCount ? `${doneCount}/${TT_TABLE_ORDER.length} tables done` : 'Learn to multiply!';
+}
+
+/* ---- intro ---- */
+function ttShowIntro(replay){
+  ttSlideIdx = 0;
+  ttRenderSlide();
+  ttShowView('intro');
+}
+function ttRenderSlide(){
+  const s = TT_INTRO_SLIDES[ttSlideIdx];
+  $('ttSlide').innerHTML = `<div class="tt-slide-title">${esc(s.title)}</div>${s.body()}`;
+  $('ttDots').innerHTML = TT_INTRO_SLIDES.map((_,i)=>`<span class="tt-dot ${i===ttSlideIdx?'on':''}"></span>`).join('');
+  $('ttNextBtn').textContent = ttSlideIdx === TT_INTRO_SLIDES.length-1 ? "Let's go! 🎉" : 'Next ➜';
+}
+function ttNextSlide(){
+  if(ttSlideIdx < TT_INTRO_SLIDES.length-1){ ttSlideIdx++; ttRenderSlide(); }
+  else ttFinishIntro();
+}
+function ttSkipIntro(){ ttFinishIntro(); }
+function ttFinishIntro(){
+  try{ localStorage.setItem('wct-times-intro-seen', '1'); }catch(e){}
+  ttShowHub();
+}
+
+/* ---- hub ---- */
+function ttShowHub(){ ttRenderHub(); ttShowView('hub'); }
+function ttRenderHub(){
+  $('ttHubGrid').innerHTML = TT_TABLE_ORDER.map(t=>{
+    const unlocked = ttIsUnlocked(t);
+    const mastered = ttMasteredCount(t);
+    const done = mastered>=10;
+    return `<button class="tt-tile ${unlocked?'':'locked'} ${done?'done':''}" data-t="${t}" onclick="ttTileTap(${t})">
+      ${done?'<span class="tt-tile-star">⭐</span>':''}
+      <div class="tt-tile-num">${unlocked?('×'+t):'🔒'}</div>
+      <div class="tt-tile-bar"><div class="tt-tile-fill" style="width:${mastered*10}%"></div></div>
+      <div class="tt-tile-stat">${unlocked?mastered+'/10':'Locked'}</div>
+    </button>`;
+  }).join('');
+}
+function ttTileTap(t){
+  if(!ttIsUnlocked(t)){ toast('🔒 Finish the table before this one first!'); return; }
+  ttOpenTable(t);
+}
+
+/* ---- practice ---- */
+function ttOpenTable(t){
+  ttCurTable = t; ttHidden = false;
+  $('ttTableLabel').textContent = `×${t} table`;
+  ttShowView('practice');
+  ttNextQuestion();
+}
+function ttPickK(table){
+  const weights = [];
+  for(let k=1;k<=10;k++){
+    const c = ttFactCount(table,k);
+    weights.push({k, w: Math.max(1, 3-c)});
+  }
+  const total = weights.reduce((s,x)=>s+x.w,0);
+  let r = Math.random()*total;
+  for(const x of weights){ r -= x.w; if(r<=0) return x.k; }
+  return weights[weights.length-1].k;
+}
+function ttChoicesFor(correct){
+  const opts = new Set([correct]);
+  let guard = 0;
+  while(opts.size<4 && guard<40){
+    guard++;
+    const delta = pick([1,2,3,4,-1,-2,-3,-4]) * pick([1,2,3]);
+    const val = correct + delta;
+    if(val>0 && val<=144) opts.add(val);
+  }
+  return shuffle([...opts]);
+}
+function ttNextQuestion(){
+  const k = ttPickK(ttCurTable);
+  const guest = pick(PINGS);
+  const container = pick(TT_CONTAINERS);
+  const item = pick(TT_ITEMS);
+  ttCurFact = {table: ttCurTable, k, guest, container, item, answered:false};
+  $('ttMastered').textContent = ttMasteredCount(ttCurTable);
+  $('ttStory').innerHTML = `${esc(guest.n)} has <b>${ttCurTable}</b> ${esc(container.w)}${ttCurTable===1?'':'s'} ${container.e}. Each ${esc(container.w)} has <b>${k}</b> ${esc(item.w)}${k===1?'':'s'} ${item.e} inside. How many ${esc(item.w)}s in all? 🤔`;
+  $('ttEquation').textContent = `${ttCurTable} × ${k} = ?`;
+  renderTtArray();
+  $('ttHideBtn').textContent = ttHidden ? '👀 Show the pings' : '🙈 Hide the pings';
+  const correct = ttCurTable * k;
+  $('ttChoices').innerHTML = ttChoicesFor(correct).map(v=>
+    `<button class="abtn" data-v="${v}" onclick="ttAnswer(this)">${v}</button>`
+  ).join('');
+}
+function renderTtArray(){
+  const {table, k, item} = ttCurFact;
+  const arr = $('ttArray');
+  arr.classList.toggle('hidden-arr', ttHidden);
+  arr.style.gridTemplateColumns = `repeat(${k}, 1fr)`;
+  arr.innerHTML = Array.from({length: table*k}, ()=>`<span class="tt-cell">${item.e}</span>`).join('');
+}
+function ttToggleHide(){
+  ttHidden = !ttHidden;
+  $('ttHideBtn').textContent = ttHidden ? '👀 Show the pings' : '🙈 Hide the pings';
+  $('ttArray').classList.toggle('hidden-arr', ttHidden);
+}
+function ttAnswer(btn){
+  if(!ttCurFact || ttCurFact.answered) return;
+  ttCurFact.answered = true;
+  const val = +btn.dataset.v;
+  const correct = ttCurFact.table * ttCurFact.k;
+  const right = val === correct;
+  document.querySelectorAll('#ttChoices .abtn').forEach(b=>{
+    b.disabled = true;
+    if(+b.dataset.v === correct) b.classList.add('right');
+  });
+  ttRecordAnswer(ttCurFact.table, ttCurFact.k, right);
+  if(right){
+    toast(`🎉 Yes! ${ttCurFact.table} × ${ttCurFact.k} = ${correct}`);
+  } else {
+    btn.classList.add('wrong');
+    if(ttHidden){ ttHidden = false; $('ttArray').classList.remove('hidden-arr'); $('ttHideBtn').textContent = '🙈 Hide the pings'; }
+    toast(`💭 Let's count together — it's ${correct}!`);
+  }
+  $('ttMastered').textContent = ttMasteredCount(ttCurTable);
+  setTimeout(ttNextQuestion, right ? 1400 : 2600);
+}
+
+/* ---- view switching ---- */
+function ttShowView(v){
+  $('ttIntroView').classList.toggle('hidden', v!=='intro');
+  $('ttHubView').classList.toggle('hidden', v!=='hub');
+  $('ttPracticeView').classList.toggle('hidden', v!=='practice');
+}
+function ttEnterMode(){
+  if(localStorage.getItem('wct-times-intro-seen')) ttShowHub();
+  else ttShowIntro();
+}
+function initTimesTable(){
+  updateTimesTile();
+}
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -2933,6 +3241,7 @@ renderTimerPresets(); renderTimer();
 initPaint();
 initDetective();
 initTeaParty();
+initTimesTable();
 $('scBest').textContent = best;
 initToday();
 initTV();
