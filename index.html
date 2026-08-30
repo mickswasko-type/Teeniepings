@@ -599,6 +599,62 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 #ttEquation{font:800 26px 'Baloo 2'; margin:6px 0 16px;}
 @media(max-width:380px){ .tt-hubgrid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));} .tt-cell{width:20px; height:20px; font-size:16px;} }
 
+/* ---------- PING RUMMY ---------- */
+.ry-hubgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-top:10px;}
+.ry-tile{
+  border:2px solid var(--edge2); background:#fff; border-radius:20px; padding:14px 10px 10px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:5px; position:relative; transition:transform .12s;
+}
+.ry-tile:active{transform:scale(.95);}
+.ry-tile-icon{font-size:26px;}
+.ry-tile-name{font:800 15px 'Baloo 2'; color:var(--ink); line-height:1.1; text-align:center;}
+.ry-tile-desc{font:700 10.5px 'Nunito'; color:var(--ink-soft); text-align:center; line-height:1.25;}
+.ry-tile-bar{width:100%; height:8px; border-radius:999px; background:var(--edge); overflow:hidden; margin-top:3px;}
+.ry-tile-fill{height:100%; background:linear-gradient(90deg,var(--pink),var(--mint)); border-radius:999px;}
+.ry-tile.locked{opacity:.55; cursor:default;}
+.ry-tile.done{border-color:var(--sun); background:#FFFBEF;}
+.ry-tile-star{position:absolute; top:6px; right:8px; font-size:14px;}
+
+.ry-qcard{text-align:center;}
+.ry-prompt{font:700 15px 'Nunito'; color:var(--ink); line-height:1.45; margin-bottom:14px;}
+.ry-prompt b{font-family:'Baloo 2'; color:var(--pink-deep);}
+.ry-hand{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:12px;}
+
+/* real playing cards — she's learning the physical game, so these are
+   actual ranks/suits rather than Teenieping faces */
+.rcard{
+  width:60px; height:84px; border-radius:10px; border:2px solid #DCD3E0; background:#fff;
+  cursor:pointer; padding:5px 4px; position:relative; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1px; transition:transform .12s, box-shadow .12s;
+  box-shadow:0 3px 0 rgba(71,42,68,.14);
+}
+.rcard .rc-rank{font:800 21px 'Baloo 2'; line-height:1;}
+.rcard .rc-suit{font-size:20px; line-height:1;}
+.rcard .rc-mini{position:absolute; top:3px; left:5px; font:800 10px 'Baloo 2'; line-height:1;}
+.rcard.red{color:#D8264A;}
+.rcard.black{color:#33304A;}
+.rcard.sel{
+  border-color:var(--pink); background:#FFF3F8; transform:translateY(-8px);
+  box-shadow:0 6px 0 rgba(232,76,139,.3), 0 0 0 3px rgba(255,111,165,.25);
+}
+.rcard.good{border-color:var(--mint); background:#F0FCF7; animation:matchPop .45s ease;}
+.rcard.bad{border-color:#F5A3A3; background:#FFF3F3; animation:shake .35s;}
+.rcard.hinted{border-color:var(--sun); box-shadow:0 0 0 3px rgba(255,194,75,.45), 0 3px 0 rgba(71,42,68,.14);}
+@media(max-width:400px){ .rcard{width:52px; height:74px;} .rcard .rc-rank{font-size:18px;} .rcard .rc-suit{font-size:17px;} }
+
+.ry-selinfo{font:800 14px 'Baloo 2'; color:var(--ink-soft); min-height:22px; margin-bottom:10px;}
+.ry-selinfo.ok{color:var(--mint);}
+.ry-selinfo.no{color:#D8264A;}
+
+/* lesson slide cards sit a bit smaller and aren't tappable */
+.ry-demo{display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin:4px 0;}
+.ry-demo .rcard{cursor:default; width:50px; height:70px; box-shadow:0 2px 0 rgba(71,42,68,.12);}
+.ry-demo .rcard .rc-rank{font-size:17px;}
+.ry-demo .rcard .rc-suit{font-size:16px;}
+.ry-verdict{font:800 15px 'Baloo 2'; margin-top:4px;}
+.ry-verdict.yes{color:var(--mint);}
+.ry-verdict.no{color:#D8264A;}
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -845,6 +901,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#7A8AA8;--c2:#3E4A66" onclick="showMode('detective')"><span class="ai-emoji">🕵️</span><span class="ai-label">Ping Detective</span><span class="ai-sub">Solve the case</span></button>
         <button class="appicon" style="--c1:#FFC48C;--c2:#E8935A" onclick="showMode('tea')"><span class="ai-emoji">🫖</span><span class="ai-label">Tea Party</span><span class="ai-sub">Seat everyone!</span></button>
         <button class="appicon" style="--c1:#7BC9A8;--c2:#3E9C79" onclick="showMode('times')"><span class="ai-emoji">🧮</span><span class="ai-label">Teenie Times</span><span class="ai-sub" id="timesTileSub">Learn to multiply!</span></button>
+        <button class="appicon" style="--c1:#F2919B;--c2:#C0424F" onclick="showMode('rummy')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Rummy</span><span class="ai-sub" id="rummyTileSub">Learn 500 Rummy!</span></button>
       </div>
     </div>
 
@@ -1169,6 +1226,50 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         </div>
         <div class="qtext" id="ttEquation"></div>
         <div class="answers" id="ttChoices"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ PING RUMMY (500 rummy trainer) ============ -->
+  <section id="rummy" class="hidden">
+
+    <!-- ---- lesson ---- -->
+    <div id="ryLessonView">
+      <div class="tt-slide" id="rySlide"></div>
+      <div class="tt-dots" id="ryDots"></div>
+      <div class="paint-btnrow">
+        <button class="bigbtn ghost" onclick="ryFinishLesson()">Skip, I know this! ⏩</button>
+        <button class="bigbtn" id="ryNextBtn" onclick="ryNextSlide()">Next ➜</button>
+      </div>
+    </div>
+
+    <!-- ---- hub ---- -->
+    <div id="ryHubView" class="hidden">
+      <div class="al-head">
+        <div class="al-title">🃏 Ping Rummy</div>
+        <div class="al-sub">Practice spotting melds — the heart of 500 Rummy! 💗</div>
+      </div>
+      <div class="ry-hubgrid" id="ryHubGrid"></div>
+      <button class="chip" style="margin-top:14px" onclick="ryShowLesson()">❓ Remind me the rules</button>
+    </div>
+
+    <!-- ---- practice ---- -->
+    <div id="ryPracticeView" class="hidden">
+      <div class="scorebar">
+        <span id="ryStageLabel">Sets</span>
+        <span class="streak">⭐ <span id="ryScore">0</span>/<span id="ryGoal">8</span></span>
+        <button class="pool-shuffle" onclick="ryShowHub()">🏠 Levels</button>
+      </div>
+      <div class="qcard ry-qcard">
+        <div class="ry-prompt" id="ryPrompt"></div>
+        <div class="ry-hand" id="ryHand"></div>
+        <div class="ry-selinfo" id="rySelInfo"></div>
+        <div class="paint-btnrow" id="ryBtnRow">
+          <button class="bigbtn ghost" onclick="ryClearSel()">↩︎ Clear</button>
+          <button class="bigbtn" id="ryLayBtn" onclick="ryLayDown()">Lay it down! 🃏</button>
+        </div>
+        <button class="chip" id="ryHintBtn" style="margin-top:10px" onclick="ryHint()">💭 Give me a hint</button>
       </div>
     </div>
 
@@ -1590,6 +1691,7 @@ function showMode(m){
   $('detective').classList.toggle('hidden', m!=='detective');
   $('tea').classList.toggle('hidden', m!=='tea');
   $('times').classList.toggle('hidden', m!=='times');
+  $('rummy').classList.toggle('hidden', m!=='rummy');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
@@ -1597,6 +1699,7 @@ function showMode(m){
   if(m==='match' && !mtCards.length) newMatchGame();
   if(m==='paint' && paintView==='gallery') renderPaintGallery();
   if(m==='times') ttEnterMode();
+  if(m==='rummy') ryEnterMode();
   window.scrollTo(0,0);
 }
 
@@ -3232,6 +3335,347 @@ function initTimesTable(){
   updateTimesTile();
 }
 
+/* ================= PING RUMMY (500 Rummy meld trainer) ================= */
+// Real ranks/suits on purpose: she's learning to play with a physical deck,
+// so Teenieping-faced cards would break the transfer. The theming lives in
+// the coaching around the cards instead.
+// r: 0=A,1=2,…,9=10,10=J,11=Q,12=K   s: 0=♠,1=♥,2=♦,3=♣
+const RY_RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const RY_SUITS = [{c:'♠',red:false},{c:'♥',red:true},{c:'♦',red:true},{c:'♣',red:false}];
+
+function ryCardValue(card){            // 500 Rummy scoring
+  if(card.r === 0) return 15;          // ace
+  if(card.r >= 10) return 10;          // J Q K
+  return card.r + 1;                   // 2–10 at face value
+}
+function ryFullDeck(){
+  const d = [];
+  for(let s=0;s<4;s++) for(let r=0;r<13;r++) d.push({r,s});
+  return d;
+}
+function ryCardEq(a,b){ return a.r===b.r && a.s===b.s; }
+
+// THE validator — everything else leans on this being right.
+// set  = 3+ cards of the same rank (single deck ⇒ suits must all differ)
+// run  = 3+ cards of one suit in consecutive rank order; ace may sit low
+//        (A-2-3) or high (Q-K-A), but a run never wraps past the ace.
+function ryMeldType(cards){
+  if(!cards || cards.length < 3) return null;
+  for(let i=0;i<cards.length;i++)
+    for(let j=i+1;j<cards.length;j++)
+      if(ryCardEq(cards[i],cards[j])) return null;   // no duplicate cards
+
+  if(cards.every(c=>c.r===cards[0].r)){
+    const suits = new Set(cards.map(c=>c.s));
+    return suits.size===cards.length ? 'set' : null;
+  }
+  if(cards.every(c=>c.s===cards[0].s)){
+    const rs = cards.map(c=>c.r).sort((a,b)=>a-b);
+    const runs = a => a.every((v,i)=> i===0 || v === a[i-1]+1);
+    if(runs(rs)) return 'run';
+    if(rs[0]===0){                                   // try the ace high
+      const high = rs.slice(1).concat([13]);
+      if(runs(high)) return 'run';
+    }
+    return null;
+  }
+  return null;
+}
+function ryMeldPoints(cards){ return cards.reduce((s,c)=>s+ryCardValue(c),0); }
+
+// find any valid meld in a hand (used by the hint button + generation checks)
+function ryFindAnyMeld(hand){
+  const n = hand.length;
+  for(let a=0;a<n;a++) for(let b=a+1;b<n;b++) for(let c=b+1;c<n;c++){
+    const three = [hand[a],hand[b],hand[c]];
+    if(ryMeldType(three)) return three;
+  }
+  return null;
+}
+
+const RY_STAGES = [
+  {id:'sets',  icon:'👯', name:'Matching Sets', desc:'3 cards of the same number', goal:8},
+  {id:'runs',  icon:'📈', name:'Runs',          desc:'3 in a row, same suit',      goal:8},
+  {id:'mixed', icon:'🎯', name:'Both Kinds',    desc:'Spot either one',            goal:10},
+  {id:'points',icon:'💯', name:'Count Points',  desc:'What is the meld worth?',    goal:8},
+];
+let ryStageIdx = 0, ryHand = [], rySel = [], ryLocked = false, ryPointsMeld = null;
+
+function ryLoadProgress(){ try{ return JSON.parse(localStorage.getItem('wct-rummy')) || {}; }catch(e){ return {}; } }
+function rySaveProgress(p){ try{ localStorage.setItem('wct-rummy', JSON.stringify(p)); }catch(e){} }
+function ryStageScore(id){ return ryLoadProgress()[id] || 0; }
+function ryStageDone(i){ return ryStageScore(RY_STAGES[i].id) >= RY_STAGES[i].goal; }
+function ryStageUnlocked(i){ return i===0 || ryStageDone(i-1); }
+function ryBump(id){
+  const p = ryLoadProgress();
+  const i = RY_STAGES.findIndex(s=>s.id===id);
+  const wasDone = ryStageDone(i);
+  p[id] = Math.min((p[id]||0) + 1, RY_STAGES[i].goal);
+  rySaveProgress(p);
+  updateRummyTile();
+  if(!wasDone && ryStageDone(i)){
+    setTimeout(()=>{
+      burstHearts();
+      const next = RY_STAGES[i+1];
+      toast(next ? `🎉 <b>${esc(RY_STAGES[i].name)}</b> done! <b>${esc(next.name)}</b> unlocked!`
+                 : `🏆 You finished every Ping Rummy level, Willow!`);
+    }, 300);
+  }
+}
+function updateRummyTile(){
+  const done = RY_STAGES.filter((_,i)=>ryStageDone(i)).length;
+  $('rummyTileSub').textContent = done ? `${done}/${RY_STAGES.length} levels done` : 'Learn 500 Rummy!';
+}
+
+/* ---- card rendering ---- */
+function ryCardHTML(card, idx, opts){
+  const s = RY_SUITS[card.s];
+  const cls = [ 'rcard', s.red?'red':'black' ];
+  if(opts && opts.selected) cls.push('sel');
+  if(opts && opts.extra) cls.push(opts.extra);
+  const tap = (opts && opts.tappable) ? `onclick="ryTapCard(${idx})"` : '';
+  return `<button class="${cls.join(' ')}" data-i="${idx}" ${tap}>
+    <span class="rc-mini">${RY_RANKS[card.r]}</span>
+    <span class="rc-rank">${RY_RANKS[card.r]}</span>
+    <span class="rc-suit">${s.c}</span>
+  </button>`;
+}
+function ryCardsHTML(cards){ return cards.map((c,i)=>ryCardHTML(c,i,{})).join(''); }
+
+/* ---- lesson ---- */
+let rySlideIdx = 0;
+function C(r,s){ return {r,s}; }
+const RY_SLIDES = [
+  { title:'What is a meld?',
+    body:()=>`<div class="tt-slide-body">In 500 Rummy you win by laying down <b>melds</b> — little groups of cards that go together.<br><br>There are only <b>two kinds</b>, and you already know how to spot both!</div>` },
+  { title:'Kind 1: a Set 👯',
+    body:()=>`<div class="tt-slide-body"><b>3 or more cards with the same number</b> — the suits don't matter at all.</div>
+      <div class="ry-demo">${ryCardsHTML([C(6,0),C(6,1),C(6,3)])}</div>
+      <div class="ry-verdict yes">✅ Three 7s — that's a set!</div>` },
+  { title:'Sets need 3 or more',
+    body:()=>`<div class="tt-slide-body">Two cards is <b>not</b> enough. You need at least three!</div>
+      <div class="ry-demo">${ryCardsHTML([C(11,1),C(11,3)])}</div>
+      <div class="ry-verdict no">❌ Only two Queens — not yet!</div>` },
+  { title:'Kind 2: a Run 📈',
+    body:()=>`<div class="tt-slide-body"><b>3 or more cards in a row</b> — and they must <b>all be the same suit</b>.</div>
+      <div class="ry-demo">${ryCardsHTML([C(4,1),C(5,1),C(6,1)])}</div>
+      <div class="ry-verdict yes">✅ 5, 6, 7 — all hearts. That's a run!</div>` },
+  { title:'Runs must match suits',
+    body:()=>`<div class="tt-slide-body">In a row, but <b>different suits</b>? That doesn't count.</div>
+      <div class="ry-demo">${ryCardsHTML([C(4,1),C(5,0),C(6,2)])}</div>
+      <div class="ry-verdict no">❌ 5♥ 6♠ 7♦ — mixed suits, not a run.</div>` },
+  { title:'Points! 💯',
+    body:()=>`<div class="tt-slide-body">Melds are worth points — that's how you race to <b>500</b>.</div>
+      <div class="tt-slide-body" style="text-align:left">
+        🅰️ Ace = <b>15</b><br>
+        👑 King, Queen, Jack = <b>10</b><br>
+        🔢 Number cards = <b>what they say</b> (a 7 is 7)
+      </div>` },
+  { title:"Let's practice! 🎉",
+    body:()=>`<div class="tt-slide-body">Now you try. Tap the cards that make a meld, then lay them down!</div>` },
+];
+function ryShowLesson(){ rySlideIdx = 0; ryRenderSlide(); ryShowView('lesson'); }
+function ryRenderSlide(){
+  const s = RY_SLIDES[rySlideIdx];
+  $('rySlide').innerHTML = `<div class="tt-slide-title">${esc(s.title)}</div>${s.body()}`;
+  $('ryDots').innerHTML = RY_SLIDES.map((_,i)=>`<span class="tt-dot ${i===rySlideIdx?'on':''}"></span>`).join('');
+  $('ryNextBtn').textContent = rySlideIdx === RY_SLIDES.length-1 ? "Let's play! 🎉" : 'Next ➜';
+}
+function ryNextSlide(){
+  if(rySlideIdx < RY_SLIDES.length-1){ rySlideIdx++; ryRenderSlide(); }
+  else ryFinishLesson();
+}
+function ryFinishLesson(){
+  try{ localStorage.setItem('wct-rummy-lesson-seen','1'); }catch(e){}
+  ryShowHub();
+}
+
+/* ---- hub ---- */
+function ryShowHub(){ ryRenderHub(); ryShowView('hub'); }
+function ryRenderHub(){
+  $('ryHubGrid').innerHTML = RY_STAGES.map((st,i)=>{
+    const unlocked = ryStageUnlocked(i), score = ryStageScore(st.id), done = score>=st.goal;
+    return `<button class="ry-tile ${unlocked?'':'locked'} ${done?'done':''}" onclick="ryTileTap(${i})">
+      ${done?'<span class="ry-tile-star">⭐</span>':''}
+      <div class="ry-tile-icon">${unlocked?st.icon:'🔒'}</div>
+      <div class="ry-tile-name">${esc(st.name)}</div>
+      <div class="ry-tile-desc">${unlocked?esc(st.desc):'Finish the level before this one'}</div>
+      <div class="ry-tile-bar"><div class="ry-tile-fill" style="width:${Math.round(score/st.goal*100)}%"></div></div>
+      <div class="tt-tile-stat">${unlocked?score+'/'+st.goal:''}</div>
+    </button>`;
+  }).join('');
+}
+function ryTileTap(i){
+  if(!ryStageUnlocked(i)){ toast('🔒 Finish the level before this one first!'); return; }
+  ryOpenStage(i);
+}
+
+/* ---- hand generation (correctness by construction) ----
+   Plant a guaranteed valid meld first, then deal distractors around it, so
+   every hand is solvable. Extra accidental melds are fine — we validate the
+   selection she makes, never compare it to one stored "answer". */
+function ryMakeSet(deck){
+  for(const r of shuffle([...Array(13).keys()])){
+    const of = deck.filter(c=>c.r===r);
+    if(of.length>=3) return shuffle(of).slice(0, Math.random()<0.75?3:4);
+  }
+  return null;
+}
+function ryMakeRun(deck){
+  for(const s of shuffle([0,1,2,3])){
+    for(const start of shuffle([...Array(11).keys()])){   // start 0..10 ⇒ top ≤ 12
+      const want = [start,start+1,start+2];
+      const got = want.map(r=>deck.find(c=>c.s===s && c.r===r));
+      if(got.every(Boolean)) return got;
+    }
+  }
+  return null;
+}
+function ryDealHand(kind, handSize){
+  for(let attempt=0; attempt<40; attempt++){
+    const deck = shuffle(ryFullDeck());
+    const want = kind==='mixed' ? pick(['set','run']) : kind;
+    const meld = want==='set' ? ryMakeSet(deck) : ryMakeRun(deck);
+    if(!meld) continue;
+    const rest = deck.filter(c=>!meld.some(m=>ryCardEq(m,c)));
+    const hand = shuffle(meld.concat(rest.slice(0, Math.max(0, handSize-meld.length))));
+    if(ryFindAnyMeld(hand)) return hand;   // belt-and-braces: prove it's solvable
+  }
+  return null;
+}
+
+/* ---- practice ---- */
+function ryOpenStage(i){
+  ryStageIdx = i;
+  const st = RY_STAGES[i];
+  $('ryStageLabel').textContent = st.name;
+  $('ryGoal').textContent = st.goal;
+  ryShowView('practice');
+  ryNextRound();
+}
+function ryNextRound(){
+  const st = RY_STAGES[ryStageIdx];
+  ryLocked = false; rySel = [];
+  $('ryScore').textContent = ryStageScore(st.id);
+  $('rySelInfo').className = 'ry-selinfo';
+  $('rySelInfo').textContent = '';
+
+  if(st.id === 'points'){
+    const kind = pick(['set','run']);
+    const deck = shuffle(ryFullDeck());
+    ryPointsMeld = kind==='set' ? ryMakeSet(deck) : ryMakeRun(deck);
+    ryHand = ryPointsMeld;
+    $('ryPrompt').innerHTML = `How many <b>points</b> is this meld worth? 💯`;
+    $('ryHand').innerHTML = ryHand.map((c,i)=>ryCardHTML(c,i,{})).join('');
+    $('ryBtnRow').classList.add('hidden');
+    $('ryHintBtn').classList.add('hidden');
+    const correct = ryMeldPoints(ryPointsMeld);
+    const opts = new Set([correct]);
+    let guard = 0;
+    while(opts.size<4 && guard++<40){
+      const d = pick([1,2,3,5,-1,-2,-3,-5]) * pick([1,2,3]);
+      if(correct+d > 0) opts.add(correct+d);
+    }
+    $('rySelInfo').innerHTML = `<div class="answers">${shuffle([...opts]).map(v=>
+      `<button class="abtn" data-v="${v}" onclick="ryAnswerPoints(this)">${v}</button>`).join('')}</div>`;
+    return;
+  }
+
+  $('ryBtnRow').classList.remove('hidden');
+  $('ryHintBtn').classList.remove('hidden');
+  const handSize = ryStageIdx===2 ? 7 : 6;
+  const hand = ryDealHand(st.id==='mixed' ? 'mixed' : (st.id==='sets'?'set':'run'), handSize);
+  ryHand = hand || [];
+  const what = st.id==='sets' ? 'a <b>set</b> (same number)' :
+               st.id==='runs' ? 'a <b>run</b> (3 in a row, same suit)' :
+               'a <b>meld</b> — a set <i>or</i> a run';
+  $('ryPrompt').innerHTML = `Tap the cards that make ${what}, then lay them down! 🃏`;
+  ryRenderHand();
+}
+function ryRenderHand(){
+  $('ryHand').innerHTML = ryHand.map((c,i)=>
+    ryCardHTML(c,i,{tappable:!ryLocked, selected: rySel.includes(i)})).join('');
+}
+function ryTapCard(i){
+  if(ryLocked) return;
+  const at = rySel.indexOf(i);
+  if(at>=0) rySel.splice(at,1); else rySel.push(i);
+  ryRenderHand();
+  const chosen = rySel.map(k=>ryHand[k]);
+  const info = $('rySelInfo');
+  info.className = 'ry-selinfo';
+  info.textContent = rySel.length===0 ? '' : `${rySel.length} card${rySel.length===1?'':'s'} picked`;
+}
+function ryClearSel(){ if(ryLocked) return; rySel = []; ryRenderHand(); $('rySelInfo').className='ry-selinfo'; $('rySelInfo').textContent=''; }
+function ryHint(){
+  if(ryLocked) return;
+  const meld = ryFindAnyMeld(ryHand);
+  if(!meld){ toast('💭 Hmm, no meld here — tap New for a fresh hand.'); return; }
+  const idx = ryHand.findIndex(c=>ryCardEq(c, meld[0]));
+  const el = $('ryHand').children[idx];
+  if(el){ el.classList.add('hinted'); setTimeout(()=>el.classList.remove('hinted'), 2200); }
+  toast(`💭 Try starting with the <b>${RY_RANKS[meld[0].r]}${RY_SUITS[meld[0].s].c}</b>`);
+}
+function ryLayDown(){
+  if(ryLocked) return;
+  const chosen = rySel.map(i=>ryHand[i]);
+  const st = RY_STAGES[ryStageIdx];
+  const type = ryMeldType(chosen);
+  const info = $('rySelInfo');
+
+  if(chosen.length < 3){
+    info.className='ry-selinfo no';
+    info.textContent = 'A meld needs at least 3 cards!';
+    return;
+  }
+  // on the set/run levels, insist on the kind she's practising
+  const wanted = st.id==='sets' ? 'set' : st.id==='runs' ? 'run' : null;
+  if(type && wanted && type !== wanted){
+    info.className='ry-selinfo no';
+    info.textContent = `That's a ${type}! This level is about ${wanted}s.`;
+    return;
+  }
+  if(!type){
+    info.className='ry-selinfo no';
+    info.textContent = "Not a meld yet — keep looking! 💭";
+    rySel.forEach(i=>{ const el=$('ryHand').children[i]; if(el){ el.classList.add('bad'); setTimeout(()=>el.classList.remove('bad'),400); } });
+    return;
+  }
+
+  ryLocked = true;
+  rySel.forEach(i=>{ const el=$('ryHand').children[i]; if(el) el.classList.add('good'); });
+  info.className='ry-selinfo ok';
+  info.textContent = `${type==='set'?'A set':'A run'}! Worth ${ryMeldPoints(chosen)} points 🎉`;
+  ryBump(st.id);
+  $('ryScore').textContent = ryStageScore(st.id);
+  burstHearts();
+  setTimeout(ryNextRound, 1700);
+}
+function ryAnswerPoints(btn){
+  if(ryLocked) return;
+  ryLocked = true;
+  const correct = ryMeldPoints(ryPointsMeld);
+  const right = +btn.dataset.v === correct;
+  document.querySelectorAll('#rySelInfo .abtn').forEach(b=>{
+    b.disabled = true;
+    if(+b.dataset.v === correct) b.classList.add('right');
+  });
+  if(right){ ryBump('points'); burstHearts(); toast(`🎉 Yes! That's ${correct} points.`); }
+  else { btn.classList.add('wrong'); toast(`💭 Close! It's ${correct} — count them together.`); }
+  $('ryScore').textContent = ryStageScore('points');
+  setTimeout(ryNextRound, right?1500:2600);
+}
+function ryShowView(v){
+  $('ryLessonView').classList.toggle('hidden', v!=='lesson');
+  $('ryHubView').classList.toggle('hidden', v!=='hub');
+  $('ryPracticeView').classList.toggle('hidden', v!=='practice');
+}
+function ryEnterMode(){
+  if(localStorage.getItem('wct-rummy-lesson-seen')) ryShowHub();
+  else ryShowLesson();
+}
+function initRummy(){ updateRummyTile(); }
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -3242,6 +3686,7 @@ initPaint();
 initDetective();
 initTeaParty();
 initTimesTable();
+initRummy();
 $('scBest').textContent = best;
 initToday();
 initTV();
