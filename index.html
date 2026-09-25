@@ -655,6 +655,124 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .ry-verdict.yes{color:var(--mint);}
 .ry-verdict.no{color:#D8264A;}
 
+/* ---------- ARCADE MYSTERY ---------- */
+.ar-cover{
+  background:linear-gradient(160deg,#3B2360,#231538); border-radius:24px; padding:22px 18px; color:#fff;
+  text-align:center; border:3px solid #fff; box-shadow:0 10px 0 rgba(59,35,96,.2), 0 0 24px rgba(255,111,165,.3);
+}
+.ar-cover-art{font-size:38px; letter-spacing:6px;}
+.ar-cover-title{font:800 28px 'Baloo 2'; text-shadow:0 0 12px #FF6FA5, 0 0 2px #fff; margin-top:4px;}
+.ar-cover-sub{font:700 14px 'Nunito'; opacity:.9;}
+.ar-levels{display:grid; gap:10px; margin-top:14px;}
+.ar-level{
+  display:flex; align-items:center; gap:12px; text-align:left; border:2px solid var(--edge2); background:#fff;
+  border-radius:18px; padding:12px 14px; cursor:pointer; transition:transform .12s;
+}
+.ar-level:active{transform:scale(.97);}
+.ar-level-icon{font-size:30px;}
+.ar-level-name{font:800 17px 'Baloo 2'; color:var(--ink);}
+.ar-level-blurb{font:700 12.5px 'Nunito'; color:var(--ink-soft);}
+.ar-level-stat{margin-left:auto; font:800 12px 'Baloo 2'; color:var(--pink-deep); white-space:nowrap;}
+
+.ar-story{display:flex; gap:14px; align-items:flex-start; background:#fff; border:2px solid var(--edge); border-radius:var(--r); padding:18px 16px; min-height:170px;}
+.ar-story .badge{width:72px; height:72px; flex-basis:72px; font-size:34px;}
+.ar-story-text{font:700 17px 'Nunito'; color:var(--ink); line-height:1.55; white-space:pre-line;}
+
+.ar-top{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:10px;}
+.ar-case{font:800 15px 'Baloo 2'; color:var(--ink);}
+.ar-top-btns{display:flex; gap:6px; flex-wrap:wrap;}
+.ar-accuse-chip{background:var(--pink); color:#fff; border-color:var(--pink);}
+
+.ar-mapwrap{position:relative;}
+.ar-map{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:10px; border-radius:22px;
+  background:radial-gradient(circle at 18% 22%,rgba(255,111,165,.28),transparent 42%),
+             radial-gradient(circle at 82% 72%,rgba(94,224,255,.22),transparent 46%),#2B1B45;
+  box-shadow:inset 0 0 0 3px #4B3470, 0 8px 0 rgba(43,27,69,.18);
+}
+.ar-tile{
+  position:relative; min-height:98px; border-radius:16px; border:2px solid rgba(255,255,255,.28);
+  background:rgba(255,255,255,.08); color:#fff; cursor:pointer; padding:8px 4px 6px;
+  display:flex; flex-direction:column; align-items:center; gap:2px; transition:transform .12s, box-shadow .2s;
+}
+.ar-tile:active{transform:scale(.96);}
+.ar-te{font-size:28px; line-height:1.1;}
+.ar-tn{font:800 12px 'Baloo 2'; line-height:1.1; text-align:center;}
+.ar-tile.here{border-color:#FFE96B; box-shadow:0 0 0 2px #FFE96B, 0 0 18px rgba(255,233,107,.55);}
+.ar-tile.crime{border-color:#FF6F8E; animation:arNeon 2.4s ease-in-out infinite;}
+.ar-tile.crime.here{animation:none;}
+@keyframes arNeon{0%,100%{box-shadow:0 0 8px rgba(255,111,142,.35);}50%{box-shadow:0 0 20px rgba(255,111,142,.8);}}
+.ar-tstate{position:absolute; top:4px; right:6px; font-size:12px;}
+.ar-mini{display:flex; justify-content:center; gap:2px; margin-top:auto; padding-top:3px;}
+.ar-mini .badge{width:24px; height:24px; flex-basis:24px; font-size:12px; border-width:1.5px;}
+.ar-token{
+  position:absolute; left:0; top:0; width:38px; height:38px; border-radius:50%; background:#fff;
+  display:grid; place-items:center; font-size:22px; z-index:3; pointer-events:none;
+  box-shadow:0 0 0 3px var(--pink), 0 5px 12px rgba(0,0,0,.35);
+  transition:transform .6s cubic-bezier(.45,.05,.3,1.25);
+}
+
+.ar-panel{background:#fff; border:2px solid var(--edge); border-radius:var(--r); padding:16px; margin-top:12px;}
+.ar-loc-title{font:800 20px 'Baloo 2'; color:var(--ink);}
+.ar-flavor{font:700 14px 'Nunito'; color:var(--ink-soft); line-height:1.45; margin:4px 0 10px;}
+.ar-clue{
+  background:#FFFBEF; border:2px dashed #F5C85B; border-radius:14px; padding:10px 12px; margin-top:8px;
+  font:700 14px 'Nunito'; color:var(--ink); line-height:1.45; text-align:left; animation:cluein .35s ease;
+}
+.ar-clue-where{display:block; font:800 11.5px 'Baloo 2'; color:#A87A0F; margin-bottom:2px;}
+.ar-people-title{font:800 14px 'Baloo 2'; color:var(--ink-soft); margin:14px 0 6px;}
+.ar-people{display:flex; flex-direction:column; gap:8px;}
+.ar-person{display:flex; gap:10px; align-items:flex-start;}
+.ar-person .badge{width:42px; height:42px; flex-basis:42px; font-size:20px;}
+.ar-said{background:var(--soft); border-radius:14px 14px 14px 4px; padding:9px 12px; font:700 14px 'Nunito'; color:var(--ink); line-height:1.45;}
+.ar-said b{font-family:'Baloo 2';}
+.ar-talk{border:2px solid var(--edge2); background:#fff; border-radius:14px; padding:8px 12px; font:800 14px 'Baloo 2'; color:var(--ink); cursor:pointer; align-self:center;}
+
+.ar-codeview{display:flex; gap:8px; justify-content:center; margin:6px 0 10px;}
+.ar-digit{width:44px; height:52px; border-radius:12px; background:#2B1B45; color:#7CF7C1; font:800 26px 'Baloo 2'; display:grid; place-items:center; box-shadow:inset 0 0 0 2px #4B3470;}
+.ar-codeview.bad{animation:shake .35s;}
+.ar-keypad{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:260px; margin:0 auto;}
+.ar-key{border:0; border-radius:14px; background:var(--soft2); font:800 20px 'Baloo 2'; color:var(--ink); padding:10px 0; cursor:pointer; box-shadow:0 3px 0 rgba(71,42,68,.12);}
+.ar-key.go{background:var(--mint); color:#fff;}
+.ar-key:active{transform:translateY(2px);}
+
+.ar-clawbox{
+  position:relative; height:180px; border-radius:16px; overflow:hidden; margin:6px 0 10px; border:4px solid var(--pink);
+  background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(255,111,165,.07) 22px 24px), linear-gradient(180deg,#FFFFFF,#FFE7F0);
+}
+.ar-clawbox::before{content:""; position:absolute; left:0; right:0; top:0; height:8px; background:#C9B8D8; z-index:1;}
+.ar-claw{position:absolute; top:6px; left:4px; width:44px; z-index:2; animation:arClawMove var(--spd,2.5s) ease-in-out infinite alternate;}
+.ar-claw-arm{display:flex; flex-direction:column; align-items:center; transition:transform .6s ease;}
+.ar-claw-rope{width:3px; height:26px; background:#8A7A9A;}
+.ar-claw-hand{font-size:28px; line-height:1;}
+.ar-claw.dropping .ar-claw-arm{transform:translateY(96px);}
+.ar-prize{position:absolute; bottom:12px; width:44px; text-align:center; font-size:30px; transition:transform .6s ease;}
+.ar-prize.grabbed{transform:translateY(-96px);}
+@keyframes arClawMove{from{left:4px;}to{left:calc(100% - 48px);}}
+
+.ar-nb-sus{display:grid; grid-template-columns:repeat(auto-fill,minmax(88px,1fr)); gap:8px; margin:8px 0 12px;}
+.ar-nb-card{position:relative; border:2px solid var(--edge2); background:#fff; border-radius:16px; padding:8px 4px 6px; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;}
+.ar-nb-card .badge{width:48px; height:48px; flex-basis:48px; font-size:22px;}
+.ar-nb-card .nm{font:800 11.5px 'Baloo 2'; text-align:center; line-height:1.1; color:var(--ink);}
+.ar-nb-mark{position:absolute; top:3px; right:5px; font-size:15px;}
+.ar-nb-card.x{opacity:.45; filter:grayscale(1);}
+.ar-nb-card.star{border-color:var(--sun); background:#FFFBEF;}
+.ar-nb-h{font:800 15px 'Baloo 2'; color:var(--ink); margin:12px 0 2px;}
+.ar-nb-tip{font:700 12px 'Nunito'; color:var(--ink-soft);}
+.ar-rule{font:800 13px 'Baloo 2'; color:var(--pink-deep); background:var(--soft); border-radius:12px; padding:8px 10px;}
+.ar-hint{display:flex; gap:10px; align-items:flex-start; margin-top:12px;}
+.ar-hint .badge{width:40px; height:40px; flex-basis:40px; font-size:18px;}
+.ar-hint .ar-said{background:#FFF3F8; border:2px solid var(--edge2);}
+.ar-acc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:10px; margin-top:10px;}
+.ar-confirm{margin-top:14px; text-align:center;}
+.ar-confirm .paint-btnrow{margin-top:10px;}
+@media(max-width:420px){
+  .ar-tile{min-height:86px;} .ar-te{font-size:24px;} .ar-tn{font-size:10.5px;}
+  .ar-mini .badge{width:20px; height:20px; flex-basis:20px;}
+  .ar-story .badge{width:56px; height:56px; flex-basis:56px;}
+  .ar-story-text{font-size:15.5px;}
+}
+
 /* ---------- detail sheet ---------- */
 .sheet-bg{position:fixed; inset:0; background:rgba(71,42,68,.45); z-index:60; display:none;}
 .sheet-bg.open{display:block;}
@@ -902,6 +1020,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#FFC48C;--c2:#E8935A" onclick="showMode('tea')"><span class="ai-emoji">🫖</span><span class="ai-label">Tea Party</span><span class="ai-sub">Seat everyone!</span></button>
         <button class="appicon" style="--c1:#7BC9A8;--c2:#3E9C79" onclick="showMode('times')"><span class="ai-emoji">🧮</span><span class="ai-label">Teenie Times</span><span class="ai-sub" id="timesTileSub">Learn to multiply!</span></button>
         <button class="appicon" style="--c1:#F2919B;--c2:#C0424F" onclick="showMode('rummy')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Rummy</span><span class="ai-sub" id="rummyTileSub">Learn 500 Rummy!</span></button>
+        <button class="appicon" style="--c1:#A98BEF;--c2:#5B3FA8" onclick="showMode('arcade')"><span class="ai-emoji">🕹️</span><span class="ai-label">Arcade Mystery</span><span class="ai-sub">Who took the coins?</span></button>
       </div>
     </div>
 
@@ -1273,6 +1392,38 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
       </div>
     </div>
 
+  </section>
+
+  <!-- ============ ARCADE MYSTERY (whodunit + escape room) ============ -->
+  <section id="arcade" class="hidden">
+    <div id="arTitleView"></div>
+
+    <div id="arStoryView" class="hidden">
+      <div class="ar-story">
+        <div id="arStoryBadge"></div>
+        <div class="ar-story-text" id="arStoryText"></div>
+      </div>
+      <button class="bigbtn" id="arStoryBtn" style="width:100%;margin-top:12px" onclick="arStoryNext()">Next ➜</button>
+    </div>
+
+    <div id="arPlayView" class="hidden">
+      <div class="ar-top">
+        <span class="ar-case" id="arCaseLabel"></span>
+        <div class="ar-top-btns">
+          <button class="chip" id="arNbBtn" onclick="arSetPanel('notebook')">📓 Notebook</button>
+          <button class="chip" onclick="arHint()">💭 Hint</button>
+          <button class="chip ar-accuse-chip" onclick="arSetPanel('accuse')">☝️ I know who!</button>
+        </div>
+      </div>
+      <div class="ar-mapwrap" id="arMapWrap">
+        <div class="ar-map" id="arMap"></div>
+        <div class="ar-token" id="arToken">🕵️‍♀️</div>
+      </div>
+      <div id="arHintBox"></div>
+      <div class="ar-panel" id="arPanel"></div>
+    </div>
+
+    <div id="arEndView" class="hidden"></div>
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1692,6 +1843,7 @@ function showMode(m){
   $('tea').classList.toggle('hidden', m!=='tea');
   $('times').classList.toggle('hidden', m!=='times');
   $('rummy').classList.toggle('hidden', m!=='rummy');
+  $('arcade').classList.toggle('hidden', m!=='arcade');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
@@ -1700,6 +1852,7 @@ function showMode(m){
   if(m==='paint' && paintView==='gallery') renderPaintGallery();
   if(m==='times') ttEnterMode();
   if(m==='rummy') ryEnterMode();
+  if(m==='arcade') arEnterMode();
   window.scrollTo(0,0);
 }
 
@@ -3701,6 +3854,653 @@ function ryEnterMode(){
 }
 function initRummy(){ updateRummyTile(); }
 
+/* ================= ARCADE MYSTERY (whodunit + escape room) ================= */
+// How a case is made fair:
+//   1. Decide what REALLY happened first: where every suspect was at 3:00,
+//      what they were holding, what snack they bought, and who took the coins.
+//   2. Write only TRUE clues about that world.
+//   3. A solver checks the clues leave exactly one possible thief, then prunes
+//      them down to a minimal "essential" core — every one of those is needed.
+//   4. The two escape-room gates (office keypad, claw machine) are each made
+//      to guard at least one essential clue, so neither can be skipped.
+// Junior/Detective: everyone tells the truth. Master: the thief tells ONE fib.
+const AR_LEVELS = {
+  junior:   {id:'junior',    name:'Junior Detective', icon:'🔎', n:4, liar:false, minM:3, noneBelow:2, extras:1, speed:3.4, code:'plain',
+             blurb:'4 suspects · everyone tells the truth'},
+  detective:{id:'detective', name:'Detective',        icon:'🕵️', n:5, liar:false, minM:4, noneBelow:3, extras:2, speed:2.5, code:'small',
+             blurb:'5 suspects · put your clues together'},
+  master:   {id:'master',    name:'Master Detective', icon:'🎩', n:6, liar:true,  minM:4, noneBelow:3, extras:2, speed:1.9, code:'big',
+             blurb:'6 suspects · the thief tells ONE fib!'},
+};
+const AR_LOCS = {
+  photo:   {name:'Photo Booth',   e:'📸', flavor:'A tiny booth with a sparkly curtain. Click, flash, click!'},
+  dance:   {name:'Dance Machine', e:'💃', flavor:'Flashing arrows and booming music. Left, right, SPIN!'},
+  office:  {name:'Back Office',   e:'🔐', flavor:'A door with a keypad and a sign: STAFF ONLY.', open:'The staff office! A security monitor flickers on the desk.'},
+  skee:    {name:'Skee-Ball',     e:'🎳', flavor:'Clack, clack! Balls roll up the ramps and drop into the rings.'},
+  claw:    {name:'Claw Machine',  e:'🧸', flavor:'The scene of the crime! The coin box hangs open… totally empty. 😱'},
+  prize:   {name:'Prize Counter', e:'🎁', flavor:'Shelves stacked with prizes. The clerk keeps very careful lists.'},
+  entrance:{name:'Entrance',      e:'🚪', flavor:'The big front doors. A notice board is covered in sticky notes.'},
+  snack:   {name:'Snack Bar',     e:'🍿', flavor:'Mmm, it smells like popcorn! Receipts are piled by the register.'},
+  retro:   {name:'Retro Games',   e:'👾', flavor:'Old-school games going bleep-bloop-bloop!'},
+};
+const AR_MAP    = ['photo','dance','office','skee','claw','prize','entrance','snack','retro'];
+const AR_SPOTS  = ['dance','skee','photo','snack','prize','retro'];   // where innocents were at 3:00
+const AR_LOGGED = ['dance','skee','photo'];                           // spots with a who-was-here record
+const AR_OPEN   = ['entrance','dance','skee','photo','snack','prize','retro'];
+const AR_AT = {dance:'at the Dance Machine', skee:'at Skee-Ball', photo:'in the Photo Booth',
+               snack:'at the Snack Bar', prize:'at the Prize Counter', retro:'at the Retro Games'};
+const AR_ALIBI_FLAVOR = {dance:'I was busting my best moves! 💃', skee:'I won SO many tickets! 🎟️',
+  photo:'We made the silliest faces! 📸', snack:'I was sooo hungry! 🍿', prize:'I was picking out a prize! 🎁',
+  retro:'I got the high score! 👾'};
+const AR_ITEMS = [
+  {id:'balloon', e:'🎈', one:'balloon',            many:'balloons'},
+  {id:'yoyo',    e:'🪀', one:'yo-yo',              many:'yo-yos'},
+  {id:'shades',  e:'🕶️', one:'pair of sunglasses', many:'sunglasses'},
+  {id:'crown',   e:'👑', one:'paper crown',        many:'paper crowns'},
+];
+const AR_TRAILS = [
+  {id:'lolli',  e:'🍭', scene:'A sticky lollipop stick', snack:'lollipops'},
+  {id:'pop',    e:'🍿', scene:'A trail of spilled popcorn', snack:'popcorn'},
+  {id:'cookie', e:'🍪', scene:'Cookie crumbs',          snack:'cookies'},
+  {id:'soda',   e:'🥤', scene:'A sticky soda puddle',   snack:'sodas'},
+];
+const AR_LOG_TEXT = {
+  dance:{h:'💃 Dance Machine scoreboard:', some:s=>`at 3:00, the only dancers were ${s}.`, none:'at 3:00, NOBODY was dancing.'},
+  skee: {h:'🎳 Skee-Ball score screen:',   some:s=>`at 3:00, the only players were ${s}.`, none:'at 3:00, NOBODY was playing.'},
+  photo:{h:'📸 Photo strip stamped 3:00:', some:s=>`the only faces in it are ${s}.`,       none:"it's empty — nobody was in the booth!"},
+};
+const AR_VAGUE = [
+  "I was playing EVERYTHING! I can't remember where I was at 3:00. 😵‍💫",
+  "Hmm… I was running all over the place! Everything was so sparkly!",
+  "I don't know exactly — I was having way too much fun! 🎉",
+  "I was looking for my friends. I totally lost track of time! ⏰",
+];
+const AR_NOTHING = [
+  "Nothing useful here… just a lot of tickets on the floor. 🎟️",
+  "You look high and low… nope, no clues here!",
+  "Just a sticky floor. Eww! No clues. 😅",
+];
+const AR_REASONS = [
+  "wanted to win the giant plushie for a friend's birthday 🎂",
+  "wanted just ONE more turn on the Dance Machine 💃",
+  "thought the coins were a secret prize for whoever found them first 🤭",
+  "wanted to buy ice cream for EVERYBODY 🍦",
+  "was trying to save up for the super-sparkly prize on the top shelf ✨",
+];
+function arList(a){ return a.length<=1 ? (a[0]||'') : a.slice(0,-1).join(', ') + ' and ' + a[a.length-1]; }
+
+/* ---- the fairness solver ----
+   Could suspect c be the thief, given these clues? The thief was at the
+   Claw Machine at 3:00. Everyone's statements are trusted, except in
+   liar mode, where the thief's own words are the (single) fib. */
+function arConsistent(c, cards, liar){
+  for(const k of cards){
+    if(k.kind==='camera'){ const r = cards.find(x=>x.kind==='record' && x.item===k.item); if(r && !r.set.includes(c)) return false; }
+    if(k.kind==='scene'){ const r = cards.find(x=>x.kind==='receipt' && x.trail===k.trail); if(r && !r.set.includes(c)) return false; }
+  }
+  const at = {[c]:'claw'};
+  const place = (who,spot)=>{ if(at[who] && at[who]!==spot) return false; at[who]=spot; return true; };
+  for(const k of cards) if(k.kind==='log') for(const who of k.set) if(!place(who,k.spot)) return false;
+  const nots = [];
+  for(const k of cards){
+    if(k.kind!=='say') continue;
+    if(liar && k.speaker===c) continue;
+    for(const p of k.places) if(!place(p.who,p.spot)) return false;
+    nots.push(...k.nots);
+  }
+  for(const n of nots) if(at[n.who]===n.spot) return false;
+  for(const k of cards) if(k.kind==='log') for(const who in at) if(at[who]===k.spot && !k.set.includes(who)) return false;
+  return true;
+}
+function arCandidates(cards, suspects, liar){ return suspects.filter(c=>arConsistent(c,cards,liar)); }
+function arUnique(cards, suspects, culprit, liar){ const c = arCandidates(cards,suspects,liar); return c.length===1 && c[0]===culprit; }
+// "tricky": no 1 clue (or, at higher levels, no 2 clues) can crack the case alone
+function arNoSmallSubsetSolves(cards, suspects, culprit, liar, below){
+  if(below>=2) for(const a of cards) if(arUnique([a],suspects,culprit,liar)) return false;
+  if(below>=3) for(let i=0;i<cards.length;i++) for(let j=i+1;j<cards.length;j++)
+    if(arUnique([cards[i],cards[j]],suspects,culprit,liar)) return false;
+  return true;
+}
+// Junior/Detective: at least two people must have no alibi, or "the one
+// without an alibi did it" would be a shortcut around the actual clues.
+function arVagueOK(cards, suspects, cfg){
+  if(cfg.liar) return true;
+  const speakers = new Set(cards.filter(k=>k.kind==='say').map(k=>k.speaker));
+  return suspects.filter(n=>!speakers.has(n)).length >= 2;
+}
+
+function arBuildPool(cfg, suspects, culprit, W){
+  const cards = [], innocents = suspects.filter(n=>n!==culprit);
+  const add = k => { cards.push(k); return k; };
+  const ci = AR_ITEMS.find(i=>i.id===W[culprit].item), ct = AR_TRAILS.find(t=>t.id===W[culprit].trail);
+  add({kind:'camera', item:ci.id, home:'office',
+       text:`📷 Security camera, 3:00: someone holding a ${ci.one} ${ci.e} sneaks up to the Claw Machine!`});
+  add({kind:'scene', trail:ct.id, home:'claw', text:`${ct.e} ${ct.scene}, right next to the empty coin box!`});
+  for(const it of AR_ITEMS){
+    const set = suspects.filter(n=>W[n].item===it.id);
+    if(set.length) add({kind:'record', item:it.id, set, home:'prize', text:`🎁 Prize counter list: only ${arList(set)} got ${it.many} ${it.e} today.`});
+  }
+  for(const tr of AR_TRAILS){
+    const set = suspects.filter(n=>W[n].trail===tr.id);
+    if(set.length) add({kind:'receipt', trail:tr.id, set, home:'snack', text:`🧾 Snack bar receipts: only ${arList(set)} bought ${tr.snack} ${tr.e} today.`});
+  }
+  // Master: the thief claims to have been where one innocent really was —
+  // and that innocent says the thief was NOT there. Somebody's fibbing!
+  let lieSpot = null, denier = null;
+  if(cfg.liar){ denier = pick(innocents); lieSpot = W[denier].spot; }
+  for(const sp of AR_LOGGED){
+    if(sp===lieSpot) continue;          // a record there would make the fib too easy
+    const set = suspects.filter(n=>W[n].spot===sp), T = AR_LOG_TEXT[sp];
+    add({kind:'log', spot:sp, set, home:sp, text:`${T.h} ${set.length ? T.some(arList(set)) : T.none}`});
+  }
+  for(const n of innocents){
+    const sp = W[n].spot;
+    if(n===denier){
+      add({kind:'say', speaker:n, deny:true, places:[{who:n,spot:sp}], nots:[{who:culprit,spot:sp}],
+           text:`I was ${AR_AT[sp]} at 3:00 — and ${culprit} was NOT there! 🤨`});
+      continue;
+    }
+    const mates = innocents.filter(m=>m!==n && W[m].spot===sp);
+    const r = Math.random();
+    if(mates.length && r<0.3){
+      const b = pick(mates);
+      add({kind:'say', speaker:n, places:[{who:n,spot:sp},{who:b,spot:sp}], nots:[], text:`${b} and I were ${AR_AT[sp]} together at 3:00!`});
+    } else if(mates.length && r<0.55){
+      const b = pick(mates);
+      add({kind:'say', speaker:n, places:[{who:b,spot:sp}], nots:[], text:`I saw ${b} ${AR_AT[sp]} at 3:00!`});
+    } else {
+      add({kind:'say', speaker:n, places:[{who:n,spot:sp}], nots:[], text:`I was ${AR_AT[sp]} at 3:00! ${AR_ALIBI_FLAVOR[sp]}`});
+    }
+  }
+  if(cfg.liar) add({kind:'say', speaker:culprit, lie:true, places:[{who:culprit,spot:lieSpot}], nots:[],
+                    text:`I was ${AR_AT[lieSpot]} at 3:00! ${AR_ALIBI_FLAVOR[lieSpot]}`});
+  return cards;
+}
+
+function arGenerateCase(levelId){
+  const cfg = AR_LEVELS[levelId];
+  const pool = PINGS.filter(p=>IMAGE_MANIFEST[p.n] && p.n!=='Heartsping').map(p=>p.n);
+  for(let attempt=0; attempt<800; attempt++){
+    const suspects = shuffle(pool).slice(0, cfg.n);
+    const culprit = pick(suspects);
+    const W = {};
+    suspects.forEach(n=>{ W[n] = {spot: n===culprit ? 'claw' : pick(AR_SPOTS), item: pick(AR_ITEMS).id, trail: pick(AR_TRAILS).id}; });
+    const all = arBuildPool(cfg, suspects, culprit, W);
+    if(!arUnique(all, suspects, culprit, cfg.liar)) continue;
+    let M = all.slice();
+    for(const k of shuffle(all)){
+      const t = M.filter(x=>x!==k);
+      if(arUnique(t, suspects, culprit, cfg.liar)) M = t;
+    }
+    const E = M.filter(k=>k.kind!=='say');
+    if(M.length < cfg.minM || E.length < 2) continue;
+    if(cfg.liar && !(M.some(k=>k.lie) && M.some(k=>k.deny))) continue;
+    let D = M.slice();
+    for(const k of shuffle(all.filter(x=>!M.includes(x)))){
+      if(D.length >= M.length + cfg.extras) break;
+      const t = D.concat([k]);
+      if(arNoSmallSubsetSolves(t, suspects, culprit, cfg.liar, cfg.noneBelow) && arVagueOK(t, suspects, cfg)) D = t;
+    }
+    if(!arNoSmallSubsetSolves(D, suspects, culprit, cfg.liar, cfg.noneBelow)) continue;
+    if(!arVagueOK(D, suspects, cfg)) continue;
+    if(!arUnique(D, suspects, culprit, cfg.liar)) continue;
+    return arAssemble(cfg, suspects, culprit, D, M);
+  }
+  return null;
+}
+function arAssemble(cfg, suspects, culprit, D, M){
+  const cards = shuffle(D).map((k,i)=>({...k, id:'c'+i, essential:M.includes(k), loc:k.kind==='say' ? null : k.home}));
+  const E = cards.filter(k=>k.essential && k.kind!=='say');
+  if(!E.some(k=>k.loc==='office')){ const k = pick(E.filter(k=>k.loc!=='claw')); if(k) k.loc = 'office'; }
+  if(!E.some(k=>k.loc==='claw')){ const k = pick(E.filter(k=>k.loc!=='office')); if(k) k.loc = 'claw'; }
+  const vague = {};
+  suspects.forEach(n=>{ if(!cards.some(k=>k.kind==='say' && k.speaker===n)) vague[n] = pick(AR_VAGUE); });
+  const hangout = {};
+  shuffle(AR_OPEN).slice(0, suspects.length).forEach((loc,i)=>{ hangout[suspects[i]] = loc; });
+  let code, codeText;
+  if(cfg.code==='plain'){
+    code = 100 + Math.floor(Math.random()*900);
+    codeText = `📌 Staff note: “The office code is ${code}.”`;
+  } else {
+    const [lo,hi] = cfg.code==='small' ? [2,5] : [3,9];
+    const a = lo + Math.floor(Math.random()*(hi-lo+1)), b = lo + Math.floor(Math.random()*(hi-lo+1));
+    code = a*b;
+    codeText = `📌 Staff note: “Office code = ${a} × ${b}.” Somebody forgot to do the math!`;
+  }
+  return {level:cfg.id, suspects, culprit, cards, vague, hangout, code, codeText,
+          codeLoc: pick(AR_OPEN), reason: pick(AR_REASONS), prizeX: 12 + Math.floor(Math.random()*62)};
+}
+
+/* ---- state & saving ---- */
+let arCase = null, arState = null, arPanelMode = 'loc', arAccusePick = null, arLastDefense = null;
+function arStats(){ try{ return JSON.parse(localStorage.getItem('wct-arcade')) || {solved:{}, stars:{}, total:0}; }catch(e){ return {solved:{}, stars:{}, total:0}; } }
+function arSave(){ try{ localStorage.setItem('wct-arcade-case', JSON.stringify({c:arCase, s:arState})); }catch(e){} }
+function arLoad(){
+  try{
+    const o = JSON.parse(localStorage.getItem('wct-arcade-case'));
+    if(o && o.c && o.s && !o.s.solved){ arCase = o.c; arState = o.s; return true; }
+  }catch(e){}
+  return false;
+}
+function arCfg(){ return AR_LEVELS[arCase.level]; }
+function arPing(n){ return PINGS.find(p=>p.n===n); }
+function arShowView(v){
+  ['Title','Story','Play','End'].forEach(x=>$('ar'+x+'View').classList.toggle('hidden', x.toLowerCase()!==v));
+  window.scrollTo(0,0);
+}
+
+/* ---- title / level select ---- */
+function arEnterMode(){
+  if(!arCase) arLoad();
+  arRenderTitle();
+  arShowView('title');
+}
+function arRenderTitle(){
+  const st = arStats();
+  const cont = arCase && arState && !arState.solved
+    ? `<button class="bigbtn" style="width:100%;margin-top:14px" onclick="arResume()">▶️ Keep solving Case #${arState.num}</button>` : '';
+  $('arTitleView').innerHTML = `
+    <div class="ar-cover">
+      <div class="ar-cover-art">🕹️💰🔍</div>
+      <div class="ar-cover-title">Arcade Mystery</div>
+      <div class="ar-cover-sub">Someone took the coins from the Claw Machine!<br>Can you figure out who did it?</div>
+    </div>
+    ${cont}
+    <div class="ar-levels">
+      ${Object.values(AR_LEVELS).map(l=>`
+        <button class="ar-level" onclick="arStartCase('${l.id}')">
+          <span class="ar-level-icon">${l.icon}</span>
+          <span><div class="ar-level-name">${esc(l.name)}</div><div class="ar-level-blurb">${esc(l.blurb)}</div></span>
+          <span class="ar-level-stat">${st.solved[l.id] ? `${st.solved[l.id]} solved · ${'⭐'.repeat(st.stars[l.id]||0)}` : 'New case!'}</span>
+        </button>`).join('')}
+    </div>`;
+}
+function arStartCase(levelId){
+  const c = arGenerateCase(levelId);
+  if(!c){ toast('Hmm, that case got jumbled — try again! 🔄'); return; }
+  arCase = c;
+  arState = {num: arStats().total + 1, found:[], talked:[], searched:[], visited:['entrance'], marks:{},
+             officeOpen:false, clawWon:false, codeFound:false, wrong:0, hints:0, loc:'entrance', solved:false, masterTip:false};
+  arPanelMode = 'loc'; arAccusePick = null; arLastDefense = null;
+  arSave();
+  const cfg = arCfg(), names = arList(arCase.suspects);
+  arPlayStory([
+    {text:"It's a sparkly Saturday at the Twinkle Arcade! 🎮 Lights are flashing and music is bouncing off the walls."},
+    {text:"Then, at exactly 3:00…\n\nCLUNK! 😱\n\nThe coin box on the Claw Machine is hanging open. Every single coin is GONE!"},
+    {text:`"${cfg.n} friends were in the arcade at 3:00: ${names}. One of them took the coins. Will you help me solve it, Detective Willow?"`, who:'Heartsping'},
+    {text: cfg.liar
+       ? `"Be careful — the thief will tell ONE fib to trick us. Everyone else tells the truth. Look for the story that doesn't add up!"`
+       : `"Everyone we talk to will tell the truth. Walk around, search for clues, and talk to everyone!"`, who:'Heartsping'},
+    {text:`"Oh! And the Back Office is locked. 🔐 I bet the staff wrote the code down somewhere… Let's go!"`, who:'Heartsping'},
+  ], arEnterPlay);
+}
+function arResume(){ arPanelMode = 'loc'; arAccusePick = null; arEnterPlay(); }
+
+/* ---- story beats (typewriter) ---- */
+let arBeats = [], arBeatIdx = 0, arBeatDone = null, arTyping = null, arTypingFull = '';
+function arPlayStory(beats, done){ arBeats = beats; arBeatIdx = 0; arBeatDone = done; arShowView('story'); arRenderBeat(); }
+function arRenderBeat(){
+  const b = arBeats[arBeatIdx];
+  $('arStoryBadge').innerHTML = badgeHTML(arPing(b.who || 'Heartsping'));
+  $('arStoryBtn').textContent = arBeatIdx === arBeats.length-1 ? (b.btn || "Let's go! 🔍") : 'Next ➜';
+  const el = $('arStoryText'), chars = Array.from(b.text);
+  clearInterval(arTyping); arTypingFull = b.text;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = b.text; arTyping = null; return; }
+  el.textContent = ''; let i = 0;
+  arTyping = setInterval(()=>{ el.textContent += chars[i++] || ''; if(i>=chars.length){ clearInterval(arTyping); arTyping = null; } }, 22);
+}
+function arStoryNext(){
+  if(arTyping){ clearInterval(arTyping); arTyping = null; $('arStoryText').textContent = arTypingFull; return; }
+  if(arBeatIdx < arBeats.length-1){ arBeatIdx++; arRenderBeat(); }
+  else if(arBeatDone) arBeatDone();
+}
+
+/* ---- the arcade (walking around) ---- */
+function arEnterPlay(){
+  arShowView('play');
+  $('arCaseLabel').textContent = `Case #${arState.num} · ${arCfg().name}`;
+  $('arHintBox').innerHTML = '';
+  arRenderMap();
+  requestAnimationFrame(()=>arPlaceToken(false));
+  arRenderPanel();
+}
+function arRenderMap(){
+  $('arMap').innerHTML = AR_MAP.map(loc=>{
+    const L = AR_LOCS[loc], here = arState.loc===loc;
+    const people = arCase.suspects.filter(n=>arCase.hangout[n]===loc);
+    let state = '';
+    if(loc==='office') state = arState.officeOpen ? '🔓' : '🔒';
+    else if(loc==='claw') state = arState.clawWon ? '✅' : '❗';
+    else if(arState.searched.includes(loc)) state = '✔️';
+    return `<button class="ar-tile ${here?'here':''} ${loc==='claw'?'crime':''}" data-loc="${loc}" onclick="arGoTo(this.dataset.loc)">
+      <span class="ar-tstate">${state}</span>
+      <span class="ar-te">${L.e}</span>
+      <span class="ar-tn">${esc(L.name)}</span>
+      <span class="ar-mini">${people.map(n=>badgeHTML(arPing(n))).join('')}</span>
+    </button>`;
+  }).join('');
+}
+function arPlaceToken(animate){
+  const wrap = $('arMapWrap'), tile = $('arMap').querySelector(`[data-loc="${arState.loc}"]`), tok = $('arToken');
+  if(!wrap || !tile) return;
+  const wr = wrap.getBoundingClientRect(), tr = tile.getBoundingClientRect();
+  // top-left corner of the tile: stays clear of the machine emoji (center)
+  // and the suspects' faces (bottom), and the tile's status icon (top-right)
+  const x = tr.left - wr.left - 6, y = tr.top - wr.top - 8;
+  if(!animate){ tok.style.transition = 'none'; }
+  tok.style.transform = `translate(${x}px, ${y}px)`;
+  if(!animate){ void tok.offsetWidth; tok.style.transition = ''; }
+}
+function arGoTo(loc){
+  arPanelMode = 'loc'; arAccusePick = null; $('arHintBox').innerHTML = '';
+  if(arState.loc === loc){ arRenderPanel(); return; }
+  arState.loc = loc;
+  if(!arState.visited.includes(loc)) arState.visited.push(loc);
+  arSave();
+  arRenderMap();
+  arPlaceToken(true);
+  $('arPanel').innerHTML = `<div class="ar-flavor">🚶‍♀️ Walking to the ${esc(AR_LOCS[loc].name)}…</div>`;
+  setTimeout(()=>{ if(arState.loc===loc && arPanelMode==='loc') arRenderPanel(); }, 620);
+}
+function arSetPanel(mode){ arPanelMode = mode; arAccusePick = null; $('arHintBox').innerHTML = ''; arRenderPanel(); }
+
+function arWhere(k){
+  if(k.loc==='office') return k.kind==='camera' ? '🖥️ On the security monitor' : '📂 In the office filing cabinet';
+  if(k.loc==='claw')   return k.kind==='scene' ? '🧸 Grabbed out of the Claw Machine' : '🧸 A crumpled paper, grabbed out of the Claw Machine';
+  return `🔍 Found at the ${AR_LOCS[k.loc].name}`;
+}
+function arClueHTML(k){ return `<div class="ar-clue"><span class="ar-clue-where">${esc(arWhere(k))}</span>${esc(k.text)}</div>`; }
+function arStatementText(n){
+  const k = arCase.cards.find(x=>x.kind==='say' && x.speaker===n);
+  return k ? k.text : arCase.vague[n];
+}
+function arSaidHTML(n){
+  return `<div class="ar-person">${badgeHTML(arPing(n))}<div class="ar-said"><b>${esc(n)}:</b> “${esc(arStatementText(n))}”</div></div>`;
+}
+function arNoteCount(){ return arState.found.length + arState.talked.length + (arState.codeFound?1:0); }
+
+function arRenderPanel(){
+  $('arNbBtn').textContent = `📓 Notebook (${arNoteCount()})`;
+  if(arPanelMode==='notebook') return arRenderNotebook();
+  if(arPanelMode==='accuse') return arRenderAccuse();
+  const loc = arState.loc, L = AR_LOCS[loc];
+  let h = `<div class="ar-loc-title">${L.e} ${esc(L.name)}</div>`;
+
+  if(loc==='office'){
+    if(!arState.officeOpen){
+      h += `<div class="ar-flavor">${esc(L.flavor)} ${arState.codeFound ? 'You found a note with the code on it! 📌' : "Hmm… what's the code?"}</div>`;
+      h += arKeypadHTML();
+    } else {
+      h += `<div class="ar-flavor">${esc(L.open)}</div>`;
+      arCase.cards.filter(k=>k.loc==='office').forEach(k=>h += arClueHTML(k));
+    }
+  } else if(loc==='claw'){
+    h += `<div class="ar-flavor">${esc(L.flavor)}</div>`;
+    if(!arState.clawWon){
+      h += `<div class="ar-flavor">Wait… something is stuck inside the machine! Can you grab it with the claw?</div>` + arClawHTML();
+    } else {
+      arCase.cards.filter(k=>k.loc==='claw').forEach(k=>h += arClueHTML(k));
+    }
+  } else {
+    h += `<div class="ar-flavor">${esc(L.flavor)}</div>`;
+    if(!arState.searched.includes(loc)){
+      h += `<button class="bigbtn" style="width:100%" onclick="arSearch()">🔍 Search the ${esc(L.name)}</button>`;
+    } else {
+      const here = arCase.cards.filter(k=>k.loc===loc);
+      here.forEach(k=>h += arClueHTML(k));
+      if(arCase.codeLoc===loc) h += `<div class="ar-clue"><span class="ar-clue-where">🔍 Found at the ${esc(L.name)}</span>${esc(arCase.codeText)}</div>`;
+      if(!here.length && arCase.codeLoc!==loc) h += `<div class="ar-flavor">${esc(pick(AR_NOTHING))}</div>`;
+    }
+  }
+
+  const people = arCase.suspects.filter(n=>arCase.hangout[n]===loc);
+  if(people.length){
+    h += `<div class="ar-people-title">Hanging out here:</div><div class="ar-people">`;
+    people.forEach(n=>{
+      h += arState.talked.includes(n) ? arSaidHTML(n)
+        : `<div class="ar-person">${badgeHTML(arPing(n))}<button class="ar-talk" data-n="${escAttr(n)}" onclick="arTalk(this.dataset.n)">💬 Talk to ${esc(n)}</button></div>`;
+    });
+    h += `</div>`;
+  }
+  $('arPanel').innerHTML = h;
+}
+function arSearch(){
+  const loc = arState.loc;
+  if(!arState.searched.includes(loc)) arState.searched.push(loc);
+  arCase.cards.filter(k=>k.loc===loc).forEach(k=>{ if(!arState.found.includes(k.id)) arState.found.push(k.id); });
+  if(arCase.codeLoc===loc && !arState.codeFound){ arState.codeFound = true; toast('📌 A note with the office code!'); }
+  arSave(); arRenderMap(); arRenderPanel();
+}
+function arTalk(n){
+  if(!arState.talked.includes(n)) arState.talked.push(n);
+  arSave(); arRenderPanel();
+}
+
+/* ---- escape room gate 1: office keypad ---- */
+let arEntry = '';
+function arKeypadHTML(){
+  const digits = arEntry.padEnd(3,' ').split('');
+  return `<div class="ar-codeview" id="arCodeView">${digits.map(d=>`<span class="ar-digit">${d.trim()||'·'}</span>`).join('')}</div>
+    <div class="ar-keypad">
+      ${[1,2,3,4,5,6,7,8,9].map(d=>`<button class="ar-key" onclick="arKey('${d}')">${d}</button>`).join('')}
+      <button class="ar-key" onclick="arKeyDel()">⌫</button>
+      <button class="ar-key" onclick="arKey('0')">0</button>
+      <button class="ar-key go" onclick="arKeyGo()">✓</button>
+    </div>
+    <div class="team-status" id="arCodeMsg" style="margin-top:10px">Type the code and press ✓</div>`;
+}
+function arKey(d){ if(arEntry.length<3){ arEntry += d; arRenderPanel(); } }
+function arKeyDel(){ arEntry = arEntry.slice(0,-1); arRenderPanel(); }
+function arKeyGo(){
+  if(!arEntry) return;
+  if(+arEntry === arCase.code){
+    arEntry = ''; arState.officeOpen = true;
+    arCase.cards.filter(k=>k.loc==='office').forEach(k=>{ if(!arState.found.includes(k.id)) arState.found.push(k.id); });
+    arSave(); burstHearts(); toast('🔓 Beep-boop… CLICK! The office is open!');
+    arRenderMap(); arRenderPanel();
+  } else {
+    arEntry = ''; arRenderPanel();
+    const v = $('arCodeView'); if(v){ v.classList.remove('bad'); void v.offsetWidth; v.classList.add('bad'); }
+    $('arCodeMsg').textContent = arState.codeFound ? 'Bzzt! Wrong code. Check the note again! 📌' : "Bzzt! Wrong code. The code must be written down somewhere…";
+  }
+}
+
+/* ---- escape room gate 2: the claw machine ---- */
+let arClawBusy = false;
+function arClawHTML(){
+  const sc = arCase.cards.find(k=>k.loc==='claw' && k.kind==='scene');
+  const prize = sc ? AR_TRAILS.find(t=>t.id===sc.trail).e : '📄';
+  return `<div class="ar-clawbox" style="--spd:${arCfg().speed}s">
+      <div class="ar-claw" id="arClaw"><div class="ar-claw-arm"><div class="ar-claw-rope"></div><div class="ar-claw-hand">🪝</div></div></div>
+      <div class="ar-prize" id="arPrize" style="left:${arCase.prizeX}%">${prize}</div>
+    </div>
+    <button class="bigbtn" style="width:100%" onclick="arDropClaw()">⬇️ Drop the claw!</button>
+    <div class="team-status" id="arClawMsg" style="margin-top:8px">Tap when the claw is right above it!</div>`;
+}
+function arDropClaw(){
+  if(arClawBusy) return;
+  const claw = $('arClaw'), prize = $('arPrize');
+  if(!claw || !prize) return;
+  arClawBusy = true;
+  claw.style.animationPlayState = 'paused';
+  const cr = claw.getBoundingClientRect(), pr = prize.getBoundingClientRect();
+  const hit = Math.abs((cr.left+cr.width/2) - (pr.left+pr.width/2)) <= 24;
+  claw.classList.add('dropping');
+  setTimeout(()=>{
+    if(hit){
+      prize.classList.add('grabbed'); claw.classList.remove('dropping');
+      setTimeout(()=>{
+        arClawBusy = false; arState.clawWon = true;
+        arCase.cards.filter(k=>k.loc==='claw').forEach(k=>{ if(!arState.found.includes(k.id)) arState.found.push(k.id); });
+        arSave(); burstHearts(); toast('🧸 Got it! A clue from inside the machine!');
+        arRenderMap(); arRenderPanel();
+      }, 650);
+    } else {
+      claw.classList.remove('dropping');
+      $('arClawMsg').textContent = 'So close! Try again! 💪';
+      setTimeout(()=>{ claw.style.animationPlayState = 'running'; arClawBusy = false; }, 650);
+    }
+  }, 650);
+}
+
+/* ---- notebook ---- */
+function arRenderNotebook(){
+  const cfg = arCfg();
+  let h = `<div class="ar-loc-title">📓 Detective Notebook</div>
+    <div class="ar-rule">${cfg.liar ? '🎩 Rule: the thief tells ONE fib. Everyone else tells the truth.' : '✅ Rule: everyone is telling the truth.'}</div>
+    <div class="ar-nb-h">Suspects</div><div class="ar-nb-tip">Tap a suspect to mark them ❌ (not them) or ⭐ (suspicious!)</div>
+    <div class="ar-nb-sus">`;
+  arCase.suspects.forEach(n=>{
+    const m = arState.marks[n] || '';
+    h += `<button class="ar-nb-card ${m}" data-n="${escAttr(n)}" onclick="arMark(this.dataset.n)">
+      <span class="ar-nb-mark">${m==='x'?'❌':m==='star'?'⭐':''}</span>${badgeHTML(arPing(n))}<span class="nm">${esc(n)}</span></button>`;
+  });
+  h += `</div>`;
+  const found = arCase.cards.filter(k=>arState.found.includes(k.id));
+  h += `<div class="ar-nb-h">🔍 Clues (${found.length + (arState.codeFound?1:0)})</div>`;
+  if(!found.length && !arState.codeFound) h += `<div class="ar-nb-tip">No clues yet — go search the arcade!</div>`;
+  found.forEach(k=>h += arClueHTML(k));
+  if(arState.codeFound) h += `<div class="ar-clue"><span class="ar-clue-where">🔍 Found at the ${esc(AR_LOCS[arCase.codeLoc].name)}</span>${esc(arCase.codeText)}</div>`;
+  h += `<div class="ar-nb-h">💬 What they said (${arState.talked.length})</div>`;
+  if(!arState.talked.length) h += `<div class="ar-nb-tip">You haven't talked to anyone yet.</div>`;
+  h += `<div class="ar-people">${arState.talked.map(arSaidHTML).join('')}</div>`;
+  $('arPanel').innerHTML = h;
+}
+function arMark(n){
+  const order = ['', 'x', 'star'], cur = arState.marks[n] || '';
+  arState.marks[n] = order[(order.indexOf(cur)+1) % order.length];
+  arSave(); arRenderNotebook();
+}
+
+/* ---- accusing (open-ended: as many tries as she needs) ---- */
+function arRenderAccuse(){
+  let h = `<div class="ar-loc-title">☝️ Who took the coins?</div>
+    <div class="ar-flavor">Tap the one you think did it. Take your time — you can guess as many times as you need!</div>
+    <div class="ar-acc-grid">`;
+  arCase.suspects.forEach(n=>{
+    const m = arState.marks[n] || '';
+    h += `<button class="ar-nb-card ${m} ${arAccusePick===n?'star':''}" data-n="${escAttr(n)}" onclick="arPickAccuse(this.dataset.n)">
+      <span class="ar-nb-mark">${m==='x'?'❌':m==='star'?'⭐':''}</span>${badgeHTML(arPing(n))}<span class="nm">${esc(n)}</span></button>`;
+  });
+  h += `</div>`;
+  if(arAccusePick){
+    h += `<div class="ar-confirm"><div class="ar-loc-title" style="font-size:17px">Are you sure it was ${esc(arAccusePick)}?</div>
+      <div class="paint-btnrow"><button class="bigbtn ghost" onclick="arPickAccuse(null)">Hmm, wait…</button>
+      <button class="bigbtn" onclick="arAccuse()">Yes, it was ${esc(arAccusePick)}!</button></div></div>`;
+  }
+  if(arLastDefense) h += arLastDefense;
+  $('arPanel').innerHTML = h;
+}
+function arPickAccuse(n){ arAccusePick = n; arLastDefense = null; arRenderAccuse(); }
+function arAccuse(){
+  const n = arAccusePick; arAccusePick = null;
+  if(!n) return;
+  if(n === arCase.culprit) return arSolve();
+  arState.wrong++;
+  arState.marks[n] = 'x';
+  arSave();
+  arLastDefense = `<div class="ar-person" style="margin-top:14px">${badgeHTML(arPing(n))}<div class="ar-said"><b>${esc(n)}:</b> “${esc(arDefense(n))}”</div></div>`;
+  arRenderAccuse();
+}
+// An innocent explains why it couldn't have been them — pointing at the clue
+// that clears them (or where to find it, if she hasn't found it yet).
+function arDefense(n){
+  const liar = arCfg().liar, cards = arCase.cards;
+  const ordered = cards.filter(k=>!k.lie).concat(cards.filter(k=>k.lie));
+  for(const k of ordered){
+    if(arConsistent(n, cards.filter(x=>x!==k), liar)){
+      if(k.kind==='say'){
+        if(k.speaker===n) return `It wasn't me! Remember what I told you? ${k.text}`;
+        return arState.talked.includes(k.speaker)
+          ? `It wasn't me! Think about what ${k.speaker} said… 🤔`
+          : `It wasn't me! Go talk to ${k.speaker} — you'll see!`;
+      }
+      return arState.found.includes(k.id)
+        ? `It wasn't me! Look at this clue again: ${k.text}`
+        : `It wasn't me! There's a clue at the ${AR_LOCS[k.loc].name} that proves it!`;
+    }
+  }
+  return "It wasn't me! Put your clues together — they prove it! 🙅";
+}
+
+/* ---- hints from Heartsping ---- */
+function arHint(){
+  arState.hints++; arSave();
+  const say = t => { $('arHintBox').innerHTML = `<div class="ar-hint">${badgeHTML(arPing('Heartsping'))}<div class="ar-said"><b>Heartsping:</b> “${esc(t)}”</div></div>`; };
+  const ess = arCase.cards.filter(k=>k.essential);
+  const missingEv = ess.filter(k=>k.kind!=='say' && !arState.found.includes(k.id));
+  const missingSay = ess.filter(k=>k.kind==='say' && !arState.talked.includes(k.speaker));
+  if(missingEv.some(k=>k.loc==='office') && !arState.officeOpen){
+    if(!arState.codeFound) return say(arState.hints>2
+      ? `Let's search the ${AR_LOCS[arCase.codeLoc].name} — I think the office code note is there! 📌`
+      : "The office is locked 🔐 — I bet someone wrote the code down. Let's search around the arcade!");
+    return say("We found the office code! Let's go type it into the office keypad. 🔐");
+  }
+  if(missingEv.some(k=>k.loc==='claw') && !arState.clawWon) return say("Something is stuck inside the Claw Machine! Let's try to grab it. 🧸");
+  if(missingEv.length) return say(`We haven't searched the ${AR_LOCS[missingEv[0].loc].name} yet… 🔍`);
+  if(missingSay.length){
+    const n = missingSay[0].speaker;
+    return say(`We should talk to ${n}! Look for them at the ${AR_LOCS[arCase.hangout[n]].name}. 💬`);
+  }
+  if(arCfg().liar && !arState.masterTip){
+    arState.masterTip = true; arSave();
+    return say("Remember — the thief tells ONE fib. Is there somebody whose story doesn't match someone else's? 🤔");
+  }
+  const open = arCase.suspects.filter(n=>n!==arCase.culprit && arState.marks[n]!=='x');
+  if(!open.length) return say("You've got it! Everyone else is cleared. Tap ☝️ and name the thief!");
+  const n = pick(open);
+  const why = arDefense(n).replace(/^It wasn't me! /,'');
+  return say(`Think about ${n}. ${why}`);
+}
+
+/* ---- solved! ---- */
+function arSolve(){
+  arState.solved = true;
+  const wrongs = arState.wrong + arState.hints;
+  arState.stars = wrongs===0 ? 3 : wrongs<=2 ? 2 : 1;
+  const st = arStats();
+  st.total = (st.total||0) + 1;
+  st.solved[arCase.level] = (st.solved[arCase.level]||0) + 1;
+  st.stars[arCase.level] = Math.max(st.stars[arCase.level]||0, arState.stars);
+  try{ localStorage.setItem('wct-arcade', JSON.stringify(st)); localStorage.removeItem('wct-arcade-case'); }catch(e){}
+  albumCatch(arCase.culprit, 'arcade');
+  const c = arCase.culprit;
+  arPlayStory([
+    {text:`"It was… ME. 😳"`, who:c},
+    {text:`${c} ${arCase.reason}.\n\n"I'm really sorry. I'll put every coin back right now!"`, who:c},
+    {text:`"You did it, Detective Willow! The Twinkle Arcade is saved. Case closed! 🕵️‍♀️✨"`, who:'Heartsping', btn:'See my case file 📁'},
+  ], arRenderEnd);
+}
+function arRenderEnd(){
+  burstHearts();
+  const ess = arCase.cards.filter(k=>k.essential);
+  const lie = arCase.cards.find(k=>k.lie), deny = arCase.cards.find(k=>k.deny);
+  const clueLines = ess.map(k=> k.kind==='say'
+    ? `<div class="ar-person">${badgeHTML(arPing(k.speaker))}<div class="ar-said"><b>${esc(k.speaker)}:</b> “${esc(k.text)}”</div></div>`
+    : arClueHTML(k)).join('');
+  $('arEndView').innerHTML = `
+    <div class="team-final">
+      <div class="tf-spark">🕵️‍♀️✨💰</div>
+      <div class="tf-title">Case #${arState.num} Closed!</div>
+      <div class="tf-sub">The thief was <b>${esc(arCase.culprit)}</b> — solved with ${arState.wrong} wrong guess${arState.wrong===1?'':'es'} and ${arState.hints} hint${arState.hints===1?'':'s'}.</div>
+      <div class="tf-grid" style="grid-template-columns:1fr"><div class="tf-member">${badgeHTML(arPing(arCase.culprit), true)}<div class="tf-nm">${esc(arCase.culprit)}</div></div></div>
+      <div class="tf-note">${'⭐'.repeat(arState.stars)}</div>
+    </div>
+    <div class="ar-panel">
+      <div class="ar-loc-title">📁 How you cracked it</div>
+      ${lie ? `<div class="ar-rule" style="margin-top:6px">💥 The fib: ${esc(lie.speaker)} said “${esc(lie.text)}” — but ${esc(deny.speaker)} said ${esc(lie.speaker)} was NOT there!</div>` : ''}
+      <div class="ar-flavor" style="margin-top:8px">These were the clues that mattered most:</div>
+      <div class="ar-people">${clueLines}</div>
+    </div>
+    <div class="paint-btnrow" style="margin-top:14px">
+      <button class="bigbtn ghost" onclick="arEnterMode()">🕹️ Levels</button>
+      <button class="bigbtn" onclick="arStartCase('${arCase.level}')">New case! 🔍</button>
+    </div>`;
+  arShowView('end');
+}
+window.addEventListener('resize', ()=>{ if(arCase && !$('arPlayView').classList.contains('hidden')) arPlaceToken(false); });
+function initArcade(){}
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -3712,6 +4512,7 @@ initDetective();
 initTeaParty();
 initTimesTable();
 initRummy();
+initArcade();
 $('scBest').textContent = best;
 initToday();
 initTV();
