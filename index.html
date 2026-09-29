@@ -971,6 +971,122 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
   *{animation:none !important; transition:none !important;}
 }
 .hidden{display:none !important;}
+
+/* ---------- STICKER SCENES ---------- */
+.st-bgs{display:flex; gap:8px; overflow-x:auto; padding:2px 2px 10px; scrollbar-width:none;}
+.st-bgs::-webkit-scrollbar{display:none;}
+.st-bgbtn{
+  flex:0 0 auto; width:74px; border:3px solid #fff; border-radius:14px; padding:0; cursor:pointer; overflow:hidden;
+  box-shadow:0 3px 0 rgba(71,42,68,.14); background:#fff;
+}
+.st-bgbtn.on{border-color:var(--pink); transform:translateY(-2px);}
+.st-bgswatch{height:44px;}
+.st-bglabel{display:block; font:800 11px 'Baloo 2'; color:var(--ink); padding:3px 0 4px;}
+/* the scene: fixed 4:3 so a scene looks the same on any screen; every size
+   inside is in --u (1% of the scene's width), set from JS */
+.st-stage{
+  position:relative; width:100%; aspect-ratio:4/3; border-radius:18px; overflow:hidden;
+  border:4px solid #fff; box-shadow:0 8px 0 rgba(71,42,68,.12), inset 0 0 0 1px rgba(0,0,0,.04);
+  touch-action:none; user-select:none; -webkit-user-select:none;
+}
+.st-decor{position:absolute; transform:translate(-50%,-50%); pointer-events:none; line-height:1; opacity:.95;}
+.st-item{
+  position:absolute; transform-origin:center; cursor:grab; line-height:1; touch-action:none;
+  filter:drop-shadow(0 calc(var(--u)*.35) calc(var(--u)*.3) rgba(0,0,0,.18));
+}
+.st-item img{display:block; width:100%; height:auto; pointer-events:none; -webkit-user-drag:none;}
+.st-item.sel{outline:3px dashed #fff; outline-offset:4px; filter:drop-shadow(0 0 6px var(--pink-deep));}
+.st-bubble{
+  background:#fff; color:#472A44; border-radius:calc(var(--u)*2.4); padding:calc(var(--u)*1.1) calc(var(--u)*1.8);
+  font:800 calc(var(--u)*3.6) 'Baloo 2'; white-space:nowrap; position:relative; border:calc(var(--u)*.4) solid #472A44;
+}
+.st-bubble::after{
+  content:""; position:absolute; left:22%; bottom:calc(var(--u)*-1.6); width:calc(var(--u)*2.6); height:calc(var(--u)*2.6);
+  background:#fff; border-right:calc(var(--u)*.4) solid #472A44; border-bottom:calc(var(--u)*.4) solid #472A44;
+  transform:rotate(45deg);
+}
+.st-tools{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; min-height:44px; margin:10px 0;}
+.st-tool{border:2px solid var(--edge2); background:#fff; border-radius:12px; padding:7px 11px; font:800 15px 'Baloo 2'; color:var(--ink); cursor:pointer;}
+.st-tool:active{transform:scale(.94);}
+.st-tool.del{color:#D8264A;}
+.st-tip{font:700 13px 'Nunito'; color:var(--ink-soft); align-self:center;}
+.st-textin{border:2px solid var(--edge2); border-radius:12px; padding:7px 10px; font:700 15px 'Nunito'; width:170px;}
+.st-drawer{background:#fff; border:2px solid var(--edge); border-radius:20px; padding:10px;}
+.st-drawer-tabs{display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap;}
+.st-drawer .today-search{margin-bottom:8px;}
+.st-drawer-items{display:grid; grid-template-columns:repeat(auto-fill,minmax(58px,1fr)); gap:6px; max-height:230px; overflow-y:auto;}
+.st-pick{border:0; background:var(--soft); border-radius:12px; padding:5px; cursor:pointer; display:flex; align-items:center; justify-content:center; min-height:56px; font-size:30px;}
+.st-pick img{width:46px; height:46px; object-fit:contain;}
+.st-pick:active{transform:scale(.9);}
+.st-gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:10px;}
+.st-card{position:relative; background:#fff; border:2px solid var(--edge2); border-radius:18px; padding:8px; cursor:pointer;}
+.st-card .st-stage{border-width:2px; box-shadow:none; border-radius:12px; pointer-events:none;}
+.st-card .nm{font:800 13px 'Baloo 2'; text-align:center; margin-top:6px; color:var(--ink);}
+
+/* ---------- MAGIC SHOW ---------- */
+.mg-stage{
+  position:relative; border-radius:24px; overflow:hidden; padding:62px 16px 20px; min-height:420px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,236,170,.35), transparent 60%),
+             linear-gradient(90deg,#8E1B34 0,#C0304F 7%,#6E1026 13%,transparent 13%,transparent 87%,#6E1026 87%,#C0304F 93%,#8E1B34 100%),
+             linear-gradient(180deg,#2A1640,#3B1F55 70%,#5A2D2A 70%,#4A2320 100%);
+  box-shadow:0 10px 0 rgba(42,22,64,.2);
+}
+.mg-valance{
+  position:absolute; left:0; right:0; top:0; height:46px;
+  background:radial-gradient(circle at 50% 0, #C0304F 70%, transparent 71%) 0 0/60px 60px repeat-x, #A3213F;
+  box-shadow:0 6px 0 rgba(0,0,0,.18);
+}
+.mg-valance::after{content:"✨ THE MAGIC SHOW ✨"; position:absolute; left:0; right:0; top:10px; text-align:center; font:800 16px 'Baloo 2'; color:#FFE9A8; letter-spacing:1px;}
+.mg-host{display:flex; gap:12px; align-items:flex-start; margin:0 auto 14px; max-width:560px;}
+.mg-host .badge{width:64px; height:64px; flex-basis:64px; font-size:30px; box-shadow:0 0 18px rgba(255,233,168,.6);}
+.mg-say{background:#fff; color:var(--ink); border-radius:16px 16px 16px 4px; padding:11px 14px; font:700 16px 'Nunito'; line-height:1.45;}
+.mg-say b{font-family:'Baloo 2'; color:#7B2FA8;}
+.mg-body{max-width:560px; margin:0 auto; text-align:center;}
+.mg-trick{
+  display:flex; align-items:center; gap:12px; text-align:left; width:100%; margin-bottom:10px; cursor:pointer;
+  border:2px solid rgba(255,233,168,.55); background:rgba(255,255,255,.1); color:#fff; border-radius:18px; padding:12px 14px;
+}
+.mg-trick:active{transform:scale(.98);}
+.mg-trick-icon{font-size:30px;}
+.mg-trick-name{font:800 17px 'Baloo 2';}
+.mg-trick-desc{font:700 12.5px 'Nunito'; opacity:.85;}
+.mg-trick-stat{margin-left:auto; font-size:15px; white-space:nowrap;}
+.mg-btn{border:0; border-radius:16px; padding:12px 18px; font:800 16px 'Baloo 2'; cursor:pointer; background:#FFD86B; color:#472A44; box-shadow:0 4px 0 rgba(0,0,0,.25); margin:4px;}
+.mg-btn.ghost{background:rgba(255,255,255,.16); color:#fff; box-shadow:none; border:2px solid rgba(255,255,255,.4);}
+.mg-btn:active{transform:translateY(2px);}
+.mg-row{display:flex; flex-wrap:wrap; justify-content:center; gap:4px; margin-top:12px;}
+.mg-card{background:#FFFDF6; border-radius:16px; padding:10px; border:3px solid #FFD86B; box-shadow:0 6px 0 rgba(0,0,0,.2); position:relative;}
+.mg-card-tag{position:absolute; top:6px; left:10px; font:800 13px 'Baloo 2'; color:#B08419;}
+.mg-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(52px,1fr)); gap:6px;}
+.mg-cell{display:flex; flex-direction:column; align-items:center; gap:1px; border:0; background:none; padding:2px; cursor:default;}
+.mg-cell .badge{width:44px; height:44px; flex-basis:44px; font-size:20px; border-width:2px;}
+.mg-cell .num{font:800 10px 'Baloo 2'; color:#8A6B87;}
+.mg-cell.tap{cursor:pointer;}
+.mg-cell.tap:active{transform:scale(.9);}
+.mg-cols{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+.mg-col{background:#FFFDF6; border:3px solid #FFD86B; border-radius:16px; padding:8px 4px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;}
+.mg-col:active{transform:scale(.97);}
+.mg-col .badge{width:40px; height:40px; flex-basis:40px; font-size:18px; border-width:2px;}
+.mg-col-lbl{font:800 13px 'Baloo 2'; color:#B08419;}
+.mg-reveal{animation:mgPop .7s cubic-bezier(.3,1.6,.5,1) both;}
+.mg-reveal .badge{width:130px; height:130px; flex-basis:130px; font-size:64px; margin:0 auto; box-shadow:0 0 0 6px #FFD86B, 0 0 40px rgba(255,233,168,.9);}
+.mg-reveal-name{font:800 26px 'Baloo 2'; color:#FFE9A8; margin-top:10px; text-shadow:0 0 12px rgba(255,200,80,.6);}
+@keyframes mgPop{0%{transform:scale(.2) rotate(-20deg); opacity:0;}100%{transform:scale(1) rotate(0); opacity:1;}}
+.mg-drum{font:800 30px 'Baloo 2'; color:#FFE9A8; animation:mgPulse .5s ease-in-out infinite alternate; padding:30px 0;}
+@keyframes mgPulse{from{transform:scale(.9);}to{transform:scale(1.12);}}
+.mg-secret{background:#FFFDF6; color:var(--ink); border-radius:16px; padding:14px; text-align:left; font:700 15px 'Nunito'; line-height:1.55; margin-top:8px;}
+.mg-secret b{font-family:'Baloo 2'; color:#7B2FA8;}
+.mg-big{font:800 30px 'Baloo 2'; color:#7B2FA8; text-align:center; margin:6px 0;}
+.mg-num{border:0; border-radius:14px; background:#FFFDF6; font:800 20px 'Baloo 2'; color:var(--ink); padding:10px 0; width:54px; cursor:pointer; margin:3px; box-shadow:0 3px 0 rgba(0,0,0,.2);}
+.mg-note{font:700 13px 'Nunito'; color:#FFE9A8; margin-top:10px;}
+.mg-deck{display:grid; grid-template-columns:repeat(7,1fr); gap:5px;}
+@media(max-width:420px){
+  .mg-stage{padding:58px 10px 16px;}
+  .mg-grid{grid-template-columns:repeat(auto-fill,minmax(44px,1fr));}
+  .mg-cell .badge{width:38px; height:38px; flex-basis:38px;}
+  .mg-col .badge{width:34px; height:34px; flex-basis:34px;}
+  .mg-say{font-size:15px;}
+}
 </style>
 </head>
 <body>
@@ -1021,6 +1137,8 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#7BC9A8;--c2:#3E9C79" onclick="showMode('times')"><span class="ai-emoji">🧮</span><span class="ai-label">Teenie Times</span><span class="ai-sub" id="timesTileSub">Learn to multiply!</span></button>
         <button class="appicon" style="--c1:#F2919B;--c2:#C0424F" onclick="showMode('rummy')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Rummy</span><span class="ai-sub" id="rummyTileSub">Learn 500 Rummy!</span></button>
         <button class="appicon" style="--c1:#A98BEF;--c2:#5B3FA8" onclick="showMode('arcade')"><span class="ai-emoji">🕹️</span><span class="ai-label">Arcade Mystery</span><span class="ai-sub">Who took the coins?</span></button>
+        <button class="appicon" style="--c1:#C6E86B;--c2:#79AA24" onclick="showMode('stickers')"><span class="ai-emoji">🖼️</span><span class="ai-label">Sticker Scenes</span><span class="ai-sub">Make a picture!</span></button>
+        <button class="appicon" style="--c1:#6B73CF;--c2:#262B66" onclick="showMode('magic')"><span class="ai-emoji">🪄</span><span class="ai-label">Magic Show</span><span class="ai-sub">Tricks &amp; secrets</span></button>
       </div>
     </div>
 
@@ -1424,6 +1542,44 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     </div>
 
     <div id="arEndView" class="hidden"></div>
+  </section>
+
+  <!-- ============ STICKER SCENES ============ -->
+  <section id="stickers" class="hidden">
+    <div class="setuprow">
+      <button class="chip" id="stTabMake" onclick="stSetView('make')">🖼️ Make a scene</button>
+      <button class="chip" id="stTabGallery" onclick="stSetView('gallery')">📚 My scenes <span id="stCount"></span></button>
+    </div>
+    <div id="stMakeView">
+      <div class="st-bgs" id="stBgs"></div>
+      <div class="st-stage" id="stStage"></div>
+      <div class="st-tools" id="stTools"></div>
+      <div class="st-drawer">
+        <div class="st-drawer-tabs" id="stDrawerTabs"></div>
+        <input class="today-search hidden" id="stSearch" placeholder="Find a Teenieping…" autocomplete="off" oninput="stRenderDrawer()">
+        <div class="st-drawer-items" id="stDrawer"></div>
+      </div>
+      <div class="paint-actions" style="margin-top:12px">
+        <input class="today-input" id="stName" placeholder="Name your scene…" maxlength="30" autocomplete="off">
+        <div class="paint-btnrow">
+          <button class="bigbtn ghost" onclick="stNew()">✨ New scene</button>
+          <button class="bigbtn" onclick="stSave()">💖 Save</button>
+        </div>
+      </div>
+    </div>
+    <div id="stGalleryView" class="hidden">
+      <div class="al-count" id="stGalleryEmpty">No scenes yet — go make one! 🖼️</div>
+      <div class="st-gallery" id="stGallery"></div>
+    </div>
+  </section>
+
+  <!-- ============ MAGIC SHOW ============ -->
+  <section id="magic" class="hidden">
+    <div class="mg-stage">
+      <div class="mg-valance"></div>
+      <div class="mg-host" id="mgHost"></div>
+      <div class="mg-body" id="mgBody"></div>
+    </div>
   </section>
 
   <!-- ============ HANDBOOK ============ -->
@@ -1844,6 +2000,8 @@ function showMode(m){
   $('times').classList.toggle('hidden', m!=='times');
   $('rummy').classList.toggle('hidden', m!=='rummy');
   $('arcade').classList.toggle('hidden', m!=='arcade');
+  $('stickers').classList.toggle('hidden', m!=='stickers');
+  $('magic').classList.toggle('hidden', m!=='magic');
   $('homeBtn').classList.toggle('hidden', m==='home');
   if(m==='today') renderTodayDate();
   if(m==='mystery') renderMystery();
@@ -1853,6 +2011,8 @@ function showMode(m){
   if(m==='times') ttEnterMode();
   if(m==='rummy') ryEnterMode();
   if(m==='arcade') arEnterMode();
+  if(m==='stickers') stEnterMode();
+  if(m==='magic') mgEnterMode();
   window.scrollTo(0,0);
 }
 
@@ -4501,6 +4661,525 @@ function arRenderEnd(){
 window.addEventListener('resize', ()=>{ if(arCase && !$('arPlayView').classList.contains('hidden')) arPlaceToken(false); });
 function initArcade(){}
 
+/* ================= STICKER SCENES ================= */
+// A scene is {bg, items:[{t:'ping'|'emoji'|'text', v, x, y, s, r, f}]}, with
+// x/y in % of the backdrop and every size in --u (1% of its width), so the
+// same scene renders identically on the stage and in gallery thumbnails.
+// Array order is stacking order ("bring to front" = move to the end).
+const ST_BGS = {
+  garden: {name:'Garden',  css:'linear-gradient(180deg,#BDE8FF 0%,#E9F8FF 58%,#8FD98A 58%,#62BD60 100%)',
+           decor:[['☀️',10,13,11],['☁️',55,12,9],['☁️',80,22,7],['🌷',7,90,6],['🌼',93,88,6]]},
+  beach:  {name:'Beach',   css:'linear-gradient(180deg,#9FD9FF 0%,#DDF3FF 44%,#3FB6E0 44%,#62C9EA 60%,#F7DFA4 60%,#F2CE82 100%)',
+           decor:[['☀️',88,13,10],['🐚',10,88,5],['⛱️',82,70,11]]},
+  castle: {name:'Castle',  css:'linear-gradient(180deg,#F6B7E0 0%,#FFD9C2 60%,#B8E6A8 60%,#8FCF7E 100%)',
+           decor:[['🏰',50,40,30],['🌈',15,17,14],['✨',86,15,7]]},
+  space:  {name:'Space',   css:'linear-gradient(180deg,#141A45,#2B2170)',
+           decor:[['🪐',82,22,14],['🌙',13,16,10],['⭐',48,10,4],['✨',30,40,3],['✨',66,55,3],['⭐',20,78,3],['✨',90,82,3]]},
+  arcade: {name:'Arcade',  css:'linear-gradient(180deg,#3B2360 0%,#2B1B45 58%,#1E1233 58%,#2B1B45 100%)',
+           decor:[['🕹️',15,30,11],['🧸',50,30,11],['🎳',85,30,11]]},
+  bedroom:{name:'Bedroom', css:'linear-gradient(180deg,#FFE3EE 0%,#FFF0F6 64%,#E3B98F 64%,#C99A6E 100%)',
+           decor:[['🪟',22,26,14],['🛏️',75,60,24]]},
+  party:  {name:'Tea Party', css:'linear-gradient(180deg,#FFF3C4 0%,#FFE9F2 60%,#F7B6CF 60%,#EE93B6 100%)',
+           decor:[['🎀',12,10,8],['🎀',50,8,8],['🎀',88,10,8],['🫖',50,64,13]]},
+};
+const ST_PROPS = ['🌈','⭐','🌟','✨','💖','💗','🎀','👑','🎈','🎁','🧁','🍰','🍩','🍭','🍦','🍓','🌸','🌷','🌻','🌳',
+  '🍄','🦋','🐰','🐱','🐶','🦄','🐠','🏰','🏠','⛺','🚗','🚀','🛸','🌙','☀️','☁️','🌧️','❄️','🔥','🎵','🎨','📚',
+  '⚽','🎂','🫖','🪄','🔮','💎','🗝️','🐚'];
+const ST_WORDS = ['Hello!','Hi!','Yay!','Catch!','Wow!','I love you!','Oh no!','Hehe!',"Let's play!",'Teenie-P Time!','Best friends!','Zzz…','Type my own!'];
+let stScene = null, stSel = null, stView = 'make', stDrawerTab = 'pings', stEditId = null, stDrag = null, stNewArmed = false;
+
+function stBlank(){ return {bg:'garden', items:[]}; }
+function stLoadDraft(){
+  try{
+    const d = JSON.parse(localStorage.getItem('wct-scene-draft'));
+    if(d && d.scene){ stScene = d.scene; stEditId = d.editId || null; $('stName').value = d.name || ''; return; }
+  }catch(e){}
+  stScene = stBlank();
+}
+function stSaveDraft(){ try{ localStorage.setItem('wct-scene-draft', JSON.stringify({scene:stScene, editId:stEditId, name:$('stName').value})); }catch(e){} }
+function stLoadAll(){ try{ return JSON.parse(localStorage.getItem('wct-scenes')) || []; }catch(e){ return []; } }
+
+function stItemHTML(it, i, interactive){
+  const sel = interactive && stSel===i ? 'sel' : '';
+  const at = `left:${it.x}%;top:${it.y}%;z-index:${i+1};`;
+  if(it.t==='text'){      // bubbles never mirror, or the words would read backwards
+    return `<div class="st-item ${sel}" data-i="${i}" style="${at}transform:translate(-50%,-50%) rotate(${it.r||0}deg) scale(${it.s})"><div class="st-bubble">${esc(it.v)}</div></div>`;
+  }
+  const tf = `transform:translate(-50%,-50%) rotate(${it.r||0}deg) scaleX(${it.f?-1:1});`;
+  if(it.t==='ping'){
+    const img = IMAGE_MANIFEST[it.v];
+    const inner = img ? `<img src="${escAttr(img)}" alt="">` : `<span style="font-size:calc(var(--u)*${10*it.s})">💖</span>`;
+    return `<div class="st-item ${sel}" data-i="${i}" style="${at}${tf}width:calc(var(--u)*${16*it.s})">${inner}</div>`;
+  }
+  return `<div class="st-item ${sel}" data-i="${i}" style="${at}${tf}font-size:calc(var(--u)*${10*it.s})">${esc(it.v)}</div>`;
+}
+function stRenderInto(el, scene, interactive){
+  const bg = ST_BGS[scene.bg] || ST_BGS.garden;
+  el.style.background = bg.css;
+  el.style.setProperty('--u', (el.clientWidth/100) + 'px');
+  el.innerHTML = bg.decor.map(([e,x,y,sz])=>`<span class="st-decor" style="left:${x}%;top:${y}%;font-size:calc(var(--u)*${sz})">${e}</span>`).join('')
+    + scene.items.map((it,i)=>stItemHTML(it,i,interactive)).join('');
+}
+function stRender(){
+  $('stBgs').innerHTML = Object.entries(ST_BGS).map(([k,b])=>
+    `<button class="st-bgbtn ${stScene.bg===k?'on':''}" data-k="${k}" onclick="stSetBg(this.dataset.k)"><div class="st-bgswatch" style="background:${b.css}"></div><span class="st-bglabel">${esc(b.name)}</span></button>`).join('');
+  stRenderInto($('stStage'), stScene, true);
+  stRenderTools();
+}
+function stRenderTools(){
+  const t = $('stTools'), it = stSel!==null ? stScene.items[stSel] : null;
+  if(!it){
+    t.innerHTML = `<span class="st-tip">${stScene.items.length ? 'Tap a sticker to change it — or drag it around! 👆' : 'Pick a backdrop, then tap stickers below to add them! 👇'}</span>`;
+    return;
+  }
+  t.innerHTML = `${it.t==='text' ? `<input class="st-textin" id="stTextIn" maxlength="24" value="${escAttr(it.v)}" oninput="stSetText(this.value)">` : ''}
+    <button class="st-tool" onclick="stAdj('s',-1)" title="Smaller">➖</button>
+    <button class="st-tool" onclick="stAdj('s',1)" title="Bigger">➕</button>
+    <button class="st-tool" onclick="stAdj('r',-1)" title="Turn left">↺</button>
+    <button class="st-tool" onclick="stAdj('r',1)" title="Turn right">↻</button>
+    ${it.t!=='text' ? `<button class="st-tool" onclick="stAdj('f')">⇆ Flip</button>` : ''}
+    <button class="st-tool" onclick="stFront()">⬆️ Front</button>
+    <button class="st-tool del" onclick="stDel()" title="Remove">🗑️</button>`;
+}
+function stRenderDrawer(){
+  $('stDrawerTabs').innerHTML = [['pings','💖 Teeniepings'],['props','🎈 Props'],['words','💬 Words']].map(([k,l])=>
+    `<button class="chip ${stDrawerTab===k?'on':''}" data-k="${k}" onclick="stTab(this.dataset.k)">${l}</button>`).join('');
+  $('stSearch').classList.toggle('hidden', stDrawerTab!=='pings');
+  let h = '';
+  if(stDrawerTab==='pings'){
+    const q = $('stSearch').value.trim().toLowerCase();
+    let list = PINGS.filter(p=>IMAGE_MANIFEST[p.n] && (!q || p.n.toLowerCase().includes(q)));
+    list = list.filter(p=>favs.has(p.n)).concat(list.filter(p=>!favs.has(p.n)));   // her favorites first
+    h = list.map(p=>`<button class="st-pick" data-v="${escAttr(p.n)}" onclick="stAdd('ping',this.dataset.v)" title="${escAttr(p.n)}"><img src="${escAttr(IMAGE_MANIFEST[p.n])}" alt="${escAttr(p.n)}" loading="lazy"></button>`).join('')
+      || `<div class="st-tip" style="grid-column:1/-1">No Teenieping by that name!</div>`;
+  } else if(stDrawerTab==='props'){
+    h = ST_PROPS.map(e=>`<button class="st-pick" data-v="${e}" onclick="stAdd('emoji',this.dataset.v)">${e}</button>`).join('');
+  } else {
+    h = ST_WORDS.map(w=>`<button class="st-pick" style="font:800 13px 'Baloo 2';color:var(--ink)" data-v="${escAttr(w)}" onclick="stAdd('text',this.dataset.v)">${esc(w)}</button>`).join('');
+  }
+  $('stDrawer').innerHTML = h;
+}
+function stTab(k){ stDrawerTab = k; stRenderDrawer(); }
+function stSetBg(k){ stScene.bg = k; stRender(); stSaveDraft(); }
+function stAdd(t, v){
+  if(stScene.items.length >= 60){ toast('That scene is FULL of stickers! 🤩'); return; }
+  const n = stScene.items.length;
+  const text = t==='text' && v==='Type my own!' ? 'Type here!' : v;
+  stScene.items.push({t, v:text, x:40 + (n%5)*5, y:42 + (n%4)*5, s:1, r:0, f:false});
+  stSel = stScene.items.length - 1;
+  stRender(); stSaveDraft();
+  if(t==='text' && v==='Type my own!'){ const inp = $('stTextIn'); if(inp){ inp.focus(); inp.select(); } }
+}
+function stAdj(k, d){
+  const it = stScene.items[stSel]; if(!it) return;
+  if(k==='s') it.s = Math.max(.4, Math.min(3.2, +(it.s * (d>0 ? 1.2 : 1/1.2)).toFixed(3)));
+  if(k==='r') it.r = ((it.r||0) + d*15) % 360;
+  if(k==='f') it.f = !it.f;
+  stRender(); stSaveDraft();
+}
+function stFront(){ const it = stScene.items.splice(stSel,1)[0]; stScene.items.push(it); stSel = stScene.items.length-1; stRender(); stSaveDraft(); }
+function stDel(){ stScene.items.splice(stSel,1); stSel = null; stRender(); stSaveDraft(); }
+function stSetText(v){
+  const it = stScene.items[stSel]; if(!it) return;
+  it.v = v;
+  const el = $('stStage').querySelector(`.st-item[data-i="${stSel}"] .st-bubble`);
+  if(el) el.textContent = v;        // update in place so the text box keeps focus
+  stSaveDraft();
+}
+function stInitStage(){
+  const st = $('stStage');
+  st.addEventListener('pointerdown', e=>{
+    const el = e.target.closest('.st-item');
+    if(!el){ if(stSel!==null){ stSel = null; stRender(); } return; }
+    const i = +el.dataset.i, r = st.getBoundingClientRect(), it = stScene.items[i];
+    stDrag = {i, id:e.pointerId, sx:e.clientX, sy:e.clientY, ox:it.x, oy:it.y, w:r.width, h:r.height, el};
+    if(stSel !== i){
+      stSel = i;
+      st.querySelectorAll('.st-item.sel').forEach(x=>x.classList.remove('sel'));
+      el.classList.add('sel');
+      stRenderTools();
+    }
+    st.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  st.addEventListener('pointermove', e=>{
+    if(!stDrag || e.pointerId !== stDrag.id) return;
+    const it = stScene.items[stDrag.i];
+    it.x = Math.max(0, Math.min(100, stDrag.ox + (e.clientX - stDrag.sx) / stDrag.w * 100));
+    it.y = Math.max(0, Math.min(100, stDrag.oy + (e.clientY - stDrag.sy) / stDrag.h * 100));
+    stDrag.el.style.left = it.x + '%';
+    stDrag.el.style.top  = it.y + '%';
+  });
+  const end = e=>{ if(stDrag && e.pointerId === stDrag.id){ stDrag = null; stSaveDraft(); } };
+  st.addEventListener('pointerup', end);
+  st.addEventListener('pointercancel', end);
+  window.addEventListener('resize', ()=>{
+    if($('stickers').classList.contains('hidden')) return;
+    if(stView==='make') stRenderInto($('stStage'), stScene, true); else stRenderGallery();
+  });
+}
+function stUpdateCount(){ const n = stLoadAll().length; $('stCount').textContent = n ? `(${n})` : ''; }
+function stSave(){
+  if(!stScene.items.length){ toast('Add some stickers first! 🖼️'); return; }
+  const name = ($('stName').value || '').trim() || `My ${ST_BGS[stScene.bg].name} scene`;
+  const all = stLoadAll();
+  const rec = {bg:stScene.bg, items:JSON.parse(JSON.stringify(stScene.items)), name, ts:Date.now()};
+  const at = stEditId ? all.findIndex(s=>s.id===stEditId) : -1;
+  if(at >= 0) all[at] = {...all[at], ...rec};
+  else { stEditId = 'sc' + Date.now() + Math.floor(Math.random()*1000); all.unshift({id:stEditId, ...rec}); }
+  try{ localStorage.setItem('wct-scenes', JSON.stringify(all)); }
+  catch(e){ toast('Uh oh — no room to save more scenes! 😮'); return; }
+  $('stName').value = name; stNewArmed = false;
+  stSaveDraft(); stUpdateCount(); burstHearts();
+  toast(`💖 Saved <b>${esc(name)}</b>!`);
+}
+// unsaved = differs from its saved copy (or has never been saved at all)
+function stIsDirty(){
+  if(!stScene.items.length) return false;
+  const rec = stEditId && stLoadAll().find(s=>s.id===stEditId);
+  if(!rec) return true;
+  return JSON.stringify({bg:rec.bg, items:rec.items}) !== JSON.stringify({bg:stScene.bg, items:stScene.items});
+}
+function stNew(){
+  if(stIsDirty() && !stNewArmed){
+    stNewArmed = true; setTimeout(()=>{ stNewArmed = false; }, 3000);
+    toast("This scene isn't saved yet! Tap ✨ New scene again to start over.");
+    return;
+  }
+  stNewArmed = false;
+  stScene = stBlank(); stSel = null; stEditId = null; $('stName').value = '';
+  stRender(); stSaveDraft();
+}
+function stRenderGallery(){
+  const all = stLoadAll();
+  stUpdateCount();
+  $('stGalleryEmpty').classList.toggle('hidden', all.length > 0);
+  $('stGallery').innerHTML = all.map(s=>`<div class="st-card" data-id="${escAttr(s.id)}" onclick="stOpen(this.dataset.id)">
+      <button class="pt-del" style="z-index:200" data-id="${escAttr(s.id)}" onclick="event.stopPropagation(); stDelScene(this)">✕</button>
+      <div class="st-stage"></div><div class="nm">${esc(s.name)}</div></div>`).join('');
+  $('stGallery').querySelectorAll('.st-card').forEach(c=>{
+    const s = all.find(x=>x.id===c.dataset.id);
+    if(s) stRenderInto(c.querySelector('.st-stage'), s, false);
+  });
+}
+function stOpen(id){
+  const s = stLoadAll().find(x=>x.id===id); if(!s) return;
+  stScene = {bg:s.bg, items:JSON.parse(JSON.stringify(s.items))}; stEditId = id; stSel = null;
+  $('stName').value = s.name;
+  stSaveDraft(); stSetView('make');
+  toast('🖼️ Keep decorating — tap Save when you\'re done!');
+}
+function stDelScene(btn){
+  if(!btn.classList.contains('confirm')){
+    btn.classList.add('confirm'); btn.textContent = '!';
+    setTimeout(()=>{ btn.classList.remove('confirm'); btn.textContent = '✕'; }, 2500);
+    return;
+  }
+  const id = btn.dataset.id;
+  try{ localStorage.setItem('wct-scenes', JSON.stringify(stLoadAll().filter(s=>s.id!==id))); }catch(e){}
+  if(stEditId===id){ stEditId = null; stSaveDraft(); }
+  stRenderGallery();
+}
+function stSetView(v){
+  stView = v;
+  $('stMakeView').classList.toggle('hidden', v!=='make');
+  $('stGalleryView').classList.toggle('hidden', v!=='gallery');
+  $('stTabMake').classList.toggle('on', v==='make');
+  $('stTabGallery').classList.toggle('on', v==='gallery');
+  if(v==='make'){ stRender(); stRenderDrawer(); } else stRenderGallery();   // after un-hiding: sizes need a real width
+}
+function stEnterMode(){ if(!stScene) stLoadDraft(); stSetView(stView); stUpdateCount(); }
+
+/* ================= MAGIC SHOW ================= */
+// Three real math-based tricks. Each goes Watch (the Compact fools her) →
+// Secret (how it works, using her own game as the example) → Your turn
+// (she practises as the magician, then performs it for the family).
+const MG_HOST = 'Wizping';
+const MG_TRICKS = [
+  {id:'mind', icon:'🔮', name:'Mind-Reading Cards',    desc:'I can find the Teenieping you picked!'},
+  {id:'deal', icon:'🃏', name:'The 21 Teenieping Trick', desc:'Three piles… and I ALWAYS find it!'},
+  {id:'num',  icon:'🔢', name:'Think of a Number',     desc:'I know your number without asking!'},
+];
+let mg = {}, mdLast = null;
+function mgStats(){ try{ return JSON.parse(localStorage.getItem('wct-magic')) || {}; }catch(e){ return {}; } }
+function mgMark(id, what){
+  const s = mgStats(); s[id] = s[id] || {}; s[id][what] = (s[id][what]||0) + 1;
+  try{ localStorage.setItem('wct-magic', JSON.stringify(s)); }catch(e){}
+}
+function mgCast(n){ return shuffle(PINGS.filter(p=>IMAGE_MANIFEST[p.n])).slice(0, n); }
+function mgSay(html){ $('mgHost').innerHTML = `${badgeHTML(PINGS.find(p=>p.n===MG_HOST))}<div class="mg-say">${html}</div>`; }
+function mgBody(html){ $('mgBody').innerHTML = html; }
+function mgCell(p, num, onclick){
+  return `<button class="mg-cell ${onclick?'tap':''}" ${onclick?`onclick="${onclick}"`:'tabindex="-1"'}>${badgeHTML(p)}${num?`<span class="num">#${num}</span>`:''}</button>`;
+}
+function mgReveal(p, line){
+  return `<div class="mg-reveal">${badgeHTML(p,true)}<div class="mg-reveal-name">${esc(p.n)}</div></div>${line||''}`;
+}
+function mgDrum(html, then){ mgSay(html); mgBody(`<div class="mg-drum">✨ 🔮 ✨</div>`); setTimeout(then, 1700); }
+function mgEnterMode(){ mgHub(); }
+function mgHub(){
+  const s = mgStats();
+  mgSay(`Welcome to the Magic Show! I'm <b>Wizping</b>. 🧙 Pick a trick — I'll amaze you, then teach you the secret so YOU can do it too!`);
+  mgBody(MG_TRICKS.map(t=>{
+    const st = s[t.id] || {};
+    const marks = (st.watched?'✨':'') + (st.secret?'🔍':'') + (st.performed?'🎩':'');
+    return `<button class="mg-trick" data-id="${t.id}" onclick="mgStart(this.dataset.id)"><span class="mg-trick-icon">${t.icon}</span>
+      <span><div class="mg-trick-name">${esc(t.name)}</div><div class="mg-trick-desc">${esc(t.desc)}</div></span>
+      <span class="mg-trick-stat">${marks || 'New!'}</span></button>`;
+  }).join('') + `<div class="mg-note">✨ watched it · 🔍 learned the secret · 🎩 did it yourself</div>`);
+  window.scrollTo(0,0);
+}
+function mgStart(id){ ({mind:mdWatch, deal:dlWatch, num:nmWatch})[id](); window.scrollTo(0,0); }
+function mgSecret(id){ ({mind:mdSecret, deal:dlSecret, num:nmSecret})[id](); window.scrollTo(0,0); }
+function mgAfter(id, right){
+  mgSay(right ? `A magician never tells her secrets… <b>unless you ask nicely!</b> 😉`
+              : `Oops! I think an answer got mixed up — even magicians slip sometimes! 🧙`);
+  mgBody(`<div class="mg-row">
+    <button class="mg-btn" data-id="${id}" onclick="mgSecret(this.dataset.id)">🔍 Tell me the secret!</button>
+    <button class="mg-btn ghost" data-id="${id}" onclick="mgStart(this.dataset.id)">✨ Do it again</button>
+    <button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`);
+}
+function mgDoneRow(again){
+  return `<div class="mg-row"><button class="mg-btn" onclick="${again}">🔁 Again</button><button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`;
+}
+
+/* ---- trick 1: mind-reading cards (binary) ----
+   Each Teenieping gets a secret number 1–31. Card k shows everyone whose
+   number has bit k set, so the "yes" cards' magic numbers (1,2,4,8,16)
+   add up to exactly the chosen number. */
+function mdMembers(cast, bit){ return cast.filter((_,i)=>((i+1)>>bit) & 1); }
+function mdTotal(answers){ let t = 0; for(let b=0;b<5;b++) if(answers[b]) t += 1<<b; return t; }
+function mdWatch(){
+  mg = {id:'mind', cast:mgCast(31), answers:[], order:shuffle([0,1,2,3,4]), step:0, perform:false};
+  mgSay(`Look at these 31 Teeniepings. <b>Pick one in your head</b> — don't tap it, don't tell me! Just remember who it is. 🤫`);
+  mgBody(`<div class="mg-card"><div class="mg-grid">${mg.cast.map(p=>mgCell(p)).join('')}</div></div>
+    <div class="mg-row"><button class="mg-btn" onclick="mdCard()">I picked one! ✨</button></div>`);
+}
+function mdCard(){
+  if(mg.step >= 5) return mg.perform ? mdPerformBoard() : mdReveal();
+  const bit = mg.order[mg.step];
+  const members = mdMembers(mg.cast, bit);
+  mgSay(`Card ${mg.step+1} of 5: <b>Is your Teenieping on this card?</b>`);
+  mgBody(`<div class="mg-card">${mg.perform ? `<span class="mg-card-tag">✨${1<<bit}</span>` : ''}
+      <div class="mg-grid" style="margin-top:${mg.perform?18:0}px">${(mg.perform ? members : shuffle(members)).map(p=>mgCell(p)).join('')}</div></div>
+    <div class="mg-row"><button class="mg-btn" onclick="mdAns(true)">✅ Yes, it's here!</button><button class="mg-btn ghost" onclick="mdAns(false)">❌ Not here</button></div>`);
+  window.scrollTo(0,0);
+}
+function mdAns(yes){ mg.answers[mg.order[mg.step]] = yes; mg.step++; mdCard(); }
+function mdReveal(){
+  const n = mdTotal(mg.answers);
+  if(!n){
+    mgSay(`Hmm… you said "no" to every single card! 🤔 Did you pick one? Let's try again!`);
+    return mgBody(`<div class="mg-row"><button class="mg-btn" onclick="mdWatch()">Try again ✨</button></div>`);
+  }
+  const p = mg.cast[n-1];
+  mdLast = {name:p.n, n, parts:[0,1,2,3,4].filter(b=>mg.answers[b]).map(b=>1<<b)};
+  mgDrum(`Let me look into my crystal ball… 🔮`, ()=>{
+    mgMark('mind','watched'); burstHearts();
+    mgSay(`Your Teenieping is… <b>${esc(p.n)}</b>! Am I right? 😏`);
+    mgBody(mgReveal(p, `<div class="mg-row"><button class="mg-btn" onclick="mgAfter('mind',true)">😱 YES! How?!</button><button class="mg-btn ghost" onclick="mgAfter('mind',false)">Nope…</button></div>`));
+  });
+}
+function mdSecret(){
+  mgMark('mind','secret');
+  const ex = mdLast
+    ? `When you picked <b>${esc(mdLast.name)}</b>, you said YES to the ${arList(mdLast.parts.map(x=>'✨'+x))} card${mdLast.parts.length>1?'s':''}.<br>${mdLast.parts.join(' + ')} = <b>${mdLast.n}</b> — and ${esc(mdLast.name)}'s secret number was #${mdLast.n}! 🤯`
+    : `If they say YES to the ✨1, ✨4 and ✨8 cards: 1 + 4 + 8 = <b>13</b>. So it's Teenieping #13!`;
+  mgSay(`Here's the secret! 🤫 It's all about <b>magic numbers</b>.`);
+  mgBody(`<div class="mg-secret">
+      1️⃣ Every Teenieping has a <b>secret number</b> from 1 to 31.<br>
+      2️⃣ Every card has a <b>magic number</b>: <b>1, 2, 4, 8 or 16</b>. (It's the smallest secret number on that card.)<br>
+      3️⃣ Each time your friend says <b>"Yes, it's here!"</b>, you <b>add</b> that card's magic number.<br>
+      4️⃣ The total is their Teenieping's secret number. Ta-da! ✨<br><br>${ex}
+    </div>
+    <div class="mg-row"><button class="mg-btn" onclick="mdPractice()">🎩 My turn!</button><button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`);
+}
+function mdPractice(){
+  const cast = mg.id==='mind' && mg.cast && mg.cast.length===31 ? mg.cast : mgCast(31);
+  const secret = 1 + Math.floor(Math.random()*31);
+  mg = {id:'mind', cast, secret, perform:false};
+  const tags = [0,1,2,3,4].map(b=>`<span class="mg-btn ${(secret>>b)&1 ? '' : 'ghost'}" style="cursor:default">✨${1<<b}: ${(secret>>b)&1 ? 'YES' : 'no'}</span>`).join('');
+  mgSay(`Practice time! I picked a Teenieping in my head. Here's what I said for each card. <b>Add up the magic numbers where I said YES</b>, then tap my Teenieping! 🧮`);
+  mgBody(`<div class="mg-row">${tags}</div>
+    <div class="mg-card" style="margin-top:10px"><div class="mg-grid">${cast.map((p,i)=>mgCell(p, i+1, `mdPracticeTap(${i+1})`)).join('')}</div></div>`);
+}
+function mdPracticeTap(n){
+  const s = mg.secret, parts = [0,1,2,3,4].filter(b=>(s>>b)&1).map(b=>1<<b);
+  const sum = parts.length>1 ? `${parts.join(' + ')} = ${s}` : `Only the ✨${s} card said YES, so it's #${s}`;
+  if(n !== s){ mgSay(parts.length>1 ? `Hmm, not #${n}! Add them up again: <b>${parts.join(' + ')} = ?</b> 🤔` : `Hmm, not #${n}! Only ONE card said YES — what's its magic number? 🤔`); window.scrollTo(0,0); return; }
+  mgMark('mind','performed'); burstHearts();
+  mgSay(`YES! ${sum} — it's <b>${esc(mg.cast[s-1].n)}</b>! You're a real magician! 🎩✨`);
+  mgBody(`<div class="mg-row"><button class="mg-btn" onclick="mdPractice()">🔁 Practice again</button>
+    <button class="mg-btn" onclick="mdPerform()">🎭 Perform for my family!</button>
+    <button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`);
+  window.scrollTo(0,0);
+}
+// Performing: same cards, but each shows its ✨ magic number in the corner
+// for Magician Willow, and SHE does the adding and the big reveal.
+function mdPerform(){
+  mg = {id:'mind', cast:mgCast(31), answers:[], order:[0,1,2,3,4], step:0, perform:true};
+  mgSay(`🎭 Show time! Turn the tablet around and say: <b>"Pick ONE Teenieping in your head — don't tell me!"</b>`);
+  mgBody(`<div class="mg-card"><div class="mg-grid">${mg.cast.map(p=>mgCell(p)).join('')}</div></div>
+    <div class="mg-row"><button class="mg-btn" onclick="mdCard()">They picked one! ✨</button></div>`);
+}
+function mdPerformBoard(){
+  mgSay(`🤫 Magician Willow: add up the ✨ numbers from the YES cards… then tap their Teenieping for the big reveal!`);
+  mgBody(`<div class="mg-card"><div class="mg-grid">${mg.cast.map((p,i)=>mgCell(p, i+1, `mdPerformTap(${i+1})`)).join('')}</div></div>`);
+  window.scrollTo(0,0);
+}
+function mdPerformTap(n){
+  const p = mg.cast[n-1], right = n === mdTotal(mg.answers);
+  if(right){ mgMark('mind','performed'); burstHearts(); }
+  mgSay(right ? `✨ Abracadabra… is THIS your Teenieping?! ✨` : `(Psst, magician — double-check your adding! 🤫)`);
+  mgBody(right ? mgReveal(p, mgDoneRow('mdPerform()'))
+               : `<div class="mg-row"><button class="mg-btn" onclick="mdPerformBoard()">Let me add again</button></div>`);
+}
+
+/* ---- trick 2: the 21 Teenieping trick ----
+   Deal across 3 piles, gather with the chosen pile in the MIDDLE, repeat
+   three times: the chosen card always ends up 11th. */
+function dlCols(deck){ return [0,1,2].map(c=>deck.filter((_,i)=>i%3===c)); }
+function dlGather(deck, chosen, pos){       // pos: 0 top, 1 middle, 2 bottom
+  const cols = dlCols(deck), order = [0,1,2].filter(c=>c!==chosen);
+  order.splice(pos, 0, chosen);
+  return order.flatMap(c=>cols[c]);
+}
+function dlColsHTML(onPick, highlight){
+  return `<div class="mg-cols">${dlCols(mg.deck).map((col,c)=>`<div class="mg-col" ${onPick?`onclick="${onPick}(${c})"`:'style="cursor:default"'}
+    ${highlight===c?'style="border-color:#FF6FA5;cursor:default"':''}><span class="mg-col-lbl">Pile ${c+1}${highlight===c?' 👈':''}</span>${col.map(p=>badgeHTML(p)).join('')}</div>`).join('')}</div>`;
+}
+function dlWatch(){
+  mg = {id:'deal', deck:mgCast(21), round:0};
+  mgSay(`I dealt 21 Teeniepings into 3 piles. <b>Pick one in your head</b> 🤫 — then tap the pile it's in!`);
+  mgBody(dlColsHTML('dlPick'));
+}
+function dlPick(c){
+  mg.deck = dlGather(mg.deck, c, 1);
+  mg.round++;
+  if(mg.round < 3){
+    mgSay(`Shuffle, shuffle… ✨ I dealt them again! <b>Which pile is your Teenieping in now?</b> (${mg.round+1} of 3)`);
+    mgBody(dlColsHTML('dlPick'));
+    window.scrollTo(0,0);
+    return;
+  }
+  const p = mg.deck[10];
+  mgDrum(`Abracadabra… 🪄`, ()=>{
+    mgMark('deal','watched'); burstHearts();
+    mgSay(`Your Teenieping is… <b>${esc(p.n)}</b>! 😏`);
+    mgBody(mgReveal(p, `<div class="mg-row"><button class="mg-btn" onclick="mgAfter('deal',true)">😱 YES! How?!</button><button class="mg-btn ghost" onclick="mgAfter('deal',false)">Nope…</button></div>`));
+  });
+}
+function dlSecret(){
+  mgMark('deal','secret');
+  mgSay(`Here's the secret! 🤫 It's all about the <b>MIDDLE</b>.`);
+  mgBody(`<div class="mg-secret">
+      1️⃣ Deal <b>21 cards</b> into <b>3 piles</b>, one card at a time — like dealing to 3 friends.<br>
+      2️⃣ Ask: <b>"Which pile is your card in?"</b><br>
+      3️⃣ Pick up the piles and put <b>THEIR pile in the MIDDLE</b>. That's the whole trick!<br>
+      4️⃣ Deal again the same way, ask again, middle again. Do it <b>3 times</b>.<br>
+      5️⃣ Now their card is <b>always the 11th card</b> — right in the middle! Count to 11… ta-da! ✨<br><br>
+      🃏 You can do this one with Dad's <b>real deck of cards</b> — the same one you play 500 Rummy with!
+    </div>
+    <div class="mg-row"><button class="mg-btn" onclick="dlPractice()">🎩 My turn!</button><button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`);
+}
+function dlPractice(){
+  mg = {id:'deal', deck:mgCast(21), round:0, used:[]};
+  mg.secret = mg.deck[Math.floor(Math.random()*21)];
+  dlPracticeRound();
+}
+function dlPracticeRound(){
+  mg.cur = dlCols(mg.deck).findIndex(col=>col.includes(mg.secret));
+  mgSay(`Practice! You're the magician, I'm your friend. I picked one in my head. 🤫 Round ${mg.round+1} of 3: <b>"It's in Pile ${mg.cur+1}!"</b> When you pick the piles up, where does my pile go?`);
+  mgBody(dlColsHTML(null, mg.cur) + `<div class="mg-row">
+    <button class="mg-btn" onclick="dlPlace(0)">⬆️ On top</button>
+    <button class="mg-btn" onclick="dlPlace(1)">↔️ In the middle</button>
+    <button class="mg-btn" onclick="dlPlace(2)">⬇️ On the bottom</button></div>`);
+  window.scrollTo(0,0);
+}
+function dlPlace(pos){
+  mg.used.push(pos);
+  mg.deck = dlGather(mg.deck, mg.cur, pos);
+  mg.round++;
+  if(mg.round < 3) return dlPracticeRound();
+  mgSay(`All 3 rounds done! Now find my Teenieping. <b>Count carefully</b> and tap it! 🔢`);
+  mgBody(`<div class="mg-card"><div class="mg-deck">${mg.deck.map((p,i)=>mgCell(p, i+1, `dlGuess(${i})`)).join('')}</div></div>`);
+  window.scrollTo(0,0);
+}
+function dlGuess(i){
+  const at = mg.deck.indexOf(mg.secret), allMiddle = mg.used.every(u=>u===1);
+  if(i===at && allMiddle){
+    mgMark('deal','performed'); burstHearts();
+    mgSay(`YES! The <b>11th card</b> — just like magic! 🎩✨ Now go try it with a real deck of cards!`);
+    return mgBody(mgReveal(mg.secret, mgDoneRow('dlPractice()')));
+  }
+  mgSay(i===at
+    ? `You found it — #${at+1}! 🍀 But shh… if you ALWAYS put my pile <b>in the MIDDLE</b>, it's the <b>11th</b> card every single time.`
+    : allMiddle
+      ? `So close! My Teenieping was the <b>11th</b> card — ${esc(mg.secret.n)}. Count to 11 again! 🔢`
+      : `Oops! My Teenieping was #${at+1}, ${esc(mg.secret.n)}. The secret: always put the pile <b>in the MIDDLE</b> — then it's the 11th card!`);
+  mgBody(mgDoneRow('dlPractice()'));
+}
+
+/* ---- trick 3: think of a number ----
+   n → 2n → 2n+add → n+add/2 → add/2. Their number cancels out, so the
+   answer is always half of what the magician told them to add. */
+const NM_ICONS = ['🤔','✌️','➕','✂️','➖'];
+function nmSteps(add){
+  return [`Think of a number from <b>1 to 10</b>. Keep it secret! 🤫`,
+          `<b>Double it!</b> (Add it to itself.)`,
+          `Now <b>add ${add}</b>.`,
+          `Now <b>cut it in half</b>.`,
+          `Now <b>take away</b> the number you first thought of.`];
+}
+function nmWatch(){ mg = {id:'num', add:2*(2+Math.floor(Math.random()*8)), step:0}; nmStep(); }
+function nmStep(){
+  const steps = nmSteps(mg.add);
+  if(mg.step >= steps.length){
+    return mgDrum(`Hmmm… I'm reading your mind… 🔮`, ()=>{
+      mgMark('num','watched'); burstHearts();
+      mgSay(`You're thinking of… <b>${mg.add/2}</b>! 😏`);
+      mgBody(`<div class="mg-reveal"><div class="mg-reveal-name" style="font-size:80px">${mg.add/2}</div></div>
+        <div class="mg-row"><button class="mg-btn" onclick="mgAfter('num',true)">😱 YES! How?!</button><button class="mg-btn ghost" onclick="mgAfter('num',false)">Nope…</button></div>`);
+    });
+  }
+  mgSay(steps[mg.step]);
+  mgBody(`<div class="mg-big" style="color:#FFE9A8;font-size:56px">${NM_ICONS[mg.step]}</div>
+    <div class="mg-note">Use your fingers or some paper if you like! ✏️</div>
+    <div class="mg-row"><button class="mg-btn" onclick="mg.step++; nmStep()">${mg.step===0 ? 'Got one! 🤫' : 'Done! ✨'}</button></div>`);
+}
+function nmSecret(){
+  mgMark('num','secret');
+  const add = mg.id==='num' && mg.add ? mg.add : 8, half = add/2;
+  mgSay(`Here's the secret! 🤫 Their number <b>disappears</b>!`);
+  mgBody(`<div class="mg-secret">
+      Let's pretend their secret number is a present: 🎁<br><br>
+      🤔 Think of a number → <b>🎁</b><br>
+      ✌️ Double it → <b>🎁🎁</b><br>
+      ➕ Add ${add} → <b>🎁🎁 + ${add}</b><br>
+      ✂️ Cut it in half → <b>🎁 + ${half}</b><br>
+      ➖ Take away their number → <b>${half}</b> — the 🎁 is gone!<br><br>
+      So the answer is <b>always HALF of the number you tell them to add</b>. It doesn't matter what number they picked!
+    </div>
+    <div class="mg-row"><button class="mg-btn" onclick="nmPractice()">🎩 My turn!</button><button class="mg-btn ghost" onclick="mgHub()">🎪 Other tricks</button></div>`);
+}
+function nmPractice(){
+  mg = {id:'num', add:null};
+  mgSay(`You're the magician now! 🎩 First, pick the number you'll tell your friend to add. <b>Pick an even number:</b>`);
+  mgBody(`<div class="mg-row">${[2,4,6,8,10,12,14,16,18,20].map(n=>`<button class="mg-num" onclick="nmChoose(${n})">${n}</button>`).join('')}</div>`);
+}
+function nmChoose(add){
+  mg.add = add;
+  mgSay(`Great! Here's what you'll say to your friend. <b>Before you start — what will their answer be?</b> 🤔`);
+  mgBody(`<div class="mg-secret">${nmSteps(add).map((s,i)=>`${NM_ICONS[i]} ${s}`).join('<br>')}</div>
+    <div class="mg-row">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="mg-num" onclick="nmAnswer(${n})">${n}</button>`).join('')}</div>`);
+}
+function nmAnswer(n){
+  if(n !== mg.add/2){ mgSay(`Not quite! Remember: the answer is <b>HALF</b> of the number they add. Half of ${mg.add} is…? 🤔`); return; }
+  mgMark('num','performed'); burstHearts();
+  mgSay(`YES! Half of ${mg.add} is <b>${n}</b> — so their answer will ALWAYS be ${n}. Now go read their mind! 🎩✨`);
+  mgBody(mgDoneRow('nmPractice()'));
+}
+
 /* ================= INIT ================= */
 applyTheme(); buildThemeGems(); initSplash(); initSky();
 loadAlbum(); updateAlbumTile(); loadMystery();
@@ -4513,6 +5192,7 @@ initTeaParty();
 initTimesTable();
 initRummy();
 initArcade();
+stInitStage();
 $('scBest').textContent = best;
 initToday();
 initTV();
