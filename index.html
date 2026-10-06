@@ -553,52 +553,6 @@ main > section:not(.hidden){animation:pageIn .34s ease;}
 .tea-wcard:active{transform:scale(.94);}
 @media(max-width:380px){ .tea-seat{width:60px;} .tea-seat .badge{width:48px; height:48px; flex-basis:48px; font-size:22px;} }
 
-/* ---------- TEENIE TIMES ---------- */
-.tt-slide{
-  background:#fff; border:2px solid var(--edge); border-radius:var(--r); padding:22px 20px;
-  text-align:center; min-height:280px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
-}
-.tt-slide-title{font:800 22px 'Baloo 2'; color:var(--pink-deep);}
-.tt-slide-body{font:700 15px 'Nunito'; color:var(--ink); line-height:1.5; max-width:360px;}
-.tt-baskets{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:6px 0;}
-.tt-basket{
-  background:linear-gradient(165deg,#FFE7CC,#FFD9AD); border:3px solid #fff; border-radius:18px;
-  padding:10px; display:flex; flex-wrap:wrap; gap:4px; justify-content:center; width:110px; box-shadow:0 4px 0 rgba(232,148,76,.2);
-}
-.tt-basket .badge{width:30px; height:30px; flex-basis:30px; font-size:15px; border-width:2px;}
-.tt-big{font:800 30px 'Baloo 2'; color:var(--pink-deep);}
-.tt-skiptxt{font:800 15px 'Nunito'; color:var(--mint);}
-.tt-dots{display:flex; gap:6px; justify-content:center; margin:12px 0;}
-.tt-dot{width:8px; height:8px; border-radius:50%; background:var(--edge2);}
-.tt-dot.on{background:var(--pink);}
-
-.tt-hubgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:10px; margin-top:10px;}
-.tt-tile{
-  border:2px solid var(--edge2); background:#fff; border-radius:20px; padding:14px 8px 10px; cursor:pointer;
-  display:flex; flex-direction:column; align-items:center; gap:5px; position:relative; transition:transform .12s;
-}
-.tt-tile:active{transform:scale(.94);}
-.tt-tile-num{font:800 26px 'Baloo 2'; color:var(--pink-deep);}
-.tt-tile-bar{width:100%; height:8px; border-radius:999px; background:var(--edge); overflow:hidden;}
-.tt-tile-fill{height:100%; background:linear-gradient(90deg,var(--pink),var(--mint)); border-radius:999px;}
-.tt-tile-stat{font:700 10.5px 'Nunito'; color:var(--ink-soft);}
-.tt-tile.locked{opacity:.55; cursor:default;}
-.tt-tile.locked .tt-tile-num{color:var(--ink-soft);}
-.tt-tile.done{border-color:var(--sun); background:#FFFBEF;}
-.tt-tile-star{position:absolute; top:6px; right:8px; font-size:14px;}
-
-.tt-qcard{text-align:center;}
-.tt-story{font:700 15px 'Nunito'; color:var(--ink); line-height:1.45; margin-bottom:12px;}
-.tt-arraywrap{margin-bottom:14px;}
-.tt-array{
-  display:grid; gap:5px; justify-content:center; background:var(--soft); border-radius:16px;
-  padding:12px; margin-bottom:8px; max-width:100%; overflow-x:auto;
-}
-.tt-cell{font-size:20px; line-height:1; width:26px; height:26px; display:flex; align-items:center; justify-content:center;}
-.tt-array.hidden-arr{visibility:hidden; height:0; padding:0; margin:0; overflow:hidden;}
-#ttEquation{font:800 26px 'Baloo 2'; margin:6px 0 16px;}
-@media(max-width:380px){ .tt-hubgrid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));} .tt-cell{width:20px; height:20px; font-size:16px;} }
-
 /* ---------- PING RUMMY ---------- */
 .ry-hubgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-top:10px;}
 .ry-tile{
@@ -1087,6 +1041,146 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
   .mg-col .badge{width:34px; height:34px; flex-basis:34px;}
   .mg-say{font-size:15px;}
 }
+
+/* ---------- MATH CLUB (number bond test prep) ---------- */
+.nb-wrap{max-width:620px; margin:0 auto;}
+.nb-host{display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;}
+.nb-host .badge{width:60px; height:60px; flex-basis:60px; font-size:28px;}
+.nb-say{position:relative; flex:1; background:#fff; border:2px solid var(--edge); border-radius:16px 16px 16px 4px; padding:10px 44px 10px 14px; font:700 16px 'Nunito'; color:var(--ink); line-height:1.45; text-align:left;}
+.nb-say b{font-family:'Baloo 2'; color:var(--pink-deep);}
+.nb-speak{position:absolute; top:7px; right:7px; border:0; background:var(--soft2); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:16px; line-height:1;}
+.nb-speak.inline{position:static; width:30px; height:30px; vertical-align:middle; margin-left:4px;}
+.nb-meter{display:flex; align-items:center; justify-content:space-between; gap:10px; background:#fff; border:2px solid var(--edge); border-radius:18px; padding:10px 14px; margin-bottom:10px; font:800 15px 'Baloo 2'; color:var(--ink);}
+.nb-meter-bar{flex:1; height:12px; background:var(--edge); border-radius:999px; overflow:hidden;}
+.nb-meter-fill{height:100%; background:linear-gradient(90deg,var(--sun),var(--mint)); border-radius:999px; transition:width .5s;}
+.nb-card{display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:#fff; border:2px solid var(--edge2); border-radius:20px; padding:12px 14px; margin-bottom:10px; cursor:pointer; color:var(--ink); transition:transform .12s;}
+.nb-card:active{transform:scale(.98);}
+.nb-card.test{background:linear-gradient(135deg,#FFF6D8,#FFE7F0); border-color:var(--sun);}
+.nb-card-icon{font-size:32px;}
+.nb-card-name{font:800 18px 'Baloo 2'; line-height:1.15;}
+.nb-card-desc{font:700 12.5px 'Nunito'; color:var(--ink-soft);}
+.nb-card-side{margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:4px; white-space:nowrap; font-size:14px;}
+.nb-learn{border:2px solid var(--edge2); background:var(--soft); border-radius:999px; padding:3px 10px; font:800 12px 'Baloo 2'; color:var(--pink-deep); cursor:pointer;}
+.nb-dim{opacity:.3;}
+.nb-hubfoot{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:6px;}
+
+/* the "worksheet" — same light-blue paper, black boxes and circles as her real test */
+.nb-paper{background:#D3ECF2; border-radius:6px 6px 18px 18px; padding:16px 14px 18px; box-shadow:0 6px 0 rgba(60,120,140,.18); color:#151515; font-family:'Comic Sans MS','Comic Neue','Chalkboard SE','Baloo 2',cursive; text-align:left;}
+.nb-paper-h{text-align:center; font-weight:700; font-size:17px; margin-bottom:10px;}
+.nb-q{font-size:17px; line-height:1.55; font-weight:700; display:flex; gap:10px; align-items:flex-start;}
+.nb-q .badge{width:52px; height:52px; flex:0 0 52px; font-size:24px;}
+.nb-pic{border:3px solid #151515; min-height:118px; margin:12px 0; padding:12px 8px; display:grid; grid-template-columns:repeat(5,34px); grid-auto-rows:34px; gap:8px 10px; justify-content:center; align-content:center; position:relative; touch-action:manipulation; user-select:none; -webkit-user-select:none;}
+.nb-pic.live{background:rgba(255,255,255,.6); box-shadow:0 0 0 4px var(--sun); cursor:pointer;}
+.nb-pic-hint{grid-column:1/-1; grid-row:1/3; align-self:center; text-align:center; font:700 15px 'Nunito'; color:#4F7480;}
+.nb-dot{width:34px; height:34px; border-radius:50%; border:2.5px solid #151515; display:flex; align-items:center; justify-content:center; font:800 14px 'Baloo 2'; color:#151515; animation:nbDotIn .22s ease-out;}
+.nb-dot.A{background:#FF9CC2;}
+.nb-dot.B{background:#8FC2FF;}
+.nb-dot.sel{background:#FFC24B; box-shadow:0 0 0 3px #fff, 0 0 0 5px #E8935A;}
+@keyframes nbDotIn{0%{transform:scale(.3);}100%{transform:scale(1);}}
+.nb-pic-tools{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:-4px;}
+.nb-tally{font:800 14px 'Baloo 2'; color:#2E5560; align-self:center;}
+.nb-row{display:flex; flex-wrap:wrap; gap:14px 22px; align-items:center; justify-content:center; margin:12px 0;}
+.nb-bond{position:relative; width:170px; height:170px; flex:none;}
+.nb-bond.sm{width:120px; height:120px;}
+.nb-bond svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible;}
+.nb-bond line{stroke:#151515; stroke-width:2.2; vector-effect:non-scaling-stroke;}
+.nb-bc{position:absolute; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; border:2.5px solid #151515; background:rgba(255,255,255,.5); font:800 25px 'Baloo 2'; color:#151515; display:flex; align-items:center; justify-content:center; padding:0;}
+.nb-bond.sm .nb-bc{width:42px; height:42px; margin:-21px 0 0 -21px; font-size:19px;}
+.nb-bc.hl{background:#FFE07A; box-shadow:0 0 0 4px #fff;}
+button.nb-bc{cursor:pointer;}
+.nb-sent{display:flex; align-items:center; gap:6px; justify-content:center; flex-wrap:nowrap;}
+.nb-box{width:54px; height:54px; border:2.5px solid #151515; background:rgba(255,255,255,.5); font:800 26px 'Baloo 2'; color:#151515; display:flex; align-items:center; justify-content:center; padding:0; border-radius:2px;}
+button.nb-box,button.nb-opc{cursor:pointer;}
+.nb-opc{width:50px; height:50px; border:2.5px solid #151515; border-radius:50%; background:rgba(255,255,255,.5); font:800 28px 'Baloo 2'; color:#151515; display:flex; align-items:center; justify-content:center; padding:0;}
+.nb-eq{font:800 34px 'Baloo 2'; color:#151515; margin:0 2px;}
+.nb-box.hl{background:#FFE07A;}
+.nb-stmt{font-size:17px; font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center; margin:8px 0 2px;}
+.nb-blank{width:64px; height:42px; border:0; border-bottom:3px solid #151515; background:transparent; font:800 26px 'Baloo 2'; color:#151515; padding:0; display:inline-flex; align-items:center; justify-content:center;}
+button.nb-blank{cursor:pointer;}
+.nb-slot.on{box-shadow:0 0 0 4px var(--sun); background:#fff;}
+.nb-blank.nb-slot.on{box-shadow:none; background:#fff; border-radius:6px 6px 0 0; outline:3px solid var(--sun);}
+.nb-slot.good,.nb-slot.done{background:#D6F5EA;}
+.nb-blank.nb-slot.done{background:transparent; color:#1F8F6E;}
+.nb-slot.bad{background:#FFD3D3 !important; border-color:#D23C3C; animation:shake .35s;}
+.nb-step{border-top:2px dashed rgba(21,21,21,.18); margin-top:10px; padding-top:6px;}
+.nb-steplbl{font:800 13px 'Baloo 2'; color:#2E5560; letter-spacing:.5px; text-align:center;}
+.nb-padwrap{position:sticky; bottom:8px; z-index:5; background:#fff; border:2px solid var(--edge); border-radius:18px; padding:8px; margin-top:12px; box-shadow:0 6px 16px rgba(71,42,68,.15);}
+.nb-pad{display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
+.nb-key{min-width:46px; height:46px; border:2px solid var(--edge2); background:var(--soft); border-radius:12px; font:800 21px 'Baloo 2'; color:var(--ink); cursor:pointer; padding:0 6px;}
+.nb-key:active{transform:scale(.92);}
+.nb-key.del{background:#fff; color:var(--ink-soft);}
+.nb-key.col{display:flex; gap:6px; align-items:center; padding:0 12px; font-size:15px;}
+.nb-key.col.on{border-color:var(--ink); background:#fff; box-shadow:0 0 0 2px var(--ink);}
+.nb-padhint{font:700 14px 'Nunito'; color:var(--ink-soft); padding:10px; text-align:center;}
+.nb-actions{display:flex; gap:8px; margin-top:8px;}
+.nb-actions:empty{display:none;}
+.nb-legend{font-size:14.5px; font-weight:700; line-height:1.7; margin:0 0 12px;}
+.nb-legend .nb-cdot{width:16px; height:16px; display:inline-block; vertical-align:-3px; margin-right:4px; border-width:2px;}
+.nb-facts{display:grid; grid-template-columns:repeat(3,1fr); gap:16px 8px;}
+@media(max-width:560px){ .nb-facts{grid-template-columns:1fr 1fr;} }
+.nb-fact{display:flex; align-items:center; gap:7px; font:800 19px 'Baloo 2'; color:#151515; white-space:nowrap;}
+.nb-fact .nb-blank{width:46px; height:36px; font-size:21px;}
+.nb-cols{display:flex; gap:2px; border:0; background:none; padding:3px; border-radius:999px;}
+button.nb-cols{cursor:pointer;}
+.nb-cols.nb-slot.on{background:#fff; box-shadow:0 0 0 3px var(--sun);}
+.nb-cols.nb-slot.good,.nb-cols.nb-slot.done{background:#D6F5EA;}
+.nb-cdot{width:28px; height:28px; border-radius:50%; border:2.5px solid #151515; display:block; background:rgba(255,255,255,.5);}
+.nb-nums{display:flex; gap:10px; justify-content:center; margin:6px 0 4px;}
+.nb-num{font:800 24px 'Baloo 2'; background:#fff; border:2.5px solid #151515; border-radius:12px; padding:0 14px;}
+.nb-lines{display:flex; flex-direction:column; gap:12px; align-items:center;}
+.nb-sentrow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;}
+.nb-flip{border:2px solid rgba(21,21,21,.25); background:rgba(255,255,255,.6); border-radius:999px; padding:4px 10px; font:800 12px 'Baloo 2'; color:#2E5560; cursor:pointer;}
+.nb-minipic{display:flex; flex-wrap:wrap; gap:4px; justify-content:center; max-width:220px;}
+.nb-minipic .nb-dot{width:18px; height:18px; border-width:2px;}
+.nb-help{margin-top:8px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
+.nb-help .nb-dot{width:30px; height:30px;}
+.nb-big{font:800 30px 'Baloo 2'; text-align:center; color:#151515; margin:8px 0;}
+.nb-lesson-vis{min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;}
+.nb-tenframe{display:grid; grid-template-columns:repeat(5,34px); gap:0; border:2.5px solid #151515;}
+.nb-tenframe span{width:34px; height:34px; border:1.5px solid #151515; display:flex; align-items:center; justify-content:center;}
+.nb-tenframe .nb-dot{width:24px; height:24px; border-width:2px; animation:none;}
+.nb-done{text-align:center; padding:6px 0;}
+.nb-done .badge{width:110px; height:110px; flex-basis:110px; font-size:52px; margin:6px auto;}
+.nb-done-big{font:800 26px 'Baloo 2'; color:var(--pink-deep);}
+.nb-results{display:grid; gap:6px; margin:10px auto; max-width:360px; text-align:left; font:700 15px 'Nunito';}
+.nb-results div{background:#fff; border-radius:12px; padding:8px 12px; border:2px solid var(--edge);}
+@media(max-width:380px){
+  .nb-box{width:46px; height:46px; font-size:22px;} .nb-opc{width:42px; height:42px;} .nb-eq{font-size:28px;}
+  .nb-fact{font-size:17px;} .nb-fact .nb-blank{width:40px;}
+  .nb-pic{grid-template-columns:repeat(5,30px); grid-auto-rows:30px;} .nb-dot{width:30px; height:30px;}
+}
+
+/* printable paper practice sheet (grown-up button in Math Club) */
+#nbPrint{display:none;}
+@media print{
+  body > *:not(#nbPrint){display:none !important;}
+  html,body{background:#fff !important;}
+  #nbPrint{display:block !important; color:#000; font-family:'Comic Sans MS','Comic Neue','Chalkboard SE',cursive;}
+  @page{margin:12mm;}
+}
+.pp-page{break-after:page; page-break-after:always; font-size:15px; line-height:1.45;}
+.pp-page:last-child{break-after:auto; page-break-after:auto;}
+.pp-title{text-align:center; font-size:20px; font-weight:700; margin:0 0 10px;}
+.pp-name{display:flex; justify-content:space-between; margin-bottom:14px;}
+.pp-q{font-weight:700; margin:14px 0 6px;}
+.pp-box{border:2.5px solid #000; height:110px; margin:8px 0;}
+.pp-row{display:flex; align-items:center; justify-content:space-between; gap:20px; margin:6px 0;}
+.pp-sent{display:flex; align-items:center; gap:8px;}
+.pp-sq{width:44px; height:44px; border:2px solid #000;}
+.pp-ci{width:40px; height:40px; border:2px solid #000; border-radius:50%;}
+.pp-eq{font-size:28px; font-weight:700;}
+.pp-line{display:inline-block; width:90px; border-bottom:2px solid #000;}
+.pp-facts{display:grid; grid-template-columns:repeat(3,1fr); gap:18px 10px; margin-top:10px; font-size:17px;}
+.pp-fact{display:flex; align-items:center; gap:8px;}
+.pp-fact .pp-ci{width:26px; height:26px; flex:none;}
+.pp-two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.pp-wline{border-bottom:2px solid #000; height:34px;}
+#nbPrint .nb-bond{width:140px; height:140px;}
+#nbPrint .nb-bc{background:#fff; border:2px solid #000; width:52px; height:52px; margin:-26px 0 0 -26px;}
+#nbPrint .nb-bond line{stroke:#000;}
+.pp-key{font-size:14px;}
+.pp-key li{margin-bottom:6px;}
+
 </style>
 </head>
 <body>
@@ -1134,7 +1228,7 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
         <button class="appicon" style="--c1:#FFB0E0;--c2:#D666C9" onclick="showMode('paint')"><span class="ai-emoji">🎨</span><span class="ai-label">Paint Studio</span><span class="ai-sub">Make your own!</span></button>
         <button class="appicon" style="--c1:#7A8AA8;--c2:#3E4A66" onclick="showMode('detective')"><span class="ai-emoji">🕵️</span><span class="ai-label">Ping Detective</span><span class="ai-sub">Solve the case</span></button>
         <button class="appicon" style="--c1:#FFC48C;--c2:#E8935A" onclick="showMode('tea')"><span class="ai-emoji">🫖</span><span class="ai-label">Tea Party</span><span class="ai-sub">Seat everyone!</span></button>
-        <button class="appicon" style="--c1:#7BC9A8;--c2:#3E9C79" onclick="showMode('times')"><span class="ai-emoji">🧮</span><span class="ai-label">Teenie Times</span><span class="ai-sub" id="timesTileSub">Learn to multiply!</span></button>
+        <button class="appicon" style="--c1:#7FD3F0;--c2:#2E8FB8" onclick="showMode('bonds')"><span class="ai-emoji">🔢</span><span class="ai-label">Math Club</span><span class="ai-sub" id="bondsTileSub">Test practice!</span></button>
         <button class="appicon" style="--c1:#F2919B;--c2:#C0424F" onclick="showMode('rummy')"><span class="ai-emoji">🃏</span><span class="ai-label">Ping Rummy</span><span class="ai-sub" id="rummyTileSub">Learn 500 Rummy!</span></button>
         <button class="appicon" style="--c1:#A98BEF;--c2:#5B3FA8" onclick="showMode('arcade')"><span class="ai-emoji">🕹️</span><span class="ai-label">Arcade Mystery</span><span class="ai-sub">Who took the coins?</span></button>
         <button class="appicon" style="--c1:#C6E86B;--c2:#79AA24" onclick="showMode('stickers')"><span class="ai-emoji">🖼️</span><span class="ai-label">Sticker Scenes</span><span class="ai-sub">Make a picture!</span></button>
@@ -1425,47 +1519,12 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
     <div class="team-final hidden" id="teaWin"></div>
   </section>
 
-  <!-- ============ TEENIE TIMES (multiplication) ============ -->
-  <section id="times" class="hidden">
-
-    <!-- ---- intro lesson (what does x mean) ---- -->
-    <div id="ttIntroView">
-      <div class="tt-slide" id="ttSlide"></div>
-      <div class="tt-dots" id="ttDots"></div>
-      <div class="paint-btnrow">
-        <button class="bigbtn ghost" onclick="ttSkipIntro()">Skip, I know this! ⏩</button>
-        <button class="bigbtn" id="ttNextBtn" onclick="ttNextSlide()">Next ➜</button>
-      </div>
+  <!-- ============ MATH CLUB (number bond test prep) ============ -->
+  <section id="bonds" class="hidden">
+    <div class="nb-wrap">
+      <div class="nb-host" id="nbHost"></div>
+      <div id="nbBody"></div>
     </div>
-
-    <!-- ---- table hub (choose a times table) ---- -->
-    <div id="ttHubView" class="hidden">
-      <div class="al-head">
-        <div class="al-title">🧮 Teenie Times</div>
-        <div class="al-sub">Tap a table to practice! Finish one to unlock the next. 💪</div>
-      </div>
-      <div class="tt-hubgrid" id="ttHubGrid"></div>
-      <button class="chip" style="margin-top:14px" onclick="ttShowIntro(true)">❓ What does × mean again?</button>
-    </div>
-
-    <!-- ---- practice ---- -->
-    <div id="ttPracticeView" class="hidden">
-      <div class="scorebar">
-        <span id="ttTableLabel">×1 table</span>
-        <span class="streak">⭐ Mastered: <span id="ttMastered">0</span>/10</span>
-        <button class="pool-shuffle" onclick="ttShowHub()">🏠 Tables</button>
-      </div>
-      <div class="qcard tt-qcard">
-        <div class="tt-story" id="ttStory"></div>
-        <div class="tt-arraywrap">
-          <div class="tt-array" id="ttArray"></div>
-          <button class="chip" id="ttHideBtn" onclick="ttToggleHide()">🙈 Hide the pings</button>
-        </div>
-        <div class="qtext" id="ttEquation"></div>
-        <div class="answers" id="ttChoices"></div>
-      </div>
-    </div>
-
   </section>
 
   <!-- ============ PING RUMMY (500 rummy trainer) ============ -->
@@ -1597,6 +1656,8 @@ footer button{border:0; background:none; font:700 11px 'Nunito'; color:var(--pin
 <div class="sheet" id="sheet"></div>
 
 <div class="toast" id="toast" onclick="this.classList.remove('show')" title="Tap to close"></div>
+
+<div id="nbPrint"></div>
 
 <footer>Made with 💗 for Willow &nbsp;·&nbsp; Catch 'em all with Romi! &nbsp;·&nbsp; <button onclick="alert(PHOTO_HELP)">📸 How to add real pictures</button></footer>
 
@@ -1997,7 +2058,7 @@ function showMode(m){
   $('paint').classList.toggle('hidden', m!=='paint');
   $('detective').classList.toggle('hidden', m!=='detective');
   $('tea').classList.toggle('hidden', m!=='tea');
-  $('times').classList.toggle('hidden', m!=='times');
+  $('bonds').classList.toggle('hidden', m!=='bonds');
   $('rummy').classList.toggle('hidden', m!=='rummy');
   $('arcade').classList.toggle('hidden', m!=='arcade');
   $('stickers').classList.toggle('hidden', m!=='stickers');
@@ -2008,7 +2069,8 @@ function showMode(m){
   if(m==='album') renderAlbum();
   if(m==='match' && !mtCards.length) newMatchGame();
   if(m==='paint' && paintView==='gallery') renderPaintGallery();
-  if(m==='times') ttEnterMode();
+  if(m!=='bonds') nbHush();
+  if(m==='bonds') bondsEnterMode();
   if(m==='rummy') ryEnterMode();
   if(m==='arcade') arEnterMode();
   if(m==='stickers') stEnterMode();
@@ -3432,220 +3494,786 @@ function winTeaParty(){
 }
 function initTeaParty(){ newTeaParty(); }
 
-/* ================= TEENIE TIMES (multiplication) ================= */
-// Pedagogy: concrete arrays first ("N groups of k, count them"), then a
-// light story wrapper on every practice question (not a separate reading
-// mode — Wonder Tales taught us she doesn't go for those), then multiple
-// choice with the array always available as a support she can hide herself.
-// Tables unlock in an easy-to-hard order, gated on mastering the one before.
-const TT_TABLE_ORDER = [1,2,5,10,3,4,6,7,8,9];
-const TT_CONTAINERS = [
-  {w:'basket', e:'🧺'}, {w:'plate', e:'🍽️'}, {w:'box', e:'📦'},
-  {w:'gift bag', e:'🎁'}, {w:'teacup', e:'☕'}, {w:'garden', e:'🌷'},
+/* ================= MATH CLUB (number bond test prep) ================= */
+// Mirrors Willow's Grade 1 "Mid-Module Practice" sheet (Eureka-style) on purpose,
+// so test day looks familiar — same boxes, circles, bond shapes and wording:
+//   Q1 / Q4  story problems → draw a picture, fill the bond, addition sentence, finish the statement
+//   Q2       fact colors    → fill blanks (sometimes "__ = 6 + 2"), color partners-to-10 / +1 / +2
+//   Q3       bond builder   → put three numbers in a bond, write two DIFFERENT sentences
+// Teaching follows the sheet's method: whole = the circle with two lines, count on
+// from the part you know, switch-around facts, and "=" means "the same as".
+const NB_HOST = 'Dadaping';
+const NB_COLORS = [
+  {k:'blue',   hex:'#3D8BFD', lbl:'Partners to 10'},
+  {k:'yellow', hex:'#FFD23F', lbl:'+1 facts'},
+  {k:'red',    hex:'#EF4350', lbl:'+2 facts'},
 ];
-const TT_ITEMS = [
-  {w:'sticker', e:'⭐'}, {w:'cupcake', e:'🧁'}, {w:'flower', e:'🌸'},
-  {w:'heart', e:'💖'}, {w:'gem', e:'💎'}, {w:'cookie', e:'🍪'}, {w:'bow', e:'🎀'},
+// circle centres (% of the bond box) — the whole is always the circle joined to both lines
+const NB_ORIENTS = {
+  top:    {w:[50,20], a:[20,80], b:[80,80]},
+  bottom: {w:[50,80], a:[20,20], b:[80,20]},
+  left:   {w:[20,50], a:[80,20], b:[80,80]},
+  right:  {w:[80,50], a:[20,20], b:[20,80]},
+};
+// change = "some more came" (part unknown) · apart = "the rest" (part unknown)
+// together / result = how many in all (whole unknown)
+const NB_STORIES = [
+  {type:'change', thing:'Teeniepings',
+    txt:(P,Q,a,b,c)=>`There were ${a} Teeniepings at ${P}'s party. Some more came later. Then, there were ${c}. How many Teeniepings came to the party later?`,
+    stmt:(P,Q)=>['', 'Teeniepings came later']},
+  {type:'change', thing:'cupcakes',
+    txt:(P,Q,a,b,c)=>`${P} baked ${a} cupcakes. Then ${P} baked some more. Now there are ${c} cupcakes. How many more cupcakes did ${P} bake?`,
+    stmt:(P,Q)=>[`${P} baked`, 'more cupcakes']},
+  {type:'change', thing:'stickers',
+    txt:(P,Q,a,b,c)=>`${P} had ${a} stickers. ${Q} gave ${P} some more stickers. Now ${P} has ${c} stickers. How many stickers did ${Q} give?`,
+    stmt:(P,Q)=>[`${Q} gave`, 'stickers']},
+  {type:'change', thing:'hearts',
+    txt:(P,Q,a,b,c)=>`There were ${a} hearts in the Compact. ${P} caught some more hearts. Then, there were ${c}. How many hearts did ${P} catch?`,
+    stmt:(P,Q)=>[`${P} caught`, 'hearts']},
+  {type:'apart', thing:'strawberries', where:'on the plate',
+    txt:(P,Q,a,b,c)=>`${P} had ${c} strawberries. ${P} put ${a} strawberries on the plate and the rest in the lunch box. How many strawberries did ${P} put in the lunch box?`,
+    stmt:(P,Q)=>[`${P} put`, 'strawberries in the lunch box']},
+  {type:'apart', thing:'bows', where:'pink',
+    txt:(P,Q,a,b,c)=>`${P} has ${c} bows. ${a} bows are pink and the rest are purple. How many bows are purple?`,
+    stmt:(P,Q)=>['', 'bows are purple']},
+  {type:'apart', thing:'Teeniepings', where:'on the swings',
+    txt:(P,Q,a,b,c)=>`${c} Teeniepings are at the playground with ${P}. ${a} are on the swings and the rest are on the slide. How many Teeniepings are on the slide?`,
+    stmt:(P,Q)=>['', 'Teeniepings are on the slide']},
+  {type:'apart', thing:'cookies', where:'eaten',
+    txt:(P,Q,a,b,c)=>`${P} made ${c} cookies. ${Q} ate ${a} cookies. ${P} saved the rest for later. How many cookies did ${P} save?`,
+    stmt:(P,Q)=>[`${P} saved`, 'cookies']},
+  {type:'together', thing:'flowers', first:'red', second:'yellow',
+    txt:(P,Q,a,b,c)=>`${P} picked ${a} red flowers and ${b} yellow flowers. How many flowers did ${P} pick?`,
+    stmt:(P,Q)=>[`${P} picked`, 'flowers']},
+  {type:'together', thing:'Teeniepings', first:'sleeping', second:'awake',
+    txt:(P,Q,a,b,c)=>`At ${P}'s sleepover, ${a} Teeniepings are sleeping and ${b} are awake. How many Teeniepings are at the sleepover?`,
+    stmt:(P,Q)=>['There are', 'Teeniepings at the sleepover']},
+  {type:'result', thing:'stars',
+    txt:(P,Q,a,b,c)=>`${P} had ${a} stars. ${Q} gave ${P} ${b} more stars. How many stars does ${P} have now?`,
+    stmt:(P,Q)=>[`${P} has`, 'stars now']},
 ];
-const TT_INTRO_SLIDES = [
-  {
-    title:'What does × mean?',
-    body:()=>{
-      const g = pick(PINGS);
-      return `<div class="tt-slide-body">${esc(g.n)} has <b>2 baskets</b>. Each basket has <b>3</b> friends inside!</div>
-        <div class="tt-baskets">
-          ${[0,1].map(()=>`<div class="tt-basket">${shuffle(PINGS).slice(0,3).map(p=>badgeHTML(p)).join('')}</div>`).join('')}
-        </div>`;
-    }
-  },
-  {
-    title:'Let\'s count them all!',
-    body:()=>`<div class="tt-slide-body">3 + 3 = <b>6</b> friends in all!<br>That's <b>2 groups of 3</b>.</div><div class="tt-big">3 + 3 = 6</div>`
-  },
-  {
-    title:'That\'s a shortcut!',
-    body:()=>`<div class="tt-slide-body">"2 groups of 3" has a fast way to write it:</div><div class="tt-big">2 × 3 = 6</div><div class="tt-slide-body">The <b>×</b> just means <b>"groups of"</b>!</div>`
-  },
-  {
-    title:'Try skip counting!',
-    body:()=>`<div class="tt-slide-body">Count by 3s, two times:</div><div class="tt-big">3 … 6</div><div class="tt-slide-body">That's the same answer — <b>skip counting</b> is multiplying too!</div>`
-  },
-  {
-    title:'You\'re ready! 🎉',
-    body:()=>`<div class="tt-slide-body">Let's practice with your Teeniepings! We'll start with the easiest table.</div>`
-  },
-];
-let ttSlideIdx = 0;
-let ttCurTable = 1, ttCurFact = null, ttHidden = false;
 
-function ttLoadMastery(){ try{ return JSON.parse(localStorage.getItem('wct-times-mastery')) || {}; }catch(e){ return {}; } }
-function ttSaveMastery(m){ try{ localStorage.setItem('wct-times-mastery', JSON.stringify(m)); }catch(e){} }
-function ttFactCount(table, k){ const m = ttLoadMastery(); return (m[table] && m[table][k]) || 0; }
-function ttMasteredCount(table){
-  let n = 0;
-  for(let k=1;k<=10;k++) if(ttFactCount(table,k) >= 2) n++;
-  return n;
+let nbSlots = {}, nbOrder = [], nbActive = null, nbPadNums = null, nbLocked = new Set();
+let nbRun = null;    // {kind, queue, i, perfect, results[]}
+let nbItem = null;   // the problem on screen
+let nbLastSay = '';
+
+function nbRand(n){ return Math.floor(Math.random()*n); }
+function nbDefault(){ return {story:0, facts:0, bond:0, seen:{}, testRuns:0, testBest:-1}; }
+function nbStats(){ try{ return Object.assign(nbDefault(), JSON.parse(localStorage.getItem('wct-bonds')) || {}); }catch(e){ return nbDefault(); } }
+function nbSave(s){ try{ localStorage.setItem('wct-bonds', JSON.stringify(s)); }catch(e){} }
+function nbStarCount(n){ return n>=6 ? 3 : n>=3 ? 2 : n>=1 ? 1 : 0; }
+function nbStarsHTML(n){ const k = nbStarCount(n); return '⭐'.repeat(k) + `<span class="nb-dim">${'⭐'.repeat(3-k)}</span>`; }
+// 3 stations × 3 stars + 3 for a perfect practice test
+function nbReady(s){ return nbStarCount(s.story) + nbStarCount(s.facts) + nbStarCount(s.bond) + Math.max(0, Math.min(3, s.testBest - 1)); }
+function updateBondsTile(){
+  const el = $('bondsTileSub'); if(!el) return;
+  const r = nbReady(nbStats());
+  el.textContent = r ? `Test-ready: ${r}/12 ⭐` : 'Test practice!';
 }
-function ttTableDone(table){ return ttMasteredCount(table) >= 10; }
-function ttIsUnlocked(table){
-  const i = TT_TABLE_ORDER.indexOf(table);
-  if(i <= 0) return true;
-  return ttTableDone(TT_TABLE_ORDER[i-1]);
+
+/* ---- read-aloud (she's a brand-new reader) ---- */
+function nbPlain(html){
+  const d = document.createElement('div'); d.innerHTML = html;
+  d.querySelectorAll('.nb-speak').forEach(b=>b.remove());
+  return d.textContent
+    .replace(/\p{Extended_Pictographic}/gu, '')
+    .replace(/_{2,}/g, ' blank ')
+    .replace(/\+/g, ' plus ').replace(/=/g, ' equals ').replace(/−/g, ' minus ')
+    .replace(/\s+/g, ' ').trim();
 }
-function ttRecordAnswer(table, k, correct){
-  const m = ttLoadMastery();
-  m[table] = m[table] || {};
-  const wasDone = ttTableDone(table);
-  if(correct) m[table][k] = (m[table][k]||0) + 1;
-  ttSaveMastery(m);
-  updateTimesTile();
-  if(correct && !wasDone && ttTableDone(table)){
-    setTimeout(()=>{
-      burstHearts();
-      const i = TT_TABLE_ORDER.indexOf(table);
-      const next = TT_TABLE_ORDER[i+1];
-      toast(next ? `🎉 <b>×${table}</b> table mastered! <b>×${next}</b> is now unlocked!` : `🏆 <b>×${table}</b> mastered — you've finished every table, Willow!!`);
-    }, 300);
+function nbSpeak(text){
+  try{
+    if(!window.speechSynthesis){ toast('🔊 This tablet can\'t read out loud — ask a grown-up to read it!'); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = .88; u.pitch = 1.1; u.lang = 'en-US';
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function nbHush(){ try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){} }
+function nbSay(html){
+  nbLastSay = html;
+  const p = PINGS.find(x=>x.n===NB_HOST);
+  $('nbHost').innerHTML = `${badgeHTML(p)}<div class="nb-say">${html}<button class="nb-speak" onclick="nbSpeak(nbPlain(nbLastSay))" aria-label="Read it to me">🔊</button></div>`;
+}
+function nbBody(html){ $('nbBody').innerHTML = html; }
+
+/* ---- fill-in boxes + number pad ---- */
+function nbResetSlots(){ nbSlots = {}; nbOrder = []; nbActive = null; nbPadNums = null; nbLocked = new Set(); }
+function nbGrp(key){ return key.split('-')[0]; }
+function nbVal(key){ return nbSlots[key] ? nbSlots[key].val : null; }
+function nbIsEmpty(k){ const s = nbSlots[k]; return s.kind==='color' ? !s.val.length : s.val==null; }
+function nbSlot(key, kind, cls, style){
+  if(!nbSlots[key]){ nbSlots[key] = {kind, val:null}; nbOrder.push(key); }
+  const v = nbSlots[key].val, txt = v==null ? '' : v, st = style ? ` style="${style}"` : '';
+  if(nbLocked.has(nbGrp(key))) return `<div class="${cls} nb-slot done"${st}>${txt}</div>`;
+  return `<button class="${cls} nb-slot${nbActive===key?' on':''}"${st} data-slot="${key}" onclick="nbFocus('${key}')">${txt}</button>`;
+}
+function nbColorDots(vals){
+  if(!vals.length) return `<span class="nb-cdot"></span>`;
+  return NB_COLORS.filter(c=>vals.includes(c.k)).map(c=>`<span class="nb-cdot" style="background:${c.hex}"></span>`).join('');
+}
+function nbColorSlot(key){
+  if(!nbSlots[key]){ nbSlots[key] = {kind:'color', val:[]}; nbOrder.push(key); }
+  const inner = nbColorDots(nbSlots[key].val);
+  if(nbLocked.has(nbGrp(key))) return `<div class="nb-cols nb-slot done">${inner}</div>`;
+  return `<button class="nb-cols nb-slot${nbActive===key?' on':''}" data-slot="${key}" onclick="nbFocus('${key}')" aria-label="Color this circle">${inner}</button>`;
+}
+function nbSlotEl(key){ return document.querySelector(`#bonds [data-slot="${key}"]`); }
+function nbFocus(key){
+  if(!key || !nbSlots[key] || nbLocked.has(nbGrp(key))) key = null;
+  nbActive = key;
+  document.querySelectorAll('#bonds [data-slot]').forEach(el=>el.classList.toggle('on', el.dataset.slot===key));
+  const el = key && nbSlotEl(key); if(el) el.classList.remove('bad');
+  nbRenderPad();
+  if(el) nbEnsureVisible(el);
+}
+// keep the box she's filling in visible above the sticky number pad (matters on phones)
+function nbEnsureVisible(el){
+  const wrap = document.querySelector('#bonds .nb-padwrap');
+  const r = el.getBoundingClientRect(), padTop = wrap ? wrap.getBoundingClientRect().top : innerHeight;
+  if(r.bottom > padTop - 10 || r.top < 70) window.scrollBy({top: r.top - Math.max(80, (padTop - r.height) / 2)});
+}
+function nbFirstEmpty(grp){ return nbOrder.find(k=>(!grp || nbGrp(k)===grp) && !nbLocked.has(nbGrp(k)) && nbIsEmpty(k)); }
+function nbRenderPad(){
+  const pad = $('nbPad'); if(!pad) return;
+  const s = nbActive && nbSlots[nbActive];
+  if(!s){ pad.innerHTML = `<div class="nb-padhint">Tap a box to write in it ✏️</div>`; return; }
+  if(s.kind==='color'){
+    pad.innerHTML = NB_COLORS.map(c=>`<button class="nb-key col${s.val.includes(c.k)?' on':''}" onclick="nbToggleColor('${c.k}')"><span class="nb-cdot" style="background:${c.hex}"></span>${c.lbl}</button>`).join('');
+    return;
   }
+  const keys = s.kind==='op' ? ['+','−'] : (nbPadNums || [0,1,2,3,4,5,6,7,8,9,10]);
+  pad.innerHTML = keys.map(k=>`<button class="nb-key" onclick="nbPut('${k}')">${k}</button>`).join('')
+    + `<button class="nb-key del" onclick="nbPut(null)" aria-label="Erase">⌫</button>`;
 }
-function updateTimesTile(){
-  const doneCount = TT_TABLE_ORDER.filter(ttTableDone).length;
-  $('timesTileSub').textContent = doneCount ? `${doneCount}/${TT_TABLE_ORDER.length} tables done` : 'Learn to multiply!';
+function nbPut(v){
+  const s = nbActive && nbSlots[nbActive]; if(!s) return;
+  s.val = v==null ? null : (s.kind==='op' ? v : Number(v));
+  const el = nbSlotEl(nbActive);
+  if(el){ el.textContent = s.val==null ? '' : s.val; el.classList.remove('bad','good'); }
+  if(v==null) return;
+  const next = nbFirstEmpty(nbGrp(nbActive));   // hop to the next empty box in this question part
+  if(next) nbFocus(next);
 }
+function nbToggleColor(k){
+  const s = nbActive && nbSlots[nbActive]; if(!s || s.kind!=='color') return;
+  s.val = s.val.includes(k) ? s.val.filter(x=>x!==k) : s.val.concat(k);
+  const el = nbSlotEl(nbActive);
+  if(el){ el.innerHTML = nbColorDots(s.val); el.classList.remove('bad','good'); }
+  nbRenderPad();
+}
+function nbMark(key, ok){
+  const el = nbSlotEl(key); if(!el) return;
+  el.classList.remove('good','bad'); void el.offsetWidth; el.classList.add(ok ? 'good' : 'bad');
+}
+function nbPadHTML(actions){
+  return `<div class="nb-padwrap"><div class="nb-pad" id="nbPad"></div><div class="nb-actions">${actions}</div></div>`;
+}
+function nbSameParts(x, y){ return [...x].sort((p,q)=>p-q).join() === [...y].sort((p,q)=>p-q).join(); }
 
-/* ---- intro ---- */
-function ttShowIntro(replay){
-  ttSlideIdx = 0;
-  ttRenderSlide();
-  ttShowView('intro');
+/* ---- shared drawings ---- */
+// fixed: {w,a,b} pre-printed numbers (read-only); roles not in `fixed` become fill-in circles
+function nbBondHTML(prefix, orient, fixed, opts){
+  opts = opts || {};
+  const o = NB_ORIENTS[orient];
+  const line = p=>`<line x1="${o.w[0]}" y1="${o.w[1]}" x2="${p[0]}" y2="${p[1]}"/>`;
+  const circ = role=>{
+    const style = `left:${o[role][0]}%;top:${o[role][1]}%`;
+    if(fixed && role in fixed) return `<div class="nb-bc${opts.hl===role?' hl':''}" style="${style}">${fixed[role]}</div>`;
+    return nbSlot(`${prefix}-${role}`, 'num', 'nb-bc', style);
+  };
+  return `<div class="nb-bond${opts.sm?' sm':''}"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${line(o.a)}${line(o.b)}</svg>${circ('w')}${circ('a')}${circ('b')}</div>`;
 }
-function ttRenderSlide(){
-  const s = TT_INTRO_SLIDES[ttSlideIdx];
-  $('ttSlide').innerHTML = `<div class="tt-slide-title">${esc(s.title)}</div>${s.body()}`;
-  $('ttDots').innerHTML = TT_INTRO_SLIDES.map((_,i)=>`<span class="tt-dot ${i===ttSlideIdx?'on':''}"></span>`).join('');
-  $('ttNextBtn').textContent = ttSlideIdx === TT_INTRO_SLIDES.length-1 ? "Let's go! 🎉" : 'Next ➜';
+function nbSentenceHTML(prefix, flipped){
+  const A = nbSlot(prefix+'-a','num','nb-box'), O = nbSlot(prefix+'-op','op','nb-opc'),
+        B = nbSlot(prefix+'-b','num','nb-box'), C = nbSlot(prefix+'-c','num','nb-box');
+  const eq = '<span class="nb-eq">=</span>';
+  return `<div class="nb-sent">${flipped ? C+eq+A+O+B : A+O+B+eq+C}</div>`;
 }
-function ttNextSlide(){
-  if(ttSlideIdx < TT_INTRO_SLIDES.length-1){ ttSlideIdx++; ttRenderSlide(); }
-  else ttFinishIntro();
+function nbStaticSent(a, op, b, c, flipped, hl){
+  const box = (v,k)=>`<div class="nb-box${hl===k?' hl':''}">${v}</div>`;
+  const O = `<div class="nb-opc">${op}</div>`, eq = '<span class="nb-eq">=</span>';
+  return `<div class="nb-sent">${flipped ? box(c,'c')+eq+box(a,'a')+O+box(b,'b') : box(a,'a')+O+box(b,'b')+eq+box(c,'c')}</div>`;
 }
-function ttSkipIntro(){ ttFinishIntro(); }
-function ttFinishIntro(){
-  try{ localStorage.setItem('wct-times-intro-seen', '1'); }catch(e){}
-  ttShowHub();
+function nbDots(nA, nB, labelFrom){
+  let h = '';
+  for(let i=0;i<nA;i++) h += `<span class="nb-dot A"></span>`;
+  for(let i=0;i<nB;i++) h += `<span class="nb-dot B">${labelFrom ? labelFrom+i : ''}</span>`;
+  return h;
+}
+function nbPaper(head, inner){ return `<div class="nb-paper">${head ? `<div class="nb-paper-h">${head}</div>` : ''}${inner}</div>`; }
+function nbTestHead(){
+  if(!nbRun || nbRun.kind!=='test') return '';
+  return `Mid-Module Practice · Question ${nbRun.i+1} of 4`;
 }
 
 /* ---- hub ---- */
-function ttShowHub(){ ttRenderHub(); ttShowView('hub'); }
-function ttRenderHub(){
-  $('ttHubGrid').innerHTML = TT_TABLE_ORDER.map(t=>{
-    const unlocked = ttIsUnlocked(t);
-    const mastered = ttMasteredCount(t);
-    const done = mastered>=10;
-    return `<button class="tt-tile ${unlocked?'':'locked'} ${done?'done':''}" data-t="${t}" onclick="ttTileTap(${t})">
-      ${done?'<span class="tt-tile-star">⭐</span>':''}
-      <div class="tt-tile-num">${unlocked?('×'+t):'🔒'}</div>
-      <div class="tt-tile-bar"><div class="tt-tile-fill" style="width:${mastered*10}%"></div></div>
-      <div class="tt-tile-stat">${unlocked?mastered+'/10':'Locked'}</div>
-    </button>`;
+function bondsEnterMode(){ nbHush(); nbHub(); }
+function nbHub(){
+  nbRun = null; nbItem = null; nbResetSlots();
+  const s = nbStats(), r = nbReady(s);
+  nbSay(r >= 12
+    ? `Willow, you're <b>TEST READY!</b> 🏅 Keep practicing any time to stay sharp!`
+    : `Hi Willow! I'm <b>Dadaping</b> 📚 Let's get ready for your math test! Practice each part — or try the whole <b>Practice Test</b>!`);
+  const card = (id, icon, name, desc, n)=>`
+    <div class="nb-card${id==='test'?' test':''}" role="button" onclick="nbOpen('${id}')">
+      <div class="nb-card-icon">${icon}</div>
+      <div><div class="nb-card-name">${name}</div><div class="nb-card-desc">${desc}</div></div>
+      <div class="nb-card-side">${id==='test'
+        ? (s.testRuns ? `Best: ${s.testBest}/4 ⭐` : 'Try it!')
+        : `${nbStarsHTML(n)}<button class="nb-learn" onclick="event.stopPropagation(); nbLesson('${id}',0)">📚 Learn</button>`}</div>
+    </div>`;
+  nbBody(`
+    <div class="nb-meter"><span>Test-ready</span><div class="nb-meter-bar"><div class="nb-meter-fill" style="width:${r/12*100}%"></div></div><span>${r}/12 ⭐</span></div>
+    ${card('story','📖','Story Problems','Like questions 1 & 4 — draw, bond, sentence!', s.story)}
+    ${card('facts','🎨','Fact Colors','Like question 2 — partners to 10, +1 and +2', s.facts)}
+    ${card('build','🔵','Bond Builder','Like question 3 — one bond, two sentences', s.bond)}
+    ${card('test','📝','Practice Test','All 4 questions, just like the real test!')}
+    <div class="nb-hubfoot"><button class="chip" onclick="nbPrint()">🖨️ Print a paper practice sheet (for grown-ups)</button></div>`);
+}
+function nbOpen(id){
+  if(id!=='test' && !nbStats().seen[id]) return nbLesson(id, 0);
+  nbStartRun(id);
+}
+
+/* ---- lessons (seen once, replayable from 📚 Learn) ---- */
+const NB_LESSONS = {
+  build: [
+    {say:`This is a <b>number bond</b>! It shows a <b>whole</b> and its two <b>parts</b>.`,
+     vis:()=>`<div class="nb-minipic">${nbDots(4,3)}</div>${nbBondHTML('','top',{w:7,a:4,b:3})}`},
+    {say:`The <b>whole</b> is ALL of them: <b>7</b>. The <b>parts</b> are the two groups: <b>4</b> and <b>3</b>.`,
+     vis:()=>nbBondHTML('','top',{w:7,a:4,b:3},{hl:'w'})},
+    {say:`Bonds can turn any way! Find the circle with <b>two lines</b> — that's always the <b>whole</b>.`,
+     vis:()=>`<div class="nb-row">${nbBondHTML('','left',{w:9,a:2,b:7},{hl:'w',sm:true})}${nbBondHTML('','right',{w:9,a:2,b:7},{hl:'w',sm:true})}${nbBondHTML('','bottom',{w:9,a:2,b:7},{hl:'w',sm:true})}</div>`},
+    {say:`One bond, two sentences! <b>Switch the parts around</b>: 2 + 7 = 9 and 7 + 2 = 9. Same parts, same whole!`,
+     vis:()=>`<div class="nb-row">${nbBondHTML('','left',{w:9,a:2,b:7},{sm:true})}<div class="nb-lines">${nbStaticSent(2,'+',7,9)}${nbStaticSent(7,'+',2,9)}</div></div>`},
+    {say:`The <b>=</b> sign means <b>“the same as.”</b> So <b>9 = 2 + 7</b> is true too! 9 is the same as 2 + 7.`,
+     vis:()=>nbStaticSent(2,'+',7,9,true,'c')},
+  ],
+  story: [
+    {say:`Story problems have <b>four jobs</b>, just like on your test: ✏️ draw a picture, 🔵 fill the number bond, ➕ write a number sentence, 💬 finish the sentence.`,
+     vis:()=>`<div class="nb-big">✏️ 🔵 ➕ 💬</div>`},
+    {say:`<b>Draw circles</b> — they're quick and easy! On the test, use your pencil. Here, tap the box.`,
+     vis:()=>`<div class="nb-pic" style="width:100%">${nbDots(5,2)}</div>`},
+    {say:`<b>Count on!</b> Put <b>4</b> in your head 🧠 and count on: <b>5, 6, 7</b>. I counted on <b>3</b>!`,
+     vis:()=>`<div class="nb-pic" style="width:100%">${nbDots(4,3,5)}</div>`},
+    {say:`The answer can be a <b>part</b>! 4 + <b>3</b> = 7 — the <b>3</b> is how many came later.`,
+     vis:()=>`${nbBondHTML('','top',{w:7,a:4,b:3},{hl:'b',sm:true})}${nbStaticSent(4,'+',3,7,false,'b')}`},
+    {say:`Last job: write the answer in the sentence. <b>3</b> boys came later. All done! 🎉`,
+     vis:()=>`<div class="nb-stmt"><span class="nb-blank">3</span> boys came later</div>`},
+  ],
+  facts: [
+    {say:`There are <b>three kinds</b> of facts to find! 🔵 <b>Partners to 10</b>, 🟡 <b>+1 facts</b> and 🔴 <b>+2 facts</b>.`,
+     vis:()=>nbLegendHTML()},
+    {say:`A <b>+1 fact</b> has a <b>1</b> in it. The answer is just the <b>next number</b>! 4 + 1 = 5.`,
+     vis:()=>`<div class="nb-big">4 ➜ 5</div><div class="nb-fact">${nbColorDots(['yellow'])} 4 + 1 = 5</div>`},
+    {say:`A <b>+2 fact</b> has a <b>2</b> in it. Count on two: 6 + 2 → <b>7, 8</b>!`,
+     vis:()=>`<div class="nb-big">6 ➜ 7 ➜ 8</div><div class="nb-fact">${nbColorDots(['red'])} 6 + 2 = 8</div>`},
+    {say:`<b>Partners to 10</b> make 10 — like your ten fingers! 7 + 3, 4 + 6, 9 + 1…`,
+     vis:()=>`<div class="nb-tenframe">${Array.from({length:10},(_,i)=>`<span><span class="nb-dot ${i<7?'A':'B'}"></span></span>`).join('')}</div><div class="nb-fact">${nbColorDots(['blue'])} 7 + 3 = 10</div>`},
+    {say:`Some facts get <b>two colors</b>! 9 + 1 makes 10 <b>and</b> has a 1. On paper, draw a second circle.`,
+     vis:()=>`<div class="nb-fact">${nbColorDots(['blue','yellow'])} 9 + 1 = 10</div>`},
+    {say:`Sometimes the blank comes <b>first</b>: __ = 6 + 2. The = means <b>“the same as”</b> — so the answer is still 8!`,
+     vis:()=>`<div class="nb-fact">${nbColorDots(['red'])} <span class="nb-blank">8</span> = 6 + 2</div>`},
+  ],
+};
+let nbLessonKey = null, nbLessonIdx = 0;
+function nbLesson(key, i){
+  nbHush(); nbRun = null; nbResetSlots();
+  nbLessonKey = key; nbLessonIdx = i;
+  const L = NB_LESSONS[key], slide = L[i], last = i===L.length-1;
+  nbSay(slide.say);
+  nbBody(nbPaper(`📚 Learn it · ${i+1} of ${L.length}`, `<div class="nb-lesson-vis">${slide.vis()}</div>`)
+    + `<div class="nb-actions" style="margin-top:12px">
+        <button class="bigbtn ghost" onclick="${i ? `nbLesson('${key}',${i-1})` : 'nbHub()'}">${i ? '⬅ Back' : '🏠 Math Club'}</button>
+        <button class="bigbtn" onclick="${last ? `nbLessonDone('${key}')` : `nbLesson('${key}',${i+1})`}">${last ? 'Let\'s practice! ➜' : 'Next ➜'}</button>
+      </div>`);
+}
+function nbLessonDone(key){
+  const s = nbStats(); s.seen[key] = 1; nbSave(s);
+  nbStartRun(key);
+}
+function nbLegendHTML(){
+  return `<div class="nb-legend">${NB_COLORS.map((c,i)=>`<div>${'abc'[i]}. Color the circle of all <b>${c.lbl.toLowerCase()}</b> <span class="nb-cdot" style="background:${c.hex}"></span>${c.k}</div>`).join('')}</div>`;
+}
+
+/* ---- runs: a station round, or the 4-question practice test ---- */
+function nbStartRun(kind){
+  nbHush();
+  const queue = kind==='story' ? [nbPickStoryType()]
+    : kind==='facts' ? ['facts']
+    : kind==='build' ? ['quick','build','quick','build']
+    : ['story:change','facts','build','story:apart'];   // same order as the real sheet
+  nbRun = {kind, queue, i:0, perfect:0, results:[]};
+  nbNextItem();
+}
+function nbPickStoryType(){ const r = Math.random(); return 'story:' + (r<.4 ? 'change' : r<.8 ? 'apart' : r<.9 ? 'together' : 'result'); }
+function nbNextItem(){
+  nbHush(); nbResetSlots();
+  const t = nbRun.queue[nbRun.i];
+  if(t.startsWith('story')) nbStoryStart(t.split(':')[1]);
+  else if(t==='facts') nbFactsStart();
+  else if(t==='build') nbBuildStart();
+  else nbQuickStart();
+  $('bonds').scrollIntoView({block:'start'});
+}
+// a "miss" = a wrong Check. Test mode gives a plain nudge first, the real hint after.
+function nbMissed(hint){
+  nbItem.misses = (nbItem.misses||0) + 1;
+  nbItem.stepMiss = (nbItem.stepMiss||0) + 1;
+  if(nbRun.kind==='test' && nbItem.stepMiss===1) nbSay(`Not quite — look again! 👀 Fix the red ones.`);
+  else nbSay(hint);
+}
+function nbItemDone(celebrate){
+  const perfect = !nbItem.misses;
+  if(perfect) nbRun.perfect++;
+  nbRun.results.push({label:nbItem.label, perfect});
+  nbRun.i++;
+  const more = nbRun.i < nbRun.queue.length;
+  burstHearts();
+  nbSay(celebrate + (perfect ? ' First try! ⭐' : ''));
+  const act = document.querySelector('#bonds .nb-actions');
+  if(act) act.innerHTML = more
+    ? `<button class="bigbtn" onclick="nbNextItem()">Next ➜</button>`
+    : `<button class="bigbtn" onclick="nbRunDone()">Finish 🎉</button>`;
+  const pad = $('nbPad'); if(pad) pad.innerHTML = '';
+  nbActive = null;
+}
+function nbRunDone(){
+  nbHush();
+  const run = nbRun, s = nbStats();
+  if(run.kind==='story') s.story++;
+  else if(run.kind==='facts') s.facts++;
+  else if(run.kind==='build') s.bond++;
+  else { s.testRuns++; s.testBest = Math.max(s.testBest, run.perfect); }
+  nbSave(s); updateBondsTile();
+
+  // reward: the story's star joins the album; otherwise a surprise uncaught ping
+  let caught = null;
+  const storyPing = run.kind==='story' && nbItem && nbItem.P;
+  if(storyPing && albumCatch(storyPing.n, 'math')) caught = storyPing;
+  if(!caught){
+    const pool = PINGS.filter(p=>!album[p.n]);
+    if(pool.length){ const p = pick(pool); if(albumCatch(p.n, 'math')) caught = p; }
+  }
+  burstHearts(); burstHearts();
+  const isTest = run.kind==='test';
+  nbSay(isTest
+    ? (run.perfect===4 ? `<b>4 out of 4</b> on the first try! You are SO ready for your test! 🏅` : `You finished the whole practice test! <b>${run.perfect} of 4</b> on the first try. Every try makes your brain stronger! 💪`)
+    : `Great work, Willow! Your test-ready meter went up! 🌟`);
+  nbBody(nbPaper('', `<div class="nb-done">
+      <div class="nb-done-big">${isTest ? '📝 Practice test done!' : '🎉 You did it!'}</div>
+      ${isTest ? `<div class="nb-results">${run.results.map((r,i)=>`<div>${r.perfect?'⭐':'✅'} Question ${i+1} · ${r.label}</div>`).join('')}</div>` : ''}
+      ${caught ? `${badgeHTML(caught, true)}<div><b>${esc(caught.n)}</b> joined your Catch Album!</div>` : ''}
+    </div>`)
+    + `<div class="nb-actions" style="margin-top:12px">
+        <button class="bigbtn ghost" onclick="nbHub()">🏠 Math Club</button>
+        <button class="bigbtn" onclick="nbStartRun('${run.kind}')">${isTest ? 'Take it again ➜' : 'More practice ➜'}</button>
+      </div>`);
+}
+
+/* ---- Story problems (Q1 & Q4) ---- */
+function nbStoryStart(type){
+  const tpl = pick(NB_STORIES.filter(s=>s.type===type));
+  const others = PINGS.filter(p=>p.n!==NB_HOST);
+  const fresh = others.filter(p=>!album[p.n]);
+  const P = pick(fresh.length ? fresh : others);           // solve it → catch the star of the story
+  const Q = pick(others.filter(p=>p.n!==P.n));
+  const c = 4 + nbRand(7);                                 // whole 4..10
+  const a = 2 + nbRand(c-3);                               // both parts ≥ 2
+  const b = c - a;
+  const test = nbRun.kind==='test';
+  nbItem = {kind:'story', type, tpl, P, Q, a, b, c, step:'draw', phase:1, dots:[], misses:0, stepMiss:0,
+    orient: test ? (type==='apart' ? 'right' : 'top') : pick(Object.keys(NB_ORIENTS)),
+    answer: (type==='change' || type==='apart') ? b : c,
+    label: type==='apart' ? 'story problem (the rest)' : type==='change' ? 'story problem (some more came)' : 'story problem (in all)'};
+  nbSay(`Let's read the story together! Tap 🔊 to hear it. Then <b>draw a picture</b>. ${nbDrawPrompt()}`);
+  nbStoryRender();
+}
+function nbStoryText(){ const it = nbItem; return it.tpl.txt(it.P.n, it.Q.n, it.a, it.b, it.c); }
+function nbDrawPrompt(){
+  const it = nbItem, T = it.tpl;
+  if(it.phase===1){
+    if(it.type==='apart') return `Draw all <b>${it.c}</b> ${T.thing}.`;
+    if(it.type==='together') return `First draw the <b>${it.a}</b> ${T.first} ${T.thing}.`;
+    return `First draw the <b>${it.a}</b> ${T.thing} from the start.`;
+  }
+  if(it.type==='change') return `Now draw more until there are <b>${it.c}</b>. Count on: ${it.a+1}, ${it.a+2}…`;
+  if(it.type==='apart') return `Now tap the <b>${it.a}</b> ${T.thing} that are ${T.where}.`;
+  if(it.type==='together') return `Now draw the <b>${it.b}</b> ${T.second} ${T.thing}.`;
+  return `Now draw the <b>${it.b}</b> more. Count on: ${it.a+1}, ${it.a+2}…`;
+}
+function nbPicHTML(){
+  const it = nbItem;
+  if(!it.dots.length) return `<div class="nb-pic-hint">Tap here to draw a circle ✏️</div>`;
+  const countOn = it.type==='change' || it.type==='result';
+  return it.dots.map((d,i)=>`<span class="nb-dot ${d.sel ? 'sel' : d.g}" data-i="${i}">${countOn && d.g==='B' ? i+1 : ''}</span>`).join('');
+}
+function nbStoryRender(){
+  const it = nbItem, steps = ['draw','bond','sent','stmt','done'], at = steps.indexOf(it.step);
+  const lockAfter = s=>at > steps.indexOf(s);
+  if(lockAfter('bond')) nbLocked.add('bd');
+  if(lockAfter('sent')) nbLocked.add('sn');
+  if(lockAfter('stmt')) nbLocked.add('sm');
+  const T = it.tpl, [pre, post] = T.stmt(it.P.n, it.Q.n);
+  let h = `<div class="nb-q">${badgeHTML(it.P)}<div>${esc(nbStoryText())} <button class="nb-speak inline" onclick="nbSpeak(nbStoryText())" aria-label="Read the story">🔊</button></div></div>`;
+  h += `<div class="nb-pic${it.step==='draw'?' live':''}" id="nbPic" onclick="nbPicTap(event)">${nbPicHTML()}</div>`;
+  if(it.step==='draw'){
+    const undo = !(it.type==='apart' && it.phase===2);
+    h += `<div class="nb-pic-tools">${undo ? `<button class="chip" onclick="nbUndoDot()">↩️ Undo</button>` : ''}<span class="nb-tally" id="nbTally"></span></div>`;
+  }
+  if(at >= 1){
+    h += `<div class="nb-step"><div class="nb-row">${nbBondHTML('bd', it.orient)}`;
+    if(at >= 2) h += `<div>${nbSentenceHTML('sn')}</div>`;
+    h += `</div></div>`;
+  }
+  if(at >= 3) h += `<div class="nb-stmt">${esc(pre)} ${nbSlot('sm-x','num','nb-blank')} ${esc(post)}</div>`;
+  const checks = {draw:`<button class="bigbtn" onclick="nbDrawDone()">Done drawing ✓</button>`,
+    bond:`<button class="bigbtn" onclick="nbStoryCheck()">Check my bond ✓</button>`,
+    sent:`<button class="bigbtn" onclick="nbStoryCheck()">Check my sentence ✓</button>`,
+    stmt:`<button class="bigbtn" onclick="nbStoryCheck()">Check ✓</button>`, done:''};
+  nbBody(nbPaper(nbTestHead(), h) + (it.step==='draw' ? `<div class="nb-actions" style="margin-top:12px">${checks.draw}</div>` : nbPadHTML(checks[it.step])));
+  nbUpdateTally();
+  if(it.step!=='draw' && it.step!=='done'){ nbFocus(nbFirstEmpty()); }
+}
+function nbUpdateTally(){
+  const el = $('nbTally'); if(!el) return;
+  const it = nbItem;
+  if(it.type==='apart' && it.phase===2){ el.textContent = ''; return; }
+  el.textContent = it.dots.length ? `${it.dots.length} circle${it.dots.length===1?'':'s'}` : '';
+}
+function nbPicTap(e){
+  const it = nbItem; if(!it || it.step!=='draw') return;
+  if(it.type==='apart' && it.phase===2){
+    const dot = e.target.closest('.nb-dot'); if(!dot) return;
+    const d = it.dots[+dot.dataset.i]; d.sel = !d.sel;
+    dot.className = `nb-dot ${d.sel ? 'sel' : d.g}`;
+    return;
+  }
+  if(it.dots.length >= 12){ nbSay(`Whoa, that's a lot of circles! Tap ↩️ Undo to take some away.`); return; }
+  it.dots.push({g: it.phase===1 ? 'A' : 'B', sel:false});
+  $('nbPic').innerHTML = nbPicHTML();
+  nbUpdateTally();
+}
+function nbUndoDot(){
+  const it = nbItem, g = it.phase===1 ? 'A' : 'B';
+  const i = it.dots.map(d=>d.g).lastIndexOf(g);
+  if(i < 0) return;
+  it.dots.splice(i, 1);
+  $('nbPic').innerHTML = nbPicHTML();
+  nbUpdateTally();
+}
+// drawing mistakes are coached but don't count against "first try" — little fingers mis-tap
+function nbDrawDone(){
+  const it = nbItem, nA = it.dots.filter(d=>d.g==='A').length, nB = it.dots.length - nA;
+  const fix = (have, want)=>have > want ? `Tap ↩️ Undo to take ${have-want===1?'one':'some'} away.` : `Draw ${want-have===1?'one':'some'} more!`;
+  if(it.phase===1){
+    const want = it.type==='apart' ? it.c : it.a;
+    if(nA !== want) return nbSay(`I count <b>${nA}</b> circle${nA===1?'':'s'}. The story says <b>${want}</b>. ${fix(nA, want)}`);
+    it.phase = 2;
+    nbSay(`Yes! ✨ ${nbDrawPrompt()}`);
+    return nbStoryRender();
+  }
+  if(it.type==='change'){
+    const total = nA + nB;
+    if(total !== it.c) return nbSay(`Count them all: you have <b>${total}</b>. The story says there were <b>${it.c}</b> in the end. ${fix(total, it.c)}`);
+  } else if(it.type==='apart'){
+    const sel = it.dots.filter(d=>d.sel).length;
+    if(sel !== it.a) return nbSay(`You tapped <b>${sel}</b>. The story says <b>${it.a}</b> are ${it.tpl.where}. ${sel > it.a ? 'Tap one again to un-pick it.' : 'Tap some more!'}`);
+  } else if(nB !== it.b){
+    return nbSay(`You drew <b>${nB}</b> blue circle${nB===1?'':'s'}. The story says <b>${it.b}</b>. ${fix(nB, it.b)}`);
+  }
+  it.step = 'bond'; it.stepMiss = 0;
+  nbSay(`Great picture! 🎨 Now fill in the <b>number bond</b>. The <b>whole</b> goes in the circle with <b>two lines</b> — it's ALL of them. The two <b>parts</b> go in the other circles.`);
+  nbStoryRender();
+}
+function nbCheckBond(prefix, parts, whole){
+  const w = nbVal(prefix+'-w'), a = nbVal(prefix+'-a'), b = nbVal(prefix+'-b');
+  if([w,a,b].some(v=>v==null)){ nbFocus(nbFirstEmpty(prefix)); return {empty:true, msg:`Fill in all three circles first! ✏️`}; }
+  const wOk = w===whole, pOk = nbSameParts([a,b], parts);
+  if(wOk && pOk) return {ok:true};
+  nbMark(prefix+'-w', wOk);
+  const left = [...parts];
+  [['a',a],['b',b]].forEach(([r,v])=>{ const j = left.indexOf(v); if(j>=0) left.splice(j,1); nbMark(`${prefix}-${r}`, pOk || j>=0); });
+  if(!wOk && parts.includes(w) && (a===whole || b===whole))
+    return {msg:`So close — the <b>whole</b> and a <b>part</b> switched places! The whole goes in the circle with <b>two lines</b>.`};
+  if(!wOk) return {msg:`The <b>whole</b> (the circle with two lines) is <b>all</b> of them put together. Count every circle in your picture!`};
+  return {msg:`Your whole is right! ⭐ Now look at the <b>parts</b> — they're the two groups in your picture. Count each color.`};
+}
+function nbCheckSentence(prefix, parts, whole){
+  const g = k=>nbVal(`${prefix}-${k}`);
+  const a = g('a'), b = g('b'), op = g('op'), c = g('c');
+  if([a,b,op,c].some(v=>v==null)){ nbFocus(nbFirstEmpty(prefix)); return {empty:true, msg:`Fill in all the boxes first! ✏️ The circle is for the <b>+</b> sign.`}; }
+  const opOk = op==='+', cOk = c===whole, pOk = nbSameParts([a,b], parts);
+  if(opOk && cOk && pOk) return {ok:true};
+  nbMark(prefix+'-op', opOk); nbMark(prefix+'-c', cOk);
+  const left = [...parts];
+  [['a',a],['b',b]].forEach(([r,v])=>{ const j = left.indexOf(v); if(j>=0) left.splice(j,1); nbMark(`${prefix}-${r}`, pOk || j>=0); });
+  if(!opOk) return {msg:`This is an <b>addition</b> sentence — the circle needs a <b>+</b> sign!`};
+  if(!cOk) return {msg:`The number by itself on the other side of the <b>=</b> is the <b>whole</b>: all of them. Look at your bond!`};
+  return {msg:`The two numbers you add are the <b>parts</b> — the same ones in your bond. <b>Part + part = whole!</b>`};
+}
+function nbStoryCheck(){
+  const it = nbItem, parts = [it.a, it.b];
+  if(it.step==='bond'){
+    const r = nbCheckBond('bd', parts, it.c);
+    if(r.empty) return nbSay(r.msg);
+    if(!r.ok) return nbMissed(r.msg);
+    it.step = 'sent'; it.stepMiss = 0;
+    nbSay(`Perfect bond! 🔵 Now write an <b>addition sentence</b>: part <b>+</b> part <b>=</b> whole. Tap a box to start.`);
+    return nbStoryRender();
+  }
+  if(it.step==='sent'){
+    const r = nbCheckSentence('sn', parts, it.c);
+    if(r.empty) return nbSay(r.msg);
+    if(!r.ok) return nbMissed(r.msg);
+    it.step = 'stmt'; it.stepMiss = 0;
+    nbSay(`Yes! ➕ Last job — <b>finish the sentence</b> to answer the question.`);
+    return nbStoryRender();
+  }
+  if(it.step==='stmt'){
+    const v = nbVal('sm-x');
+    if(v==null){ nbFocus('sm-x'); return nbSay(`Write a number on the line! ✏️`); }
+    if(v !== it.answer){
+      nbMark('sm-x', false);
+      return nbMissed(it.answer===it.c
+        ? `The question asks how many there are <b>in all</b> — that's the <b>whole</b> in your bond!`
+        : `Which group does the question ask about? It's one of the <b>parts</b> in your bond — the one you didn't know at the start!`);
+    }
+    it.step = 'done';
+    nbStoryRender();
+    nbItemDone(`🎉 You solved it! ${esc(it.P.n)} is so proud of you!`);
+  }
+}
+
+/* ---- Fact colors (Q2) ---- */
+function nbFactCols(f){
+  const out = [];
+  if(f.a + f.b === 10) out.push('blue');
+  if(f.a===1 || f.b===1) out.push('yellow');
+  if(f.a===2 || f.b===2) out.push('red');
+  return out;
+}
+// 9 facts like the sheet: one two-color fact (9+1 / 8+2), 2 pure partners-to-10,
+// 3 pure +1, 3 pure +2. 1+2 is skipped (it's both +1 and +2 — confusing, never on the sheet).
+function nbMakeFacts(){
+  const out = [], seen = new Set();
+  const add = gen=>{
+    for(let t=0; t<60; t++){
+      const [a,b] = gen(), k = [a,b].sort((x,y)=>x-y).join();
+      if(!seen.has(k)){ seen.add(k); out.push({a,b}); return; }
+    }
+  };
+  const flip = (x,y)=>Math.random()<.5 ? [x,y] : [y,x];
+  add(()=>pick([[9,1],[1,9],[8,2],[2,8]]));
+  for(let i=0;i<2;i++) add(()=>{ const a = 3 + nbRand(5); return [a, 10-a]; });
+  for(let i=0;i<3;i++) add(()=>flip(pick([1,3,4,5,6,7,8]), 1));
+  for(let i=0;i<3;i++) add(()=>flip(2 + nbRand(6), 2));
+  return shuffle(out).map(f=>({...f, left: Math.random() < .35}));
+}
+function nbFactsStart(){
+  nbItem = {kind:'facts', facts: nbMakeFacts(), misses:0, stepMiss:0, label:'fact colors'};
+  nbSay(`Fill in each blank, then tap the circle in front to <b>color</b> it! 🔵 partners to 10 · 🟡 +1 · 🔴 +2. Some get <b>two</b> colors!`);
+  nbFactsRender();
+  nbFocus('f0-ans');
+}
+function nbFactsRender(){
+  const facts = nbItem.facts;
+  const cells = facts.map((f,i)=>{
+    const blank = nbSlot(`f${i}-ans`, 'num', 'nb-blank');
+    return `<div class="nb-fact">${nbColorSlot(`f${i}-col`)}<span>${f.left ? `${blank} = ${f.a} + ${f.b}` : `${f.a} + ${f.b} = ${blank}`}</span></div>`;
   }).join('');
+  const h = `<div class="nb-q"><div>Write the numbers that go in the blanks. <button class="nb-speak inline" onclick="nbSpeak(nbPlain(nbLegendHTML()))" aria-label="Read the directions">🔊</button></div></div>${nbLegendHTML()}<div class="nb-facts">${cells}</div>`;
+  nbBody(nbPaper(nbTestHead(), h) + nbPadHTML(`<button class="bigbtn" onclick="nbFactsCheck()">Check all ✓</button>`));
+  nbRenderPad();
 }
-function ttTileTap(t){
-  if(!ttIsUnlocked(t)){ toast('🔒 Finish the table before this one first!'); return; }
-  ttOpenTable(t);
-}
-
-/* ---- practice ---- */
-function ttOpenTable(t){
-  ttCurTable = t; ttHidden = false;
-  $('ttTableLabel').textContent = `×${t} table`;
-  ttShowView('practice');
-  ttNextQuestion();
-}
-function ttPickK(table){
-  const weights = [];
-  for(let k=1;k<=10;k++){
-    const c = ttFactCount(table,k);
-    weights.push({k, w: Math.max(1, 3-c)});
+function nbFactHint(f, ansOk, cols){
+  const {a, b} = f, big = Math.max(a,b), exp = nbFactCols(f);
+  if(!ansOk){
+    if(a===1 || b===1) return `<b>${a} + ${b}</b> is a +1 fact — the answer is just the <b>next number</b> after ${big}!`;
+    if(a===2 || b===2) return `<b>${a} + ${b}</b>: start at <b>${big}</b> and count on <b>two</b> more!`;
+    if(a+b===10) return `<b>${a} + ${b}</b> are partners! Hold up ${a} fingers, then ${b} more — how many fingers is that? 🖐️🖐️`;
+    return `Start at <b>${big}</b> and count on <b>${Math.min(a,b)}</b>!`;
   }
-  const total = weights.reduce((s,x)=>s+x.w,0);
-  let r = Math.random()*total;
-  for(const x of weights){ r -= x.w; if(r<=0) return x.k; }
-  return weights[weights.length-1].k;
+  const missing = exp.filter(k=>!cols.includes(k)), extra = cols.filter(k=>!exp.includes(k));
+  const also = exp.length > 1 ? ' It needs <b>two</b> colors!' : '';
+  if(missing.includes('blue')) return `${a} + ${b} makes <b>10</b> — partners to 10 get <b>blue</b>!${also}`;
+  if(missing.includes('yellow')) return `${a} + ${b} has a <b>1</b> in it — that's a <b>+1 fact</b>: <b>yellow</b>!${also}`;
+  if(missing.includes('red')) return `${a} + ${b} has a <b>2</b> in it — that's a <b>+2 fact</b>: <b>red</b>!${also}`;
+  const k = extra[0];
+  if(k==='blue') return `${a} + ${b} makes ${a+b}, not 10 — so no blue. Tap the circle to fix it.`;
+  if(k==='yellow') return `${a} + ${b} doesn't have a <b>1</b> in it — so no yellow. Tap the circle to fix it.`;
+  return `${a} + ${b} doesn't have a <b>2</b> in it — so no red. Tap the circle to fix it.`;
 }
-function ttChoicesFor(correct){
-  const opts = new Set([correct]);
-  let guard = 0;
-  while(opts.size<4 && guard<40){
-    guard++;
-    const delta = pick([1,2,3,4,-1,-2,-3,-4]) * pick([1,2,3]);
-    const val = correct + delta;
-    if(val>0 && val<=144) opts.add(val);
-  }
-  return shuffle([...opts]);
-}
-function ttNextQuestion(){
-  const k = ttPickK(ttCurTable);
-  const guest = pick(PINGS);
-  const container = pick(TT_CONTAINERS);
-  const item = pick(TT_ITEMS);
-  ttCurFact = {table: ttCurTable, k, guest, container, item, answered:false};
-  $('ttMastered').textContent = ttMasteredCount(ttCurTable);
-  $('ttStory').innerHTML = `${esc(guest.n)} has <b>${ttCurTable}</b> ${esc(container.w)}${ttCurTable===1?'':'s'} ${container.e}. Each ${esc(container.w)} has <b>${k}</b> ${esc(item.w)}${k===1?'':'s'} ${item.e} inside. How many ${esc(item.w)}s in all? 🤔`;
-  $('ttEquation').textContent = `${ttCurTable} × ${k} = ?`;
-  renderTtArray();
-  $('ttHideBtn').textContent = ttHidden ? '👀 Show the pings' : '🙈 Hide the pings';
-  const correct = ttCurTable * k;
-  $('ttChoices').innerHTML = ttChoicesFor(correct).map(v=>
-    `<button class="abtn" data-v="${v}" onclick="ttAnswer(this)">${v}</button>`
-  ).join('');
-}
-function renderTtArray(){
-  const {table, k, item} = ttCurFact;
-  const arr = $('ttArray');
-  arr.classList.toggle('hidden-arr', ttHidden);
-  arr.style.gridTemplateColumns = `repeat(${k}, 1fr)`;
-  arr.innerHTML = Array.from({length: table*k}, ()=>`<span class="tt-cell">${item.e}</span>`).join('');
-}
-function ttToggleHide(){
-  ttHidden = !ttHidden;
-  $('ttHideBtn').textContent = ttHidden ? '👀 Show the pings' : '🙈 Hide the pings';
-  $('ttArray').classList.toggle('hidden-arr', ttHidden);
-}
-function ttAnswer(btn){
-  if(!ttCurFact || ttCurFact.answered) return;
-  ttCurFact.answered = true;
-  const val = +btn.dataset.v;
-  const correct = ttCurFact.table * ttCurFact.k;
-  const right = val === correct;
-  document.querySelectorAll('#ttChoices .abtn').forEach(b=>{
-    b.disabled = true;
-    if(+b.dataset.v === correct) b.classList.add('right');
+function nbFactsCheck(){
+  const facts = nbItem.facts;
+  const todo = nbOrder.find(k=>!nbLocked.has(nbGrp(k)) && nbIsEmpty(k));
+  if(todo){ nbFocus(todo); return nbSay(`Fill in <b>every</b> blank and color <b>every</b> circle first! I lit up the next one for you. ✨`); }
+  const bad = [];
+  facts.forEach((f,i)=>{
+    if(nbLocked.has(`f${i}`)) return;
+    const ansOk = nbVal(`f${i}-ans`) === f.a + f.b;
+    const cols = nbSlots[`f${i}-col`].val;
+    const colOk = nbSameParts(cols.map(c=>NB_COLORS.findIndex(x=>x.k===c)), nbFactCols(f).map(c=>NB_COLORS.findIndex(x=>x.k===c)));
+    if(ansOk && colOk) nbLocked.add(`f${i}`);
+    else bad.push({i, f, ansOk, colOk, cols});
   });
-  ttRecordAnswer(ttCurFact.table, ttCurFact.k, right);
-  if(right){
-    toast(`🎉 Yes! ${ttCurFact.table} × ${ttCurFact.k} = ${correct}`);
-  } else {
-    btn.classList.add('wrong');
-    if(ttHidden){ ttHidden = false; $('ttArray').classList.remove('hidden-arr'); $('ttHideBtn').textContent = '🙈 Hide the pings'; }
-    toast(`💭 Let's count together — it's ${correct}!`);
+  nbActive = null;
+  nbFactsRender();
+  if(!bad.length){
+    nbItem.stepMiss = 0;
+    nbItemDone(`🎨 All 9 facts are right! You're a fact superstar!`);
+    return;
   }
-  $('ttMastered').textContent = ttMasteredCount(ttCurTable);
-  setTimeout(ttNextQuestion, right ? 1400 : 2600);
+  bad.forEach(x=>{ nbMark(`f${x.i}-ans`, x.ansOk); nbMark(`f${x.i}-col`, x.colOk); });
+  const first = bad[0];
+  nbMissed(`${bad.length===1 ? 'Just one to fix!' : `${bad.length} to fix.`} ${nbFactHint(first.f, first.ansOk, first.cols)}`);
 }
 
-/* ---- view switching ---- */
-function ttShowView(v){
-  $('ttIntroView').classList.toggle('hidden', v!=='intro');
-  $('ttHubView').classList.toggle('hidden', v!=='hub');
-  $('ttPracticeView').classList.toggle('hidden', v!=='practice');
+/* ---- Bond builder (Q3) + quick missing-number bonds ---- */
+function nbQuickStart(){
+  const c = 3 + nbRand(8), a = 1 + nbRand(c-1), b = c - a;
+  const hide = Math.random() < .35 ? 'w' : pick(['a','b']);
+  const fixed = {w:c, a, b}; delete fixed[hide];
+  nbItem = {kind:'quick', a, b, c, hide, fixed, orient:pick(Object.keys(NB_ORIENTS)), misses:0, stepMiss:0, label:'missing number'};
+  nbSay(hide==='w'
+    ? `What's the <b>whole</b>? Put the two parts together!`
+    : `What's the missing <b>part</b>? Start at the part you know and <b>count on</b> to the whole!`);
+  nbBody(nbPaper(nbTestHead(), `<div class="nb-q"><div>Fill in the number bond.</div></div><div class="nb-row">${nbBondHTML('qk', nbItem.orient, fixed)}</div><div class="nb-help" id="nbHelp"></div>`)
+    + nbPadHTML(`<button class="bigbtn" onclick="nbQuickCheck()">Check ✓</button>`));
+  nbFocus(`qk-${hide}`);
 }
-function ttEnterMode(){
-  if(localStorage.getItem('wct-times-intro-seen')) ttShowHub();
-  else ttShowIntro();
+function nbQuickCheck(){
+  const it = nbItem, key = `qk-${it.hide}`, v = nbVal(key), want = {w:it.c, a:it.a, b:it.b}[it.hide];
+  if(v==null){ nbFocus(key); return nbSay(`Tap the empty circle and pick a number! ✏️`); }
+  if(v !== want){
+    nbMark(key, false);
+    if(it.hide==='w') return nbMissed(`The whole is <b>both parts together</b>. Start at <b>${Math.max(it.a,it.b)}</b> and count on <b>${Math.min(it.a,it.b)}</b>!`);
+    const known = it.hide==='a' ? it.b : it.a;
+    $('nbHelp').innerHTML = nbDots(known, it.c - known, known + 1);
+    const seq = Array.from({length:it.c-known}, (_,i)=>known+1+i).join(', ');
+    return nbMissed(`Here's a picture! The pink ones are the <b>${known}</b> you know. Put ${known} in your head 🧠 and count on the blue ones: <b>${seq}</b>. How many blue?`);
+  }
+  nbLocked.add('qk');
+  nbMark(key, true);
+  const el = nbSlotEl(key); if(el){ el.disabled = true; el.classList.remove('on'); }
+  nbItemDone(pick([`Yes! ✨ ${it.a} and ${it.b} make ${it.c}!`, `You got it! 🔵 ${it.c} is ${it.a} and ${it.b}!`]));
 }
-function initTimesTable(){
-  updateTimesTile();
+function nbBuildStart(){
+  let c, a;
+  do{ c = 4 + nbRand(7); a = 1 + nbRand(c-1); }while(a*2===c);   // two different parts, like the sheet
+  const b = c - a, test = nbRun.kind==='test';
+  nbItem = {kind:'build', a, b, c, step:'bond', orient: test ? 'left' : pick(Object.keys(NB_ORIENTS)),
+    flip:{s1:false, s2:false}, misses:0, stepMiss:0, label:'bond builder'};
+  nbSay(`Use the numbers <b>${Math.min(a,b)}, ${Math.max(a,b)} and ${c}</b> to fill in the bond. Which one is the <b>whole</b>? (Hint: it's the biggest!)`);
+  nbBuildRender();
+}
+function nbBuildRender(){
+  const it = nbItem, nums = [it.a, it.b, it.c].sort((x,y)=>x-y);
+  nbPadNums = nums;
+  if(it.step!=='bond') nbLocked.add('bd');
+  let h = `<div class="nb-q"><div>Fill in the number bond with the numbers ${nums[0]}, ${nums[1]} and ${nums[2]}. Then write <b>two different</b> addition sentences.</div></div>
+    <div class="nb-nums">${nums.map(n=>`<span class="nb-num">${n}</span>`).join('')}</div>
+    <div class="nb-row">${nbBondHTML('bd', it.orient)}</div>`;
+  if(it.step!=='bond'){
+    h += `<div class="nb-step"><div class="nb-lines">${['s1','s2'].map(s=>`<div class="nb-sentrow">${nbSentenceHTML(s, it.flip[s])}${nbLocked.has(s)
+      ? `<div class="nb-minipic">${nbDots(nbVal(s+'-a'), nbVal(s+'-b'))}</div>`
+      : `<button class="nb-flip" onclick="nbFlip('${s}')">↔ ${it.flip[s] ? 'whole last' : 'whole first'}</button>`}</div>`).join('')}</div></div>`;
+  }
+  const btn = it.step==='bond' ? `<button class="bigbtn" onclick="nbBuildCheck()">Check my bond ✓</button>`
+    : it.step==='sent' ? `<button class="bigbtn" onclick="nbBuildCheck()">Check my sentences ✓</button>` : '';
+  nbBody(nbPaper(nbTestHead(), h) + nbPadHTML(btn));
+  if(it.step!=='done') nbFocus(nbFirstEmpty());
+}
+// "9 = 2 + 7" is a different sentence on the sheet too — the whole can go first
+function nbFlip(s){
+  nbItem.flip[s] = !nbItem.flip[s];
+  const keysOf = g=>(nbItem.flip[g] ? ['c','a','op','b'] : ['a','op','b','c']).map(k=>`${g}-${k}`);
+  nbOrder = nbOrder.filter(k=>!['s1','s2'].includes(nbGrp(k))).concat(keysOf('s1'), keysOf('s2'));
+  nbBuildRender();
+}
+function nbSentSig(s){ return (nbItem.flip[s] ? 'L' : 'R') + [nbVal(s+'-a'), nbVal(s+'-op'), nbVal(s+'-b')].join(''); }
+function nbBuildCheck(){
+  const it = nbItem, parts = [it.a, it.b];
+  if(it.step==='bond'){
+    const r = nbCheckBond('bd', parts, it.c);
+    if(r.empty) return nbSay(r.msg);
+    if(!r.ok) return nbMissed(r.msg + ` (The whole is the <b>biggest</b> number: ${it.c}.)`);
+    it.step = 'sent'; it.stepMiss = 0;
+    nbSay(`Great bond! 🔵 Now write <b>two different</b> addition sentences. Tip: <b>switch the parts around</b> for the second one! Tap <b>↔</b> to put the whole first.`);
+    return nbBuildRender();
+  }
+  if(it.step!=='sent') return;
+  let msg = null, emptyMsg = null;
+  for(const s of ['s1','s2']){
+    if(nbLocked.has(s)) continue;
+    if(['a','op','b','c'].some(k=>nbVal(`${s}-${k}`)==null)){
+      emptyMsg = emptyMsg || `Fill in all the boxes of the ${s==='s1' ? 'first' : 'second'} sentence! ✏️ The circle is for the <b>+</b> sign.`;
+      continue;
+    }
+    const r = nbCheckSentence(s, parts, it.c);
+    if(r.ok) nbLocked.add(s); else if(!msg) msg = r.msg;
+  }
+  if(nbLocked.has('s1') && nbLocked.has('s2') && nbSentSig('s1')===nbSentSig('s2')){
+    nbLocked.delete('s2');
+    msg = `Both sentences are <b>the same</b>! Make the second one different — try switching the parts: <b>${nbVal('s1-b')} + ${nbVal('s1-a')}</b>.`;
+  }
+  const done = nbLocked.has('s1') && nbLocked.has('s2');
+  if(done) it.step = 'done';
+  const marks = ['s1','s2'].filter(s=>!nbLocked.has(s)).flatMap(s=>['a','op','b','c'].map(k=>`${s}-${k}`)).filter(k=>nbSlotEl(k) && nbSlotEl(k).classList.contains('bad'));
+  nbBuildRender();
+  marks.forEach(k=>nbMark(k, false));
+  if(done) return nbItemDone(`🎉 Two different sentences from one bond — that's the secret of number bonds!`);
+  if(msg) nbMissed(msg); else if(emptyMsg) nbSay(emptyMsg);
+}
+
+/* ---- printable sheet (for grown-ups — her real test is on paper) ---- */
+function nbPrint(){
+  const names = shuffle(PINGS.filter(p=>p.n!==NB_HOST)).slice(0,4).map(p=>p.n);
+  const nums = ()=>{ const c = 4 + nbRand(7), a = 2 + nbRand(c-3); return {a, b:c-a, c}; };
+  const s1 = nums(), t1 = pick(NB_STORIES.filter(s=>s.type==='change'));
+  const s4 = nums(), t4 = pick(NB_STORIES.filter(s=>s.type==='apart'));
+  let bc, ba; do{ bc = 4 + nbRand(7); ba = 1 + nbRand(bc-1); }while(ba*2===bc);
+  const bnums = [ba, bc-ba, bc].sort((x,y)=>x-y);
+  const facts = nbMakeFacts();
+  const sentBoxes = `<div class="pp-sent"><div class="pp-sq"></div><div class="pp-ci"></div><div class="pp-sq"></div><span class="pp-eq">=</span><div class="pp-sq"></div></div>`;
+  const blankBond = o=>nbBondHTML('', o, {w:'', a:'', b:''});
+  const stmtLine = (t, P, Q)=>{ const [pre, post] = t.stmt(P, Q); return `<div style="text-align:right">${esc(pre)} <span class="pp-line"></span> ${esc(post)}</div>`; };
+  const colorNames = {blue:'blue', yellow:'yellow', red:'red'};
+  $('nbPrint').innerHTML = `
+  <div class="pp-page">
+    <div class="pp-title">Math Club Practice 💖</div>
+    <div class="pp-name"><span>Name: ____________________</span><span>Date: ____________</span></div>
+    <div class="pp-q">1. ${esc(t1.txt(names[0], names[1], s1.a, s1.b, s1.c))}</div>
+    <div>Draw a picture, fill in the number bond, write an addition sentence, and complete the statement to go with the story.</div>
+    <div class="pp-box"></div>
+    <div class="pp-row">${blankBond('top')}<div>${sentBoxes}<br>${stmtLine(t1, names[0], names[1])}</div></div>
+    <div class="pp-q">2. Write the numbers that go in the blanks.</div>
+    <div>a. Color in the circle in front of the box of all partners to 10 with blue.<br>b. Color in the circle in front of the box of all +1 facts with yellow.<br>c. Color in the circle in front of the box of all +2 facts with red.<br>(You may draw a 2nd circle if a number sentence below can be colored more than one color)</div>
+    <div class="pp-facts">${facts.map(f=>`<div class="pp-fact"><div class="pp-ci"></div>${f.left ? `<span class="pp-line" style="width:50px"></span> = ${f.a} + ${f.b}` : `${f.a} + ${f.b} = <span class="pp-line" style="width:50px"></span>`}</div>`).join('')}</div>
+  </div>
+  <div class="pp-page">
+    <div class="pp-q">3. Fill in the number bond with the numbers ${bnums[0]}, ${bnums[1]}, and ${bnums[2]}. On the lines, write two different addition sentences using the numbers ${bnums[0]}, ${bnums[1]}, and ${bnums[2]}. Then, draw pictures to match your number sentences.</div>
+    <div class="pp-row" style="justify-content:flex-end">${blankBond('left')}</div>
+    <div class="pp-two"><div class="pp-wline"></div><div class="pp-wline"></div><div class="pp-box"></div><div class="pp-box"></div></div>
+    <div class="pp-q">4. ${esc(t4.txt(names[2], names[3], s4.a, s4.b, s4.c))}</div>
+    <div>Draw a picture, fill in the number bond, write an addition sentence, and complete the statement to go with the story.</div>
+    <div class="pp-row"><div class="pp-box" style="flex:1"></div>${blankBond('right')}</div>
+    <div class="pp-row">${sentBoxes}${stmtLine(t4, names[2], names[3])}</div>
+  </div>
+  <div class="pp-page pp-key">
+    <div class="pp-title">Answer key (for grown-ups)</div>
+    <ol>
+      <li>Bond: whole ${s1.c}, parts ${s1.a} and ${s1.b}. Sentence: ${s1.a} + ${s1.b} = ${s1.c}. Statement: <b>${s1.b}</b>.</li>
+      <li>${facts.map(f=>`${f.left ? `${f.a+f.b} = ${f.a} + ${f.b}` : `${f.a} + ${f.b} = ${f.a+f.b}`} (${nbFactCols(f).map(k=>colorNames[k]).join(' + ')})`).join(' · ')}</li>
+      <li>Bond: whole ${bc}, parts ${ba} and ${bc-ba}. Any two of: ${ba} + ${bc-ba} = ${bc}, ${bc-ba} + ${ba} = ${bc}, ${bc} = ${ba} + ${bc-ba}, ${bc} = ${bc-ba} + ${ba}.</li>
+      <li>Bond: whole ${s4.c}, parts ${s4.a} and ${s4.b}. Sentence: ${s4.a} + ${s4.b} = ${s4.c}. Statement: <b>${s4.b}</b>.</li>
+    </ol>
+    <p>Tips that match how her class teaches it: the <b>whole</b> is the circle joined by two lines; for "some more came later," start at the first number and <b>count on</b>; "=" means "the same as," so the blank can come first.</p>
+  </div>`;
+  setTimeout(()=>window.print(), 50);
 }
 
 /* ================= PING RUMMY (500 Rummy meld trainer) ================= */
@@ -5189,7 +5817,7 @@ renderTimerPresets(); renderTimer();
 initPaint();
 initDetective();
 initTeaParty();
-initTimesTable();
+updateBondsTile();
 initRummy();
 initArcade();
 stInitStage();
