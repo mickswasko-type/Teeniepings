@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cutieping's Big Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Andika:wght@400;700&display=swap">
+<style>
+/* Layout: one picture-book page at a time — scene panel on top, big words below, page turns at the bottom */
+:root{
+  --bg:#fff6fa; --paper:#ffffff; --ink:#3a2340; --soft:#7a5f80;
+  --pink:#ff5fa2; --pinkSoft:#ffd6e8; --gold:#ffc23d; --sky:#cfeaff; --mint:#c9f2df; --lilac:#e6dcff; --peach:#ffe0c7;
+  --line:#f3c6da; --btn:#ff5fa2; --btnInk:#ffffff;
+  --display:"Baloo 2", "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Andika", "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#21142a; --paper:#2d1c38; --ink:#fbeef6; --soft:#d6bfd9;
+  --pink:#ff7ab4; --pinkSoft:#5a2c49; --gold:#ffcf5c; --sky:#203b55; --mint:#1d4536; --lilac:#352a5c; --peach:#53351f;
+  --line:#5b3a5e; --btn:#ff7ab4; --btnInk:#2a1020; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#21142a; --paper:#2d1c38; --ink:#fbeef6; --soft:#d6bfd9;
+  --pink:#ff7ab4; --pinkSoft:#5a2c49; --gold:#ffcf5c; --sky:#203b55; --mint:#1d4536; --lilac:#352a5c; --peach:#53351f;
+  --line:#5b3a5e; --btn:#ff7ab4; --btnInk:#2a1020; color-scheme:dark }
+html,body{height:100%}
+body{margin:0}
+.home{display:inline-block; font-family:var(--display); font-weight:800; font-size:20px; color:var(--pink); text-decoration:none; padding:6px 2px}
+.home:focus-visible{outline:4px solid var(--gold); outline-offset:3px; border-radius:8px}
+body{background:var(--bg); color:var(--ink); font-family:var(--body);
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:16px;
+  box-sizing:border-box}
+.book{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:16px; min-height:calc(100% - 0px)}
+.page{background:var(--paper); border:3px solid var(--line); border-radius:28px; overflow:hidden; display:flex; flex-direction:column}
+.scene{position:relative; aspect-ratio:16/9; max-width:100%; display:grid; place-items:center; overflow:hidden}
+.scene .art{font-size:clamp(56px, 14vw, 120px); line-height:1; display:flex; gap:.15em; align-items:flex-end; filter:drop-shadow(0 6px 0 rgba(0,0,0,.08))}
+.scene .art span{display:inline-block; animation:bob 3.2s ease-in-out infinite}
+.scene .art span:nth-child(2){animation-delay:.4s}.scene .art span:nth-child(3){animation-delay:.8s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.spark{position:absolute; color:var(--gold); font-size:22px; opacity:.85}
+.stamp{position:absolute; left:14px; top:12px; font-family:var(--display); font-weight:800; font-size:15px; letter-spacing:.06em;
+  background:var(--paper); color:var(--soft); border-radius:99px; padding:2px 12px; border:2px solid var(--line)}
+.words{padding:22px 24px 26px; display:flex; flex-direction:column; gap:18px}
+.words p{margin:0; font-size:clamp(24px, 4.6vw, 34px); line-height:1.45; text-wrap:pretty; max-width:32ch}
+.words h1{margin:0; font-family:var(--display); font-weight:800; font-size:clamp(40px, 8vw, 64px); line-height:1.05; color:var(--pink); text-wrap:balance}
+.words .sub{font-size:clamp(20px,3.6vw,26px); color:var(--soft)}
+.extras{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.korean{display:inline-flex; gap:10px; align-items:baseline; background:var(--pinkSoft); border-radius:16px; padding:8px 14px; font-size:20px}
+.korean b{font-size:30px; font-weight:700}
+.korean i{font-style:normal; color:var(--soft)}
+.watch{font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); text-decoration:none; border:2px dashed var(--line); border-radius:16px; padding:8px 14px}
+.watch:hover,.watch:focus-visible{border-style:solid; border-color:var(--pink)}
+nav{display:flex; align-items:center; justify-content:space-between; gap:12px}
+button{font-family:var(--display); font-weight:800; font-size:26px; border:0; border-radius:22px; padding:12px 26px; background:var(--btn); color:var(--btnInk); cursor:pointer; min-width:120px; box-shadow:0 5px 0 rgba(0,0,0,.12)}
+button:active{transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.12)}
+button:disabled{opacity:.35; cursor:default}
+button:focus-visible,.watch:focus-visible{outline:4px solid var(--gold); outline-offset:3px}
+.dots{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; flex:1; min-width:0}
+.dots i{width:10px; height:10px; border-radius:50%; background:var(--line)}
+.dots i.on{background:var(--pink); transform:scale(1.3)}
+.note{font-size:14px; color:var(--soft); text-align:center; margin:0 auto; max-width:60ch; line-height:1.5}
+@media (max-width:480px){button{min-width:0; padding:10px 18px; font-size:22px}.words{padding:18px 18px 22px}}
+@media (prefers-reduced-motion:reduce){.scene .art span{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="book">
+  <a class="home" href="index.html">◀ Back to my Compact</a>
+  <article class="page" id="page" aria-live="polite">
+    <div class="scene" id="scene"><span class="stamp" id="stamp"></span><div class="art" id="art" aria-hidden="true"></div></div>
+    <div class="words" id="words"></div>
+  </article>
+  <nav>
+    <button id="back" type="button" aria-label="Previous page">◀ Back</button>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <button id="next" type="button" aria-label="Next page">Next ▶</button>
+  </nav>
+  <p class="note">Retold for Willow from Jewel Star Catch! Teenieping, Episode 2. The words are a simple retelling, not the show's exact lines. Tap “Watch this part” to see that scene.</p>
+</div>
+
+<script>
+const VIDEO="https://www.youtube.com/watch?v=I5lO_PptsUQ";
+const P=[
+ {cover:true,bg:"--pinkSoft",art:["🎤","⭐","💖"],title:"Cutieping’s Big Dream",sub:"A Jewel Star Catch! Teenieping story, Episode 2"},
+ {t:6,bg:"--peach",art:["🧹","🎶","😊"],text:["Cutieping works hard every day.","When the work is done, Cutieping loves to sing."],ko:["노래","norae","song"]},
+ {t:22,bg:"--lilac",art:["📺","✨","🎤"],text:["On TV, a brand-new idol group sings on a big, shiny stage.","“Someday,” Cutieping wishes, “I want to sing on a dream stage too.”"],ko:["꿈","kkum","dream"]},
+ {t:40,bg:"--sky",art:["🙈","🎵","🌙"],text:["Cutieping sings a quiet song about feeling shy and wanting to hide."],ko:["조용해","joyonghae","it’s quiet"]},
+ {t:62,bg:"--mint",art:["🚂","💫","💗"],text:["Then a magic train comes! It can read hearts.","It will take Cutieping to the stage of dreams."],ko:["기차","gicha","train"]},
+ {t:78,bg:"--lilac",art:["🏰","❓","😟"],text:["Far away in the kingdom, there is trouble.","Divaping and Museping are missing. They put on the kingdom’s best shows."],ko:["왕국","wangguk","kingdom"]},
+ {t:87,bg:"--pinkSoft",art:["💎","🎨","🎶"],text:["A wise grown-up tells them about the Jewel Star.","It is a strong, special feeling that grows in your heart when you hear wonderful music or see beautiful art."],ko:["마음","maeum","heart"]},
+ {t:122,bg:"--peach",art:["💎","📉","😮"],text:["All the kingdom’s magic grows from the Jewel Star.","Without great shows, its power could run out!"],ko:["마법","mabeop","magic"]},
+ {t:141,bg:"--sky",art:["👑","🤔","🎪"],text:["Princess Romi has an idea: lots of Teenieping could put on a show!","But a show that touches hearts needs more than a big crowd."],ko:["공연","gongyeon","show"]},
+ {t:199,bg:"--lilac",art:["👑","💌","🏡"],text:["“Princess, the kingdom needs your help again,” says the wise grown-up.","“Go home to Harmony Village and wait for my message.”"],ko:["공주","gongju","princess"]},
+ {t:247,bg:"--mint",art:["👧","🌟","👀"],text:["Back home, Romi’s friends are amazed. Hachuping became an idol singer!","Then they spot a sparkly pattern. Could it lead to a Teenieping? “Let’s go see!”"],ko:["친구","chingu","friend"]},
+ {t:310,bg:"--pinkSoft",art:["💖","✨","💍"],text:["Romi and Hachuping transform with a shine of Jewel Star magic!"],ko:["변신","byeonsin","transform"]},
+ {t:348,bg:"--peach",art:["🍙","😂","😭"],text:["At a restaurant, people heard a strange song.","Then they laughed or cried and ran outside! A friend eats some kimbap, and the tears will not stop."],ko:["김밥","gimbap","kimbap"]},
+ {t:411,bg:"--sky",art:["🏃","🎶","🎤"],text:["They follow the song and find Cutieping, the Teenieping who always works hard.","“Hello! I’m Princess Romi of the Emotion Kingdom.”"],ko:["안녕","annyeong","hello"]},
+ {t:469,bg:"--lilac",art:["😳","💖","🤩"],text:["Cutieping is not sure about them at first.","Then Cutieping sees Hachuping, the real idol singer, and is Hachuping’s biggest fan!"],ko:["팬","paen","fan"]},
+ {t:526,bg:"--mint",art:["🚂","🎤","💧"],text:["Cutieping tells them about the heart-reading train.","Singing helped on hard days. But when people hear the song, they cry and chase after it. “Maybe my song is wrong.”"],ko:["눈물","nunmul","tears"]},
+ {t:561,bg:"--pinkSoft",art:["👑","🍙","😊"],text:["“Your song is not wrong,” Romi says. “I felt it when I ate the kimbap.","Songs can touch people’s hearts. Those were not sad tears. They were happy tears!”"],ko:["기쁨","gippeum","joy"]},
+ {t:612,bg:"--peach",art:["🎤","🌈","💗"],text:["Cutieping sings again, a gentle song that says, “It’s okay.”","“I want to be a real singer, like Hachuping, and shine with my song!”"],ko:["괜찮아","gwaenchana","it’s okay"]},
+ {t:643,bg:"--sky",art:["🤝","💎","✨"],text:["“We’ll help your dream come true,” says Romi. “Let’s do it together!”","Cutieping sparkles into the Jewel Cube."],ko:["함께","hamkke","together"]},
+ {t:680,bg:"--lilac",art:["🌙","❔","⭐"],text:["Cutieping was caught today.","But more mischievous Teenieping are still out there. Who will Romi meet next?","The End."],ko:["끝","kkeut","the end"]}
+];
+const $=id=>document.getElementById(id);
+let i=0; try{const s=parseInt(localStorage.getItem("songsong-page"),10); if(s>=0&&s<P.length) i=s;}catch(e){}
+const dots=$("dots"); P.forEach(()=>dots.appendChild(document.createElement("i")));
+const sparks=[[8,70],[86,18],[90,74],[14,22],[50,10]];
+function mmss(t){return Math.floor(t/60)+":"+String(t%60).padStart(2,"0")}
+function render(){
+  const p=P[i];
+  $("scene").style.background=`var(${p.bg})`;
+  $("art").innerHTML=p.art.map(a=>`<span>${a}</span>`).join("");
+  $("scene").querySelectorAll(".spark").forEach(n=>n.remove());
+  sparks.forEach(([x,y],k)=>{const s=document.createElement("span");s.className="spark";s.textContent=k%2?"✦":"✧";s.style.left=x+"%";s.style.top=y+"%";$("scene").appendChild(s)});
+  $("stamp").textContent=p.cover?"COVER":`PAGE ${i} OF ${P.length-1}`;
+  const w=$("words");
+  if(p.cover){
+    w.innerHTML=`<h1>${p.title}</h1><p class="sub">${p.sub}</p><p class="sub">Retold for Willow</p>`;
+  } else {
+    w.innerHTML=p.text.map(t=>`<p>${t}</p>`).join("")+
+      `<div class="extras"><span class="korean" lang="ko"><b>${p.ko[0]}</b><i>${p.ko[1]}</i><span lang="en">= ${p.ko[2]}</span></span>`+
+      `<a class="watch" href="${VIDEO}&t=${p.t}s" target="_blank" rel="noopener">▶ Watch this part (${mmss(p.t)})</a></div>`;
+  }
+  [...dots.children].forEach((d,k)=>d.classList.toggle("on",k===i));
+  $("back").disabled=i===0; $("next").disabled=i===P.length-1;
+  $("next").textContent=i===0?"Start ▶":"Next ▶";
+  try{localStorage.setItem("songsong-page",String(i))}catch(e){}
+}
+function go(d){const n=i+d; if(n<0||n>=P.length) return; i=n; render(); window.scrollTo({top:0,behavior:"smooth"})}
+$("back").addEventListener("click",()=>go(-1));
+$("next").addEventListener("click",()=>go(1));
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(1); if(e.key==="ArrowLeft")go(-1)});
+let sx=null; $("page").addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});
+$("page").addEventListener("touchend",e=>{if(sx===null)return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>60) go(dx<0?1:-1); sx=null});
+render();
+</script>
+
+</body>
+</html>
